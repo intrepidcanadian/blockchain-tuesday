@@ -1,0 +1,16 @@
+{
+  "name": "blockchain-tuesday",
+  "version": "1.0.0",
+  "description": "Workshop repo — read one token across many chains, two ways. Blockchain Tuesday, Toronto, September 2026.",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node src/by-hand.js",
+    "by-hand": "node src/by-hand.js",
+    "aggregated": "node --env-file=.env src/aggregated.js",
+    "conflux": "node src/add-conflux.js",
+    "verify": "node src/verify-tokens.js"
+  },
+  "license": "MIT"
+}
