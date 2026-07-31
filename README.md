@@ -36,17 +36,20 @@ your product.
 
 ```bash
 cp .env.example .env    # add your Uniblock key
-node --env-file=.env src/aggregated.js
+node src/aggregated.js
 ```
 
 The same result through one endpoint. The tables and the retry loop did not get
 simpler — they moved.
 
 > **Note:** the request shape in `src/aggregated.js` is written from Uniblock's
-> published API surface and has **not** been verified against a live key. It is
-> deliberately isolated in a single `callUniblock` function, so if the real
-> endpoint differs it is a one-function fix. Got it working? Open a PR and
-> delete this note — that is a genuinely useful first contribution.
+> published API surface and has **not** been verified against a live key.
+> Probing without a valid key tells us the host is real and responding, and
+> that `GET /v1/balances/tokens` returns 404 — so the path is wrong. The open
+> questions are narrow: the correct path, its query parameters, and the auth
+> header name. It is all isolated in one `callUniblock` function, so this is a
+> one-function fix. Got it working? Open a PR and delete this note — that is
+> the single most useful contribution here.
 
 ### 3. Chain #6 — the seam
 

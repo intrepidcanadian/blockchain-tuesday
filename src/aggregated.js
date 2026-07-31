@@ -10,12 +10,24 @@
 //  place that needs confirming — if the real endpoint differs, this is a
 //  single-function change and nothing else in the repo moves.
 //
-//  If you have a key and it works: open a PR and delete this notice. That is a
-//  genuinely useful first contribution.
+//  What we do know, from probing it without a valid key:
+//
+//    - the host is real and responding
+//    - `GET /v1/balances/tokens` returns 404 — so the PATH below is wrong
+//
+//  So the open questions are narrow: the correct path, its query parameters,
+//  and the auth header name. Everything else here should hold.
+//
+//  If you have a key and get it working: open a PR and delete this notice.
+//  That is a genuinely useful first contribution.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { AGGREGATED_CHAINS, DEMO_WALLET } from './config.js';
+import { loadEnv } from './lib/env.js';
 import { withRetry } from './lib/rpc.js';
+
+loadEnv(); // before config.js is read, so WALLET from .env is picked up
+
+const { AGGREGATED_CHAINS, DEMO_WALLET } = await import('./config.js');
 
 const BASE_URL = process.env.UNIBLOCK_URL || 'https://api.uniblock.dev/v1';
 
