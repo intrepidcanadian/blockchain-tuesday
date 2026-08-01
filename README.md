@@ -128,10 +128,21 @@ trailing zero *nibbles* instead of zero *bytes*.
 
 ## What the talk actually argues
 
-Not "be everywhere." Chain count is a vanity metric — Aave v3 is on 22 chains
-and 82.5% of it sits on one; three of the largest DeFi protocols in the world
-are on exactly one chain. And over $2.8B has been stolen through bridges,
-roughly 40% of all value ever stolen in crypto.
+Not "be everywhere." Chain count does not predict volume. Measured on cumulative
+DEX volume (DefiLlama):
+
+| Protocol | Chains | Cumulative volume | Off-home share, 3yr |
+|---|---|---|---|
+| Uniswap | 47 | $3.78T | 30% → 47% |
+| PancakeSwap | 12 | $2.06T | 4% → 23% |
+| Raydium | 1 | $720B | single-chain |
+| Aerodrome | 1 | $411B | single-chain |
+| Curve | 20 | $345B | 11% → 5% |
+| SushiSwap | 20 | $252B | 56% → 37% |
+
+Aerodrome on **one** chain has out-traded Curve on twenty. Curve and Sushi both
+expanded to 20 chains and their off-home share *fell*. And over $2.8B has been
+stolen through bridges, roughly 40% of all value ever stolen in crypto.
 
 But the direction is unambiguous where it counts. Non-Ethereum went from **0% to
 roughly half** of Uniswap's volume in five years, and outpaced Ethereum in four
