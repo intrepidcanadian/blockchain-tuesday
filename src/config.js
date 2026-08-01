@@ -68,6 +68,22 @@ export const USDC = {
   conflux: { address: '0x6963efed0ab40f6c3d7bda44a05dcf1437c44372', decimals: 18 },
 };
 
+/**
+ * Numeric chain IDs, which is what the aggregated API takes.
+ *
+ * Note this is a third hand-maintained table — but it is the only one the
+ * aggregated path needs. The addresses and decimals above exist purely for the
+ * by-hand path.
+ */
+export const CHAIN_IDS = {
+  ethereum: 1,
+  optimism: 10,
+  polygon: 137,
+  base: 8453,
+  arbitrum: 42161,
+  conflux: 1030, // eSpace
+};
+
 /** The five chains the aggregated path covers today. */
 export const AGGREGATED_CHAINS = ['ethereum', 'arbitrum', 'base', 'optimism', 'polygon'];
 

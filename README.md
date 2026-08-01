@@ -42,14 +42,21 @@ node src/aggregated.js
 The same result through one endpoint. The tables and the retry loop did not get
 simpler — they moved.
 
-> **Note:** the request shape in `src/aggregated.js` is written from Uniblock's
-> published API surface and has **not** been verified against a live key.
-> Probing without a valid key tells us the host is real and responding, and
-> that `GET /v1/balances/tokens` returns 404 — so the path is wrong. The open
-> questions are narrow: the correct path, its query parameters, and the auth
-> header name. It is all isolated in one `callUniblock` function, so this is a
-> one-function fix. Got it working? Open a PR and delete this note — that is
-> the single most useful contribution here.
+> **Endpoint contract** (from Uniblock's
+> [API reference](https://docs.uniblock.dev/api-reference/token/get-address-token-balances)):
+> `GET https://api.uniblock.dev/uni/v1/token/balance`, query params `chainId`
+> (numeric) and `walletAddress`, auth via the `X-API-KEY` header. Verified as
+> far as it can be without a key — a bogus key returns `401 Invalid API key
+> provided`, which confirms the URL, path, params and header are all right.
+> Only a real key is untested. If the response shape differs from what
+> `usdcRow()` expects, that is a two-function fix.
+
+> **Worth being straight about:** `chainId` is singular, so this is one request
+> per chain — not one request for all five. What the aggregator collapses is
+> the *maintenance*, not the request count. No RPC keys, no token address
+> table, no decimals table, no ABI encoding, no hand-rolled retries. Adding
+> chain #11 is one line in `CHAIN_IDS` instead of a config block, an address,
+> a decimals entry and a test.
 
 ### 3. Chain #6 — the seam
 
