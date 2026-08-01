@@ -93,9 +93,19 @@ export async function withRetry(fn, { tries = 3, baseMs = 250 } = {}) {
       return await fn();
     } catch (err) {
       lastErr = err;
+      // Some failures are settled facts, not blips — a bad key, or a project
+      // with no providers enabled. Retrying those just multiplies the wait
+      // before the user sees the message that would have helped immediately.
+      if (err.retryable === false) break;
       if (i === tries - 1) break;
       await new Promise((r) => setTimeout(r, 2 ** i * baseMs));
     }
   }
   throw lastErr;
+}
+
+/** Mark an error as not worth retrying. */
+export function permanent(err) {
+  err.retryable = false;
+  return err;
 }

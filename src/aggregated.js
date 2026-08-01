@@ -12,7 +12,7 @@
 // count — see the comment on getUsdcBalances below.
 
 import { loadEnv } from './lib/env.js';
-import { withRetry } from './lib/rpc.js';
+import { withRetry, permanent } from './lib/rpc.js';
 
 loadEnv(); // before config.js is read, so WALLET from .env is picked up
 
@@ -46,9 +46,36 @@ async function callUniblock(path, params) {
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, String(v));
 
   const res = await fetch(url, { headers: { 'X-API-KEY': key } });
+
   if (!res.ok) {
-    throw new Error(`Uniblock HTTP ${res.status} on ${path}: ${(await res.text()).slice(0, 300)}`);
+    const body = await res.text();
+
+    // 503 "no providers were available" is not a bug in this repo and not a
+    // bad key — it means the Uniblock project has no data providers enabled,
+    // so there is nothing for the router to route to. Fresh accounts hit this,
+    // which makes it the single most likely thing to derail a workshop.
+    if (res.status === 503 && /no providers/i.test(body)) {
+      throw permanent(new Error(
+        'Uniblock has no data providers enabled for this project, so the ' +
+        'router had nothing to call.\n' +
+        '           Your key is valid — this is account configuration, not code.\n' +
+        '           Fix: dashboard.uniblock.dev → your project → connect at least one\n' +
+        '           provider (Alchemy, Ankr, Moralis, GoldRush…) for each chain you want.\n' +
+        '           Meanwhile `node src/by-hand.js` needs no key and always works.',
+      ));
+    }
+
+    if (res.status === 401) {
+      throw permanent(new Error('Uniblock rejected the key (401). Check UNIBLOCK_KEY in .env.'));
+    }
+
+    if (res.status === 429) {
+      throw new Error('Uniblock rate limit (429). Wait a moment, or lower the chain count.');
+    }
+
+    throw new Error(`Uniblock HTTP ${res.status} on ${path}: ${body.slice(0, 300)}`);
   }
+
   return res.json();
 }
 
@@ -105,21 +132,33 @@ async function main() {
   const rows = await getUsdcBalances(wallet);
   const ms = Date.now() - t0;
 
-  for (const r of rows) {
-    if (r.error) {
-      console.log(`    ${r.key.padEnd(12)} !  ${r.error.slice(0, 90)}`);
-      continue;
+  // When every chain fails the same way, the cause is one thing, not five.
+  // Print it once and in full — truncating it per row is how the actionable
+  // part of the message gets lost.
+  const errs = rows.filter((r) => r.error);
+  const shared = errs.length === rows.length && new Set(errs.map((e) => e.error)).size === 1;
+
+  if (shared) {
+    console.log(`    all ${rows.length} chains failed identically:\n`);
+    console.log(`    ${errs[0].error}\n`);
+  } else {
+    for (const r of rows) {
+      if (r.error) {
+        console.log(`    ${r.key.padEnd(12)} !  ${r.error.split('\n')[0]}`);
+        continue;
+      }
+      const usdc = usdcRow(r.balances);
+      const val = usdc
+        ? `${Number(usdc.formattedBalance ?? 0).toLocaleString('en-US')} USDC  (${usdc.decimals} decimals, from the API)`
+        : `no USDC position (${r.balances.length} other tokens)`;
+      console.log(`    ${r.key.padEnd(12)} ${val}`);
     }
-    const usdc = usdcRow(r.balances);
-    const val = usdc
-      ? `${Number(usdc.formattedBalance ?? 0).toLocaleString('en-US')} USDC  (${usdc.decimals} decimals, from the API)`
-      : `no USDC position (${r.balances.length} other tokens)`;
-    console.log(`    ${r.key.padEnd(12)} ${val}`);
   }
 
-  const ok = rows.filter((r) => !r.error).length;
-  console.log(`\n  ${ok}/${rows.length} chains in ${ms}ms`);
-  console.log('  1 key · 1 schema · 0 tables you maintain\n');
+  const ok = rows.length - errs.length;
+  console.log(`  ${ok}/${rows.length} chains in ${ms}ms`);
+  if (ok) console.log('  1 key · 1 schema · 0 tables you maintain');
+  console.log();
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
