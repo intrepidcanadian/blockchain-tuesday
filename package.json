@@ -14,7 +14,8 @@
     "compare": "node src/compare.js",
     "conflux": "node src/add-conflux.js",
     "verify": "node src/verify-tokens.js",
-    "test": "node --test src/lib/*.test.js"
+    "test": "node --test src/lib/*.test.js",
+    "agent": "node src/agent-scan.js"
   },
   "license": "MIT"
 }

@@ -103,6 +103,45 @@ read with 18 decimals (correct)                 944,981.24 USDC
 read with  6 decimals (copied)      944,981,237,227,346,800 USDC
 ```
 
+### The one that actually argues for a unified API
+
+```bash
+node src/agent-scan.js
+```
+
+An agent's pre-trade scan across three venues on **one key**: on-chain balances,
+Hyperliquid perp funding and tick premium, and Polymarket implied probabilities.
+
+```
+1. Where is my capital?          Ethereum 50,810.85 USDC · Arbitrum 37.01 · ...
+2. Where is the carry?           CFX -50.20% annualised, premium -0.0958%
+3. What is the crowd pricing?    Putin out by Dec 2026 — 8.5%, $778k liquidity
+4. Decision                      long perp / short spot; collateral sits on Ethereum
+```
+
+**Why this demo and not `balanceOf`.** When you already know the chain, the
+contract, the wallet and the decimals, raw RPC is the shortest path by
+definition — and our own numbers prove it: by-hand runs in ~140ms and gets 5/5
+chains right, while the aggregated path took 5.4s and got 4/5. An aggregator
+cannot win that benchmark and should not be asked to.
+
+An agent is not in that position. It does not know what it holds, what anything
+is worth, or where the edge is. Two of those questions have no RPC method at
+all:
+
+```
+eth_getTokenBalances          -> the method does not exist
+"what is this worth in USD"   -> not on-chain in readable form
+Hyperliquid funding/premium   -> not on an EVM chain you can eth_call
+```
+
+Not slow. **Impossible.** That is the structural argument, and it is the one a
+balance lookup never makes.
+
+One honest note: Hyperliquid comes through the unified schema; Polymarket comes
+through Uniblock's direct-provider passthrough, so the response is Polymarket's
+own shape. Same key, same bill, unnormalized data.
+
 ### Bonus — check the table yourself
 
 ```bash
