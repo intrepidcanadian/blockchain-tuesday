@@ -42,21 +42,47 @@ node src/aggregated.js
 The same result through one endpoint. The tables and the retry loop did not get
 simpler — they moved.
 
-> **Endpoint contract** (from Uniblock's
-> [API reference](https://docs.uniblock.dev/api-reference/token/get-address-token-balances)):
-> `GET https://api.uniblock.dev/uni/v1/token/balance`, query params `chainId`
-> (numeric) and `walletAddress`, auth via the `X-API-KEY` header. Verified as
-> far as it can be without a key — a bogus key returns `401 Invalid API key
-> provided`, which confirms the URL, path, params and header are all right.
-> Only a real key is untested. If the response shape differs from what
-> `usdcRow()` expects, that is a two-function fix.
+> **Endpoint contract**, verified against a live key:
+> `GET https://api.uniblock.dev/uni/v1/scan/token-balance?chainId=&address=&contractAddress=`,
+> auth via the `X-API-KEY` header. The docs show the response as `"123.4567"`,
+> but `balance` is a **raw integer** — `50810846175` at 6 decimals is
+> `50810.846`, which matches the chain exactly.
 
-> **Worth being straight about:** `chainId` is singular, so this is one request
-> per chain — not one request for all five. What the aggregator collapses is
-> the *maintenance*, not the request count. No RPC keys, no token address
-> table, no decimals table, no ABI encoding, no hand-rolled retries. Adding
-> chain #11 is one line in `CHAIN_IDS` instead of a config block, an address,
-> a decimals entry and a test.
+**Three things this endpoint will do to you**, all found by running it:
+
+1. **A 200 is not a success.** When an upstream provider refuses a chain, the
+   router still returns HTTP 200 with an `error` object in the body. Trust
+   `res.ok` and you read `undefined` and report it as zero.
+2. **`/token/balance` is paginated.** Listing a wallet's tokens returns ~70–90
+   rows plus a cursor. USDC was not on page one for any large wallet we tried,
+   so a single-page read says "no USDC" for an address holding $50k of it.
+3. **Match the contract address, never the symbol.** A symbol match on Optimism
+   found a token labelled USDC holding 20.807553 while canonical USDC was zero —
+   it had matched the bridged variant.
+
+Which is the fragmentation problem from the talk, turning up inside the tool
+meant to abstract it away.
+
+### Are the two paths telling the same story?
+
+```bash
+node src/compare.js
+```
+
+Runs both and diffs them against on-chain truth. This is the script that keeps
+the talk honest — every bug listed above was caught here, and none of them threw
+an exception. They all just looked plausible.
+
+```
+Ethereum     50,810.846       50,810.846       match  [direct]
+Arbitrum One 37.014           37.014           match  [direct]
+Base         104.382          unverified       ?  provider gap — list truncated
+OP Mainnet   0                0                match  [list, USDC absent]
+Polygon PoS  50.075           50.075           match  [direct]
+```
+
+`unverified` is deliberate. Free-tier provider coverage cannot answer for Base,
+and saying so is correct — printing a zero there would be a confident lie.
 
 ### 3. Chain #6 — the seam
 
@@ -88,6 +114,17 @@ Calls `symbol()` and `decimals()` on every configured address and tells you if
 the spec, made executable.
 
 ---
+
+## Tests
+
+```bash
+npm test
+```
+
+Node's built-in runner, still zero dependencies. Every case is a bug that
+actually shipped here — including a `decodeString` that returned `""` for any
+bytes32 symbol ending in a zero nibble (`"P"`, `"AP"`), because it stripped
+trailing zero *nibbles* instead of zero *bytes*.
 
 ## What the talk actually argues
 

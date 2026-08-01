@@ -11,8 +11,10 @@
     "start": "node src/by-hand.js",
     "by-hand": "node src/by-hand.js",
     "aggregated": "node src/aggregated.js",
+    "compare": "node src/compare.js",
     "conflux": "node src/add-conflux.js",
-    "verify": "node src/verify-tokens.js"
+    "verify": "node src/verify-tokens.js",
+    "test": "node --test src/lib/*.test.js"
   },
   "license": "MIT"
 }

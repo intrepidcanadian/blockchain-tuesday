@@ -65,8 +65,12 @@ export function decodeString(hex) {
   if (!hex || hex === '0x') return null;
   const body = hex.slice(2);
   if (body.length <= 64) {
-    // bytes32-style: right-padded with zeros
-    return Buffer.from(body.replace(/0+$/, ''), 'hex').toString().trim();
+    // bytes32-style: right-padded with zero BYTES.
+    //
+    // Strip `(00)+`, not `0+`. Trimming individual nibbles corrupts any symbol
+    // whose final character has a low nibble of zero — "P" (0x50) became "",
+    // and "AP" (0x4150) became "A", because the leftover hex was odd-length.
+    return Buffer.from(body.replace(/(00)+$/, ''), 'hex').toString().trim();
   }
   const len = parseInt(body.slice(64, 128), 16);
   return Buffer.from(body.slice(128, 128 + len * 2), 'hex').toString();
@@ -98,7 +102,8 @@ export async function withRetry(fn, { tries = 3, baseMs = 250 } = {}) {
       // before the user sees the message that would have helped immediately.
       if (err.retryable === false) break;
       if (i === tries - 1) break;
-      await new Promise((r) => setTimeout(r, 2 ** i * baseMs));
+      // An error may ask for a longer pause than our default curve (a 429).
+      await new Promise((r) => setTimeout(r, Math.max(err.backoffMs || 0, 2 ** i * baseMs)));
     }
   }
   throw lastErr;
