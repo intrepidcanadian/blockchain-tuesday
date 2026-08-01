@@ -133,6 +133,11 @@ and 82.5% of it sits on one; three of the largest DeFi protocols in the world
 are on exactly one chain. And over $2.8B has been stolen through bridges,
 roughly 40% of all value ever stolen in crypto.
 
+But the direction is unambiguous where it counts. Non-Ethereum went from **0% to
+roughly half** of Uniswap's volume in five years, and outpaced Ethereum in four
+of the last five quarters — measured in volume rather than TVL, so no price move
+or protocol incident flatters it.
+
 The distinction that resolves it:
 
 |  | Deploying to a chain | Reading from a chain |
