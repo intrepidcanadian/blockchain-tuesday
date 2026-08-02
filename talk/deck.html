@@ -1192,6 +1192,22 @@ export async function getUsdcBalances(
       <p class="verdict">Only the first row is a node. The other six are <b>different systems entirely</b> &mdash; and joining them is the agent&rsquo;s whole job.</p>
     </section>
 
+    <!-- 9c ──────────────────────────── the cross-venue payoff -->
+    <section class="slide" data-notes="This is the live demo, and it is the whole talk in one screen.|Polymarket says there is a 3.3% chance Bitcoin reaches a hundred and fifty thousand by year end. Hyperliquid says Bitcoin is at sixty-three thousand and has realised thirty-six percent volatility over the last hundred and twenty days.|Now invert the crowd&rsquo;s probability: what volatility would you have to assume for 3.3% to be the right number? About eighty-five percent. Against thirty-six actually realised. The two venues are pricing different worlds &mdash; a factor of two and a third apart.|<b>Neither venue can print that last line.</b> Polymarket has no idea what the price has been doing. Hyperliquid has no idea what the crowd thinks. The agent is the only thing holding both &mdash; and it got them from one key, through two completely different routes: Hyperliquid on the unified schema, Polymarket on the direct passthrough.|<b>Say the caveat out loud, it costs you nothing and buys you the room.</b> This is not an edge, it is a question. Realised vol looks backwards. Lognormal is a bad model of crypto tails. And prediction markets carry a well-known premium on lottery-shaped bets &mdash; people overpay for small chances of big payoffs, which is exactly what a 3.3% ticket is.|If the wifi holds, run it live: npm run cross. Have the recording ready if it doesn&rsquo;t.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The payoff</em></div>
+      <h2 class="title">Two venues, one key, one question</h2>
+      <pre class="code-big" style="font-size:17px;line-height:1.55"><code>$ npm run cross
+
+Will Bitcoin hit $150k by December 31, 2026?
+   <span class="tok-key">Polymarket</span>    3.3% implied  &#183; $185,698 liquidity &#183; 152d
+   <span class="tok-key">Hyperliquid</span>   BTC $63,423   &#183; needs +137%  &#183; realised vol 36%
+   ---------------------------------------------------------
+   For 3.3% to be right, forward vol must be ~<span class="tok-str">85%</span>.
+   BTC has actually realised <span class="tok-str">36%</span> over 120 days.
+   <span class="tok-com">the crowd is pricing far MORE volatility than realised (2.37x)</span></code></pre>
+      <p class="verdict">Polymarket doesn&rsquo;t know the price history. Hyperliquid doesn&rsquo;t know the odds. <b>Only the agent holds both</b> &mdash; and a disagreement is a question, not an edge.</p>
+    </section>
+
     <!-- 10 ───────────────────────────── scorecard -->
     <section class="slide" data-notes="Read the top row and the bottom rows as two different verdicts, because they are.|<b>Top row: RPC wins.</b> Say it plainly. 140ms and five of five, against 5.4 seconds and four of five. When you already know the chain, the contract, the wallet and the decimals, the node is the shortest path by definition. Anyone who has built this knows it, and pretending otherwise costs you the room.|<b>Bottom rows: RPC cannot play.</b> There is no method. So the question is not which is faster &mdash; it is which questions you intend to ask.|Middle rows are the honest middle: one key instead of five, no ABI encoding, one schema. But you keep the token address and decimals tables. Earlier drafts of this talk claimed you did not, and that was wrong.|The last row is still the product: chain eleven costs what chain two cost.">
       <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>Scorecard</em></div>
