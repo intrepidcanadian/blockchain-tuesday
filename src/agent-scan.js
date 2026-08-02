@@ -64,20 +64,51 @@ async function polymarket(path) {
 const HOURS_PER_YEAR = 24 * 365;
 const annualise = (hourlyRate) => Number(hourlyRate) * HOURS_PER_YEAR * 100;
 
-async function carryTable(coins) {
-  const since = Date.now() - 3 * 60 * 60 * 1000;
+const median = (xs) => {
+  const s = [...xs].sort((a, b) => a - b);
+  const m = s.length >> 1;
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+};
+
+/**
+ * Rank markets by carry — using a median over a window, not the latest print.
+ *
+ * This function originally annualised the most recent hourly funding rate, and
+ * it produced a headline that did not survive contact with the data. CFX showed
+ * "-50.20% annualised" off a single print. Over the following week: only 26% of
+ * hourly prints were negative at all, the sign flipped 13 times in 168 hours,
+ * and the extremes ran from -722% to +11% annualised. Multiplying one hour by
+ * 8,760 turns thin-book noise into a number that looks like a yield.
+ *
+ * So: median over the window to resist those spikes, plus an explicit
+ * persistence figure — what share of hours actually agreed with the sign. An
+ * agent should size on the pair, and treat low persistence as "no signal"
+ * rather than "big signal."
+ */
+async function carryTable(coins, hours = 168) {
+  const since = Date.now() - hours * 60 * 60 * 1000;
 
   const rows = await Promise.all(
     coins.map(async (coin) => {
       try {
         const hist = await hyperliquid({ type: 'fundingHistory', coin, startTime: since });
-        const last = Array.isArray(hist) && hist.length ? hist[hist.length - 1] : null;
-        if (!last) return null;
+        if (!Array.isArray(hist) || hist.length < 24) return null;
+
+        const rates = hist.map((h) => Number(h.fundingRate)).filter(Number.isFinite);
+        const prems = hist.map((h) => Number(h.premium)).filter(Number.isFinite);
+        if (!rates.length) return null;
+
+        const med = median(rates);
+        const sign = Math.sign(med);
+        const agree = rates.filter((r) => Math.sign(r) === sign).length / rates.length;
+
         return {
           coin,
-          funding: Number(last.fundingRate),
-          apr: annualise(last.fundingRate),
-          premium: Number(last.premium) * 100,
+          apr: annualise(med),
+          lastApr: annualise(rates[rates.length - 1]),
+          premium: median(prems) * 100,
+          persistence: agree * 100,
+          n: rates.length,
         };
       } catch {
         return null;
@@ -85,7 +116,12 @@ async function carryTable(coins) {
     }),
   );
 
-  return rows.filter(Boolean).sort((a, b) => Math.abs(b.apr) - Math.abs(a.apr));
+  // Rank on carry that actually held. A big number backed by a third of the
+  // hours is not a better trade than a small number backed by nearly all of
+  // them — it is a worse one, and the sort should say so.
+  return rows
+    .filter(Boolean)
+    .sort((a, b) => Math.abs(b.apr) * (b.persistence / 100) - Math.abs(a.apr) * (a.persistence / 100));
 }
 
 async function main() {
@@ -119,15 +155,19 @@ async function main() {
   const universe = (meta.universe || []).map((u) => u.name).slice(0, 24);
 
   const carry = await carryTable(universe);
-  console.log(`       ${'market'.padEnd(8)}${'mid'.padStart(12)}${'funding/1h'.padStart(14)}${'annualised'.padStart(13)}${'premium'.padStart(11)}`);
+  console.log(`       ${'market'.padEnd(7)}${'mid'.padStart(11)}${'median APR'.padStart(12)}${'last print'.padStart(12)}${'held'.padStart(7)}${'premium'.padStart(11)}`);
   for (const r of carry.slice(0, 6)) {
     const mid = mids[r.coin] ? Number(mids[r.coin]).toLocaleString('en-US') : '—';
     const side = r.apr >= 0 ? 'longs pay' : 'shorts pay';
+    const weak = r.persistence < 60 ? '  << noisy' : '';
     console.log(
-      `       ${r.coin.padEnd(8)}${mid.padStart(12)}${r.funding.toExponential(2).padStart(14)}` +
-      `${(r.apr.toFixed(2) + '%').padStart(13)}${(r.premium.toFixed(4) + '%').padStart(11)}   ${side}`,
+      `       ${r.coin.padEnd(7)}${mid.padStart(11)}${(r.apr.toFixed(1) + '%').padStart(12)}` +
+      `${(r.lastApr.toFixed(1) + '%').padStart(12)}${(r.persistence.toFixed(0) + '%').padStart(7)}` +
+      `${(r.premium.toFixed(4) + '%').padStart(11)}   ${side}${weak}`,
     );
   }
+  console.log('       median over 7d, not the latest print. "held" = share of hours agreeing');
+  console.log('       with that sign — annualising one hour of a thin book invents yield.');
 
   // ─── 3. The other venue ───────────────────────────────────────────────────
   //
@@ -194,9 +234,15 @@ async function main() {
     .sort((a, b) => Number(b.balance) - Number(a.balance))[0];
 
   const direction = best.apr >= 0 ? 'short the perp, long spot' : 'long the perp, short spot';
-  console.log(`       richest carry   ${best.coin} at ${best.apr.toFixed(2)}% annualised`);
+  console.log(`       best carry      ${best.coin} at ${best.apr.toFixed(1)}% annualised (median, ${best.n}h)`);
+  console.log(`       held            ${best.persistence.toFixed(0)}% of hours agreed with that sign`);
   console.log(`       tick premium    ${best.premium.toFixed(4)}%  (perp vs index)`);
   console.log(`       implied trade   ${direction}`);
+  if (best.persistence < 60) {
+    console.log('       CAUTION         sign held less than 60% of hours — treat as noise, not signal');
+  }
+  console.log('       unmodelled      spot borrow cost to hedge, which spikes on the same');
+  console.log('                       imbalance that drives funding negative');
   console.log(`       capital sits on ${richest ? CHAINS[richest.key].label : 'nowhere reachable'}`);
   console.log(`       collateral for Hyperliquid must be bridged from there\n`);
 
