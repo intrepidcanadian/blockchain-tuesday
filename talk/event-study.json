@@ -1,0 +1,1472 @@
+[
+ {
+  "name": "Aave V3",
+  "chain": "Base",
+  "launch": "2023-09-02",
+  "proto": 70.79689054694414,
+  "mkt": 16.106536815328276,
+  "home": 88.6936664395034,
+  "newchain": 3.838516,
+  "protoTvlAtLaunch": 2.004932793
+ },
+ {
+  "name": "Aave V3",
+  "chain": "Plasma",
+  "launch": "2025-09-26",
+  "proto": -21.655108651537457,
+  "mkt": -25.317285821661617,
+  "home": -23.000574993809785,
+  "newchain": 604.154568,
+  "protoTvlAtLaunch": 39.437983071
+ },
+ {
+  "name": "Aave V3",
+  "chain": "Soneium",
+  "launch": "2025-06-06",
+  "proto": 98.23599301965244,
+  "mkt": 58.7944650778238,
+  "home": 101.5003135137845,
+  "newchain": 1.866786,
+  "protoTvlAtLaunch": 20.1122364
+ },
+ {
+  "name": "Aave V3",
+  "chain": "Celo",
+  "launch": "2025-04-10",
+  "proto": 61.403744720668676,
+  "mkt": 32.10907403124557,
+  "home": 64.95656040018534,
+  "newchain": 7.474631,
+  "protoTvlAtLaunch": 16.231030717
+ },
+ {
+  "name": "Aave V3",
+  "chain": "Linea",
+  "launch": "2025-02-13",
+  "proto": 26.249167985438817,
+  "mkt": 2.3434014274083204,
+  "home": 26.765659938184385,
+  "newchain": 8.281737,
+  "protoTvlAtLaunch": 19.694040843
+ },
+ {
+  "name": "Aave V3",
+  "chain": "zkSync Era",
+  "launch": "2024-09-25",
+  "proto": 75.97779798039788,
+  "mkt": 38.535959205045934,
+  "home": 80.85861510601389,
+  "newchain": 11.101111,
+  "protoTvlAtLaunch": 11.134187269
+ },
+ {
+  "name": "Aave V3",
+  "chain": "Sonic",
+  "launch": "2025-03-05",
+  "proto": 29.478453990479082,
+  "mkt": 3.2633267930510357,
+  "home": 31.333069244689394,
+  "newchain": 320.452513,
+  "protoTvlAtLaunch": 19.156476567
+ },
+ {
+  "name": "Aave V3",
+  "chain": "X Layer",
+  "launch": "2026-04-29",
+  "proto": -41.073364250262316,
+  "mkt": -18.14704782574088,
+  "home": -40.26427595148571,
+  "newchain": 83.472864,
+  "protoTvlAtLaunch": 23.397931293
+ },
+ {
+  "name": "Aave V3",
+  "chain": "Scroll",
+  "launch": "2024-02-14",
+  "proto": 73.78372737554714,
+  "mkt": 49.25476620664631,
+  "home": 79.81722342026181,
+  "newchain": 8.270211,
+  "protoTvlAtLaunch": 4.993314289
+ },
+ {
+  "name": "Aave V3",
+  "chain": "Binance",
+  "launch": "2024-02-14",
+  "proto": 73.78372737554714,
+  "mkt": 49.25476620664631,
+  "home": 79.81722342026181,
+  "newchain": 34.171821,
+  "protoTvlAtLaunch": 4.993314289
+ },
+ {
+  "name": "Aave V3",
+  "chain": "xDai",
+  "launch": "2023-11-08",
+  "proto": 95.1177318250752,
+  "mkt": 46.04712152836261,
+  "home": 100.74294163985557,
+  "newchain": 21.105742,
+  "protoTvlAtLaunch": 2.549065937
+ },
+ {
+  "name": "Aave V3",
+  "chain": "Mantle",
+  "launch": "2026-02-19",
+  "proto": -61.11691858088189,
+  "mkt": -35.286160607332405,
+  "home": -62.19293017839449,
+  "newchain": 136.632737,
+  "protoTvlAtLaunch": 34.351418104
+ },
+ {
+  "name": "Aave V3",
+  "chain": "MegaETH",
+  "launch": "2026-02-15",
+  "proto": -60.119447877117146,
+  "mkt": -34.022611897472586,
+  "home": -60.87794250949634,
+  "newchain": 110.177301,
+  "protoTvlAtLaunch": 34.726575977
+ },
+ {
+  "name": "Aave V3",
+  "chain": "Metis",
+  "launch": "2023-09-19",
+  "proto": 88.60882621267736,
+  "mkt": 29.128349407236964,
+  "home": 101.49896664565006,
+  "newchain": 9.729071,
+  "protoTvlAtLaunch": 2.035755817
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Celo",
+  "launch": "2022-07-13",
+  "proto": -8.646599788585707,
+  "mkt": -21.53443076142426,
+  "home": -9.162127436778999,
+  "newchain": 1.005132,
+  "protoTvlAtLaunch": 4.7387524
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Base",
+  "launch": "2023-08-09",
+  "proto": -14.952512788737138,
+  "mkt": -0.21938699873721434,
+  "home": -14.378650622619826,
+  "newchain": 9.97903,
+  "protoTvlAtLaunch": 4.004894264
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Zora",
+  "launch": "2024-04-04",
+  "proto": -2.8366242466551395,
+  "mkt": 7.26260724488188,
+  "home": -8.351493665096577,
+  "newchain": 1.138902,
+  "protoTvlAtLaunch": 5.831580767
+ },
+ {
+  "name": "Uniswap",
+  "chain": "OP Mainnet",
+  "launch": "2021-11-13",
+  "proto": 0.03828783509476352,
+  "mkt": 0.9457381056747094,
+  "home": -2.0630118198965097,
+  "newchain": 48.925577,
+  "protoTvlAtLaunch": 7.544163813
+ },
+ {
+  "name": "Uniswap",
+  "chain": "X Layer",
+  "launch": "2026-02-03",
+  "proto": -17.54185322323335,
+  "mkt": -30.220869777432913,
+  "home": -19.176449096857862,
+  "newchain": 13.392367,
+  "protoTvlAtLaunch": 4.238847484
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Avalanche",
+  "launch": "2023-07-14",
+  "proto": -20.679433324547468,
+  "mkt": -13.09063095187627,
+  "home": -19.836872054897327,
+  "newchain": 2.48954,
+  "protoTvlAtLaunch": 3.818491714
+ },
+ {
+  "name": "Uniswap",
+  "chain": "BSC",
+  "launch": "2023-03-16",
+  "proto": -1.1060303807792549,
+  "mkt": -8.270478496816636,
+  "home": -6.254256015707438,
+  "newchain": 15.517977,
+  "protoTvlAtLaunch": 3.861197734
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Arbitrum",
+  "launch": "2021-09-02",
+  "proto": 57.233123296986065,
+  "mkt": 87.3603801513833,
+  "home": 55.644140068785774,
+  "newchain": 67.927994,
+  "protoTvlAtLaunch": 6.397641095
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Monad",
+  "launch": "2025-11-25",
+  "proto": -44.58794181162901,
+  "mkt": -38.667636491354095,
+  "home": -45.614389502037845,
+  "newchain": 34.88678,
+  "protoTvlAtLaunch": 5.438375582
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Polygon",
+  "launch": "2021-12-22",
+  "proto": -25.051099704351167,
+  "mkt": -13.451974226724705,
+  "home": -26.266634137560494,
+  "newchain": 77.153884,
+  "protoTvlAtLaunch": 9.60945775
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Unichain",
+  "launch": "2025-02-12",
+  "proto": -17.078744683258996,
+  "mkt": -3.5802431912344668,
+  "home": -31.05175979460477,
+  "newchain": 632.841221,
+  "protoTvlAtLaunch": 5.891574133
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Polygon zkEVM",
+  "launch": "2024-08-03",
+  "proto": -12.665849275012741,
+  "mkt": -5.043064896471239,
+  "home": -16.560917612940596,
+  "newchain": 4.368976,
+  "protoTvlAtLaunch": 5.452252881
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Corn",
+  "launch": "2025-03-29",
+  "proto": 11.038106016938976,
+  "mkt": 11.583952610640802,
+  "home": -9.378998035402775,
+  "newchain": 15.548858,
+  "protoTvlAtLaunch": 4.246809428
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Saga",
+  "launch": "2025-03-11",
+  "proto": -0.09857256468620568,
+  "mkt": 1.8680877908169524,
+  "home": -16.2542849399248,
+  "newchain": 12.08065,
+  "protoTvlAtLaunch": 4.859111676
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Nibiru",
+  "launch": "2025-09-23",
+  "proto": -36.59783670688369,
+  "mkt": -26.254042707033054,
+  "home": -38.77652732791723,
+  "newchain": 4.914012,
+  "protoTvlAtLaunch": 6.333785143
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Sonic",
+  "launch": "2025-01-24",
+  "proto": -36.188334613782246,
+  "mkt": -23.071247472838476,
+  "home": -43.23050094987217,
+  "newchain": 1.567318,
+  "protoTvlAtLaunch": 6.027405633
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Lisk",
+  "launch": "2024-11-07",
+  "proto": 10.366976716187537,
+  "mkt": 32.321976838984725,
+  "home": 9.636853743151686,
+  "newchain": 1.106929,
+  "protoTvlAtLaunch": 4.652489585
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Moonbeam",
+  "launch": "2024-08-10",
+  "proto": 2.0743665826814084,
+  "mkt": 9.117879880057878,
+  "home": -2.758690441656819,
+  "newchain": 1.194007,
+  "protoTvlAtLaunch": 5.138310841
+ },
+ {
+  "name": "Uniswap",
+  "chain": "XDC",
+  "launch": "2025-07-20",
+  "proto": 14.662804993761736,
+  "mkt": 32.14107154616246,
+  "home": 18.992525505405155,
+  "newchain": 0.70999,
+  "protoTvlAtLaunch": 4.895935466
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Scroll",
+  "launch": "2024-04-18",
+  "proto": 8.423356348924793,
+  "mkt": 7.549431470404255,
+  "home": 3.4780780037590775,
+  "newchain": 1.378994,
+  "protoTvlAtLaunch": 5.569406298
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Boba",
+  "launch": "2023-11-22",
+  "proto": 53.02138418673261,
+  "mkt": 80.08786978062525,
+  "home": 53.31338568621633,
+  "newchain": 1.482232,
+  "protoTvlAtLaunch": 3.19139282
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Rootstock",
+  "launch": "2024-02-11",
+  "proto": 20.998598385494315,
+  "mkt": 42.35213646981077,
+  "home": 18.249290730398293,
+  "newchain": 18.45982,
+  "protoTvlAtLaunch": 4.448909436
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Hemi",
+  "launch": "2025-03-29",
+  "proto": 11.038106016938976,
+  "mkt": 11.583952610640802,
+  "home": -9.378998035402775,
+  "newchain": 21.440289,
+  "protoTvlAtLaunch": 4.246809428
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Sei",
+  "launch": "2024-07-02",
+  "proto": -20.445159142705783,
+  "mkt": -13.832742254033349,
+  "home": -24.350585178646654,
+  "newchain": 5.290084,
+  "protoTvlAtLaunch": 6.136608682
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Linea",
+  "launch": "2024-04-23",
+  "proto": 3.967804623898652,
+  "mkt": 12.263204759201152,
+  "home": -2.1621769501635413,
+  "newchain": 1.700869,
+  "protoTvlAtLaunch": 5.635946958
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Etherlink",
+  "launch": "2025-06-27",
+  "proto": 7.559081368977427,
+  "mkt": 30.10864112176894,
+  "home": 13.227630909134636,
+  "newchain": 3.761023,
+  "protoTvlAtLaunch": 5.12370025
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Gnosis",
+  "launch": "2024-09-12",
+  "proto": 35.3484353235352,
+  "mkt": 51.830924176411685,
+  "home": 26.83062920489785,
+  "newchain": 11.260367,
+  "protoTvlAtLaunch": 4.622832779
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Taiko",
+  "launch": "2024-06-16",
+  "proto": -14.227337496279379,
+  "mkt": -5.60433684995203,
+  "home": -18.420738984990436,
+  "newchain": 2.442384,
+  "protoTvlAtLaunch": 5.365980509
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Filecoin",
+  "launch": "2024-03-06",
+  "proto": 49.30819737254837,
+  "mkt": 82.49776973037217,
+  "home": 42.79401326907046,
+  "newchain": 4.406108,
+  "protoTvlAtLaunch": 4.100253002
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Manta",
+  "launch": "2024-05-29",
+  "proto": -17.7402384658221,
+  "mkt": -5.22291884172823,
+  "home": -22.593259933267596,
+  "newchain": 2.10262,
+  "protoTvlAtLaunch": 5.805049746
+ },
+ {
+  "name": "Uniswap",
+  "chain": "BOB",
+  "launch": "2024-10-01",
+  "proto": 32.17051660951522,
+  "mkt": 49.44043709724957,
+  "home": 29.201778374505793,
+  "newchain": 47.751061,
+  "protoTvlAtLaunch": 4.475136388
+ },
+ {
+  "name": "Uniswap",
+  "chain": "0G",
+  "launch": "2026-04-25",
+  "proto": 0.17970522651620247,
+  "mkt": -20.636942478675245,
+  "home": -0.8097432142545213,
+  "newchain": 0.825533,
+  "protoTvlAtLaunch": 3.145048761
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Mantle",
+  "launch": "2024-07-12",
+  "proto": -21.745543049919203,
+  "mkt": -17.858294453548673,
+  "home": -25.228789354987345,
+  "newchain": 1.721616,
+  "protoTvlAtLaunch": 5.822656027
+ },
+ {
+  "name": "Uniswap",
+  "chain": "ZKsync Era",
+  "launch": "2024-06-14",
+  "proto": -16.89596784311118,
+  "mkt": -6.221233214740707,
+  "home": -21.505053149360077,
+  "newchain": 6.259822,
+  "protoTvlAtLaunch": 5.272550867
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Plasma",
+  "launch": "2025-09-26",
+  "proto": -32.28835504761244,
+  "mkt": -25.317285821661617,
+  "home": -35.5638269758502,
+  "newchain": 27.098164,
+  "protoTvlAtLaunch": 5.930781355
+ },
+ {
+  "name": "Uniswap",
+  "chain": "LightLink",
+  "launch": "2025-06-04",
+  "proto": 40.71227180650383,
+  "mkt": 53.35928703571948,
+  "home": 54.07883852985109,
+  "newchain": 0.343216,
+  "protoTvlAtLaunch": 4.083376786
+ },
+ {
+  "name": "Uniswap",
+  "chain": "World Chain",
+  "launch": "2024-10-22",
+  "proto": 24.630334009441324,
+  "mkt": 43.612774948663755,
+  "home": 21.165197658885717,
+  "newchain": 1.979224,
+  "protoTvlAtLaunch": 4.631150197
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Blast",
+  "launch": "2024-05-29",
+  "proto": -17.7402384658221,
+  "mkt": -5.22291884172823,
+  "home": -22.593259933267596,
+  "newchain": 0.082454,
+  "protoTvlAtLaunch": 5.805049746
+ },
+ {
+  "name": "Uniswap",
+  "chain": "Soneium",
+  "launch": "2025-12-02",
+  "proto": -43.77221095250945,
+  "mkt": -38.559235229849,
+  "home": -43.90871325748097,
+  "newchain": 2.553431,
+  "protoTvlAtLaunch": 5.43795285
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Corn",
+  "launch": "2024-12-27",
+  "proto": -1.276863187267574,
+  "mkt": -10.50094931387714,
+  "home": -1.6751256043535556,
+  "newchain": 0.646382,
+  "protoTvlAtLaunch": 1.693886723
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Harmony",
+  "launch": "2021-10-13",
+  "proto": 78.04133944162706,
+  "mkt": 19.702015132922913,
+  "home": 67.3033100554572,
+  "newchain": 23.977827,
+  "protoTvlAtLaunch": 12.900617788
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Plasma",
+  "launch": "2025-09-26",
+  "proto": 2.0469541009789705,
+  "mkt": -25.317285821661617,
+  "home": 4.8641155868168084,
+  "newchain": 3.363616,
+  "protoTvlAtLaunch": 2.095867708
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Taiko",
+  "launch": "2025-02-06",
+  "proto": -28.135030789299886,
+  "mkt": -23.83796369498207,
+  "home": -29.06524670637881,
+  "newchain": 1.553066,
+  "protoTvlAtLaunch": 2.438544081
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Ink",
+  "launch": "2026-02-05",
+  "proto": -19.83314796466843,
+  "mkt": -31.493395012076842,
+  "home": -18.87767039437075,
+  "newchain": 0.307169,
+  "protoTvlAtLaunch": 2.145583776
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Etherlink",
+  "launch": "2025-08-02",
+  "proto": 22.294954636551047,
+  "mkt": 31.089456634888137,
+  "home": 23.283836396133474,
+  "newchain": 37.94834,
+  "protoTvlAtLaunch": 1.845114667
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "X Layer",
+  "launch": "2024-05-31",
+  "proto": -5.617046533802716,
+  "mkt": -3.3493774539080534,
+  "home": -6.432332887276804,
+  "newchain": 4.996769,
+  "protoTvlAtLaunch": 1.920247364
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Moonbeam",
+  "launch": "2022-06-10",
+  "proto": -63.88062574954303,
+  "mkt": -48.18152056571664,
+  "home": -62.32378344632434,
+  "newchain": 23.080115,
+  "protoTvlAtLaunch": 15.453511565
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "TAC",
+  "launch": "2025-07-24",
+  "proto": 22.71820273781171,
+  "mkt": 37.98410512810031,
+  "home": 21.830262208030547,
+  "newchain": 20.949057,
+  "protoTvlAtLaunch": 1.878136391
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Hyperliquid L1",
+  "launch": "2025-05-30",
+  "proto": 22.94135609172092,
+  "mkt": 59.87706293904213,
+  "home": 19.741953889849896,
+  "newchain": 6.213514,
+  "protoTvlAtLaunch": 1.693322306
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Monad",
+  "launch": "2025-11-25",
+  "proto": -16.99402028735163,
+  "mkt": -38.667636491354095,
+  "home": -14.548567341324159,
+  "newchain": 20.513896,
+  "protoTvlAtLaunch": 2.28886751
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Celo",
+  "launch": "2023-01-17",
+  "proto": 29.805482038529128,
+  "mkt": 33.74167268444885,
+  "home": 32.88699591040811,
+  "newchain": 22.910834,
+  "protoTvlAtLaunch": 3.689853855
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Unichain",
+  "launch": "2025-11-10",
+  "proto": -11.063109399672634,
+  "mkt": -34.45132713590827,
+  "home": -6.526150170842437,
+  "newchain": 0.62857,
+  "protoTvlAtLaunch": 2.072894841
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Avalanche",
+  "launch": "2021-10-05",
+  "proto": 70.62533447573598,
+  "mkt": 25.89737401137966,
+  "home": 59.1921658464329,
+  "newchain": 1276.390491,
+  "protoTvlAtLaunch": 14.065379395
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Plume Mainnet",
+  "launch": "2025-07-31",
+  "proto": 24.32496294997042,
+  "mkt": 36.8109232881219,
+  "home": 25.41121491868421,
+  "newchain": 1.064289,
+  "protoTvlAtLaunch": 1.833570061
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "XDC",
+  "launch": "2025-10-26",
+  "proto": 8.053325804460076,
+  "mkt": -19.041689584909392,
+  "home": 12.9800470366213,
+  "newchain": 1.825272,
+  "protoTvlAtLaunch": 1.913479769
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Sonic",
+  "launch": "2025-03-09",
+  "proto": -2.0409148033068925,
+  "mkt": 0.7248557899333097,
+  "home": -3.915257683621731,
+  "newchain": 9.227349,
+  "protoTvlAtLaunch": 1.935419545
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Fantom",
+  "launch": "2021-06-10",
+  "proto": 67.00186135576016,
+  "mkt": 0.5053991098642907,
+  "home": 65.01825419293831,
+  "newchain": 309.353065,
+  "protoTvlAtLaunch": 7.956424192
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Kava",
+  "launch": "2022-09-13",
+  "proto": -39.87754035377875,
+  "mkt": -35.79311432474792,
+  "home": -40.3761060325029,
+  "newchain": 14.56152,
+  "protoTvlAtLaunch": 6.276741308
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Base",
+  "launch": "2023-09-02",
+  "proto": 1.712219551896843,
+  "mkt": 16.106536815328276,
+  "home": 3.9239257513603576,
+  "newchain": 2.881705,
+  "protoTvlAtLaunch": 1.700613392
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Fraxtal",
+  "launch": "2024-04-26",
+  "proto": -21.86652384008927,
+  "mkt": 0.29963843588360906,
+  "home": -23.129772088913413,
+  "newchain": 21.087902,
+  "protoTvlAtLaunch": 2.47113672
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Binance",
+  "launch": "2024-05-29",
+  "proto": -7.501117358260478,
+  "mkt": -5.22291884172823,
+  "home": -8.257620802837451,
+  "newchain": 0.20774,
+  "protoTvlAtLaunch": 2.016307195
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Arbitrum",
+  "launch": "2021-09-13",
+  "proto": 86.61938598099883,
+  "mkt": 40.985726063645856,
+  "home": 76.32850849967912,
+  "newchain": 426.533141,
+  "protoTvlAtLaunch": 11.460036003
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Optimism",
+  "launch": "2022-04-20",
+  "proto": -71.10360538120997,
+  "mkt": -58.88566998957413,
+  "home": -69.74612174186274,
+  "newchain": 10.955518,
+  "protoTvlAtLaunch": 18.297304656
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "xDai",
+  "launch": "2021-08-12",
+  "proto": 129.09358321059727,
+  "mkt": 108.53262797544967,
+  "home": 119.20080289368396,
+  "newchain": 7.673798,
+  "protoTvlAtLaunch": 9.130135294
+ },
+ {
+  "name": "Curve DEX",
+  "chain": "Polygon",
+  "launch": "2021-05-03",
+  "proto": 135.65378740777496,
+  "mkt": 49.39465211132968,
+  "home": 119.2889853802615,
+  "newchain": 515.801112,
+  "protoTvlAtLaunch": 4.142513358
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Hemi",
+  "launch": "2025-06-11",
+  "proto": 26.73856695412873,
+  "mkt": 34.70761119376522,
+  "home": 31.932032521683396,
+  "newchain": 0.003718,
+  "protoTvlAtLaunch": 0.128554238
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Boba",
+  "launch": "2022-10-24",
+  "proto": -8.350477107643117,
+  "mkt": -11.297707103213462,
+  "home": -10.296129079536698,
+  "newchain": 1.750668,
+  "protoTvlAtLaunch": 0.514586705
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Telos",
+  "launch": "2022-02-25",
+  "proto": -63.03549380987532,
+  "mkt": -39.84970875660323,
+  "home": -55.21542014688823,
+  "newchain": 0.450341,
+  "protoTvlAtLaunch": 2.770250907
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Celo",
+  "launch": "2021-09-01",
+  "proto": 70.04571811660279,
+  "mkt": 82.92145120711649,
+  "home": 68.33630238292075,
+  "newchain": 52.394715,
+  "protoTvlAtLaunch": 3.866773243
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Avalanche",
+  "launch": "2021-08-21",
+  "proto": 108.65781198448809,
+  "mkt": 94.52162027460011,
+  "home": 98.23969093793652,
+  "newchain": 0.313083,
+  "protoTvlAtLaunch": 3.032055899
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Fantom",
+  "launch": "2021-03-31",
+  "proto": 8.548915098568589,
+  "mkt": 96.25790335443101,
+  "home": -13.91085133983978,
+  "newchain": 4.984615,
+  "protoTvlAtLaunch": 2.944456941
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Moonriver",
+  "launch": "2021-09-01",
+  "proto": 70.04571811660279,
+  "mkt": 82.92145120711649,
+  "home": 68.33630238292075,
+  "newchain": 81.763529,
+  "protoTvlAtLaunch": 3.866773243
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "xDai",
+  "launch": "2021-07-23",
+  "proto": 107.0852873504228,
+  "mkt": 113.16842985691582,
+  "home": 125.99932501609379,
+  "newchain": 21.818827,
+  "protoTvlAtLaunch": 2.968604837
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Binance",
+  "launch": "2021-04-27",
+  "proto": -20.242476392006793,
+  "mkt": 66.9589219230052,
+  "home": -32.90955763599932,
+  "newchain": 2.240532,
+  "protoTvlAtLaunch": 4.267593358
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Base",
+  "launch": "2023-11-10",
+  "proto": 17.247304357871652,
+  "mkt": 59.85593918916037,
+  "home": 22.751741502794797,
+  "newchain": 4.33729,
+  "protoTvlAtLaunch": 0.259132506
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Arbitrum Nova",
+  "launch": "2023-03-07",
+  "proto": -25.57658449846216,
+  "mkt": -4.043300359938595,
+  "home": -21.05687975751993,
+  "newchain": 3.12857,
+  "protoTvlAtLaunch": 0.528881501
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Harmony",
+  "launch": "2021-07-05",
+  "proto": 8.202006256461015,
+  "mkt": 44.54261712318779,
+  "home": 19.08520789554833,
+  "newchain": 91.136688,
+  "protoTvlAtLaunch": 4.504784396
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Polygon",
+  "launch": "2021-05-07",
+  "proto": -12.061582901462842,
+  "mkt": 31.811523138491914,
+  "home": -25.197462614328913,
+  "newchain": 587.67642,
+  "protoTvlAtLaunch": 4.612747585
+ },
+ {
+  "name": "SushiSwap",
+  "chain": "Arbitrum",
+  "launch": "2021-09-02",
+  "proto": 70.33533602336834,
+  "mkt": 87.3603801513833,
+  "home": 68.98737500846244,
+  "newchain": 354.536137,
+  "protoTvlAtLaunch": 3.931628391
+ },
+ {
+  "name": "Balancer",
+  "chain": "Polygon zkEVM",
+  "launch": "2023-07-07",
+  "proto": -30.28359346808451,
+  "mkt": -15.716642383544489,
+  "home": -40.97587688717746,
+  "newchain": 4.259796,
+  "protoTvlAtLaunch": 1.037802711
+ },
+ {
+  "name": "Balancer",
+  "chain": "Fraxtal",
+  "launch": "2024-08-09",
+  "proto": 0.6665370388000413,
+  "mkt": 6.727871072713731,
+  "home": 4.1821834554357284,
+  "newchain": 2.191488,
+  "protoTvlAtLaunch": 0.803268639
+ },
+ {
+  "name": "Balancer",
+  "chain": "Mode",
+  "launch": "2024-11-23",
+  "proto": 19.250742503062067,
+  "mkt": 32.36323172715871,
+  "home": 19.423689820562306,
+  "newchain": 10.371839,
+  "protoTvlAtLaunch": 0.736527939
+ },
+ {
+  "name": "Balancer",
+  "chain": "Avalanche",
+  "launch": "2023-08-02",
+  "proto": -25.034064216038043,
+  "mkt": -6.232146010460749,
+  "home": -35.900923995917275,
+  "newchain": 8.553388,
+  "protoTvlAtLaunch": 1.077930282
+ },
+ {
+  "name": "Balancer",
+  "chain": "Gnosis",
+  "launch": "2023-03-10",
+  "proto": -16.283924320890954,
+  "mkt": -8.760946226322087,
+  "home": -15.874390365951886,
+  "newchain": 5.693179,
+  "protoTvlAtLaunch": 1.208981939
+ },
+ {
+  "name": "Balancer",
+  "chain": "Arbitrum",
+  "launch": "2021-09-03",
+  "proto": 43.25127985581756,
+  "mkt": 86.82198741360254,
+  "home": 41.27110943886685,
+  "newchain": 89.119297,
+  "protoTvlAtLaunch": 1.975938395
+ },
+ {
+  "name": "Balancer",
+  "chain": "Base",
+  "launch": "2023-08-05",
+  "proto": -27.189692549079915,
+  "mkt": -5.398349495339216,
+  "home": -38.71969530959588,
+  "newchain": 7.548417,
+  "protoTvlAtLaunch": 1.056211248
+ },
+ {
+  "name": "Balancer",
+  "chain": "Polygon",
+  "launch": "2021-06-29",
+  "proto": 62.26205095845023,
+  "mkt": 53.68511830435359,
+  "home": 45.96472767033146,
+  "newchain": 156.309221,
+  "protoTvlAtLaunch": 1.350272932
+ },
+ {
+  "name": "Balancer",
+  "chain": "OP Mainnet",
+  "launch": "2025-05-23",
+  "proto": 51.263316041818705,
+  "mkt": 61.74012952032395,
+  "home": 62.670203460007954,
+  "newchain": 9.472871,
+  "protoTvlAtLaunch": 0.62718431
+ },
+ {
+  "name": "Balancer",
+  "chain": "Plasma",
+  "launch": "2025-09-25",
+  "proto": -73.69384610190208,
+  "mkt": -23.265408124507292,
+  "home": -76.01267211286746,
+  "newchain": 12.450975,
+  "protoTvlAtLaunch": 0.955791371
+ },
+ {
+  "name": "Balancer",
+  "chain": "Hyperliquid L1",
+  "launch": "2025-08-02",
+  "proto": 2.136811348890455,
+  "mkt": 31.089456634888137,
+  "home": -10.130320513688007,
+  "newchain": 2.26189,
+  "protoTvlAtLaunch": 0.762801265
+ },
+ {
+  "name": "Balancer",
+  "chain": "Monad",
+  "launch": "2026-03-08",
+  "proto": -60.347512238578524,
+  "mkt": -22.319902929925984,
+  "home": -69.13466737964676,
+  "newchain": 17.869545,
+  "protoTvlAtLaunch": 0.179408703
+ },
+ {
+  "name": "PancakeSwap",
+  "chain": "Polygon zkEVM",
+  "launch": "2024-07-03",
+  "proto": -14.094969284137427,
+  "mkt": -15.29808660917954,
+  "home": -14.76411897229477,
+  "newchain": 0.753626,
+  "protoTvlAtLaunch": 2.022789197
+ },
+ {
+  "name": "PancakeSwap",
+  "chain": "ZKsync Era",
+  "launch": "2023-08-02",
+  "proto": -11.689675940516164,
+  "mkt": -6.232146010460749,
+  "home": -13.080799240876607,
+  "newchain": 4.217659,
+  "protoTvlAtLaunch": 1.589393632
+ },
+ {
+  "name": "PancakeSwap",
+  "chain": "Linea",
+  "launch": "2023-11-06",
+  "proto": 11.95721497569946,
+  "mkt": 41.39277819354017,
+  "home": 13.260287394927484,
+  "newchain": 1.651559,
+  "protoTvlAtLaunch": 1.363501855
+ },
+ {
+  "name": "PancakeSwap",
+  "chain": "Arbitrum",
+  "launch": "2023-08-25",
+  "proto": -8.988664642053656,
+  "mkt": 9.329161327447055,
+  "home": -9.982525276139874,
+  "newchain": 1.911482,
+  "protoTvlAtLaunch": 1.554122515
+ },
+ {
+  "name": "PancakeSwap",
+  "chain": "Ethereum",
+  "launch": "2022-11-04",
+  "proto": -6.971667396636483,
+  "mkt": -9.287842372792044,
+  "home": -8.836518709875529,
+  "newchain": 18.479031,
+  "protoTvlAtLaunch": 2.997528039
+ },
+ {
+  "name": "PancakeSwap",
+  "chain": "Aptos",
+  "launch": "2022-11-02",
+  "proto": -8.14276546996412,
+  "mkt": -11.227817675776198,
+  "home": -9.923226194417033,
+  "newchain": 37.520212,
+  "protoTvlAtLaunch": 2.929205193
+ },
+ {
+  "name": "PancakeSwap",
+  "chain": "Base",
+  "launch": "2023-09-14",
+  "proto": -0.5018305760682962,
+  "mkt": 17.692467473181495,
+  "home": -0.7798572025481842,
+  "newchain": 2.000413,
+  "protoTvlAtLaunch": 1.472057374
+ },
+ {
+  "name": "PancakeSwap",
+  "chain": "Monad",
+  "launch": "2025-11-25",
+  "proto": -26.54076959992767,
+  "mkt": -38.667636491354095,
+  "home": -24.102483458640723,
+  "newchain": 2.557524,
+  "protoTvlAtLaunch": 2.764510265
+ },
+ {
+  "name": "PancakeSwap",
+  "chain": "opBNB",
+  "launch": "2024-01-29",
+  "proto": 27.1077930883868,
+  "mkt": 65.02966475411725,
+  "home": 25.00225234187836,
+  "newchain": 6.662917,
+  "protoTvlAtLaunch": 1.641241991
+ },
+ {
+  "name": "PancakeSwap",
+  "chain": "Solana",
+  "launch": "2025-07-03",
+  "proto": 35.99476002703219,
+  "mkt": 40.73627694428972,
+  "home": 32.59063286845807,
+  "newchain": 64.697527,
+  "protoTvlAtLaunch": 1.787714566
+ },
+ {
+  "name": "Compound V3",
+  "chain": "Base",
+  "launch": "2023-08-15",
+  "proto": 12.05302969972415,
+  "mkt": 4.327441097100104,
+  "home": 5.0850484964399145,
+  "newchain": 30.787947,
+  "protoTvlAtLaunch": 0.968803072
+ },
+ {
+  "name": "Compound V3",
+  "chain": "Ronin",
+  "launch": "2025-04-23",
+  "proto": 38.03923577659474,
+  "mkt": 46.76512482289192,
+  "home": 39.971699415556,
+  "newchain": 1.189158,
+  "protoTvlAtLaunch": 1.812247244
+ },
+ {
+  "name": "Compound V3",
+  "chain": "Mantle",
+  "launch": "2024-12-25",
+  "proto": -9.241625280174471,
+  "mkt": -12.475350527380147,
+  "home": -9.24943462140333,
+  "newchain": 12.722081,
+  "protoTvlAtLaunch": 2.005738562
+ },
+ {
+  "name": "Compound V3",
+  "chain": "Scroll",
+  "launch": "2024-06-20",
+  "proto": -13.028211764449061,
+  "mkt": -20.011386066709058,
+  "home": -21.351670487769393,
+  "newchain": 1.685503,
+  "protoTvlAtLaunch": 1.552486555
+ },
+ {
+  "name": "Compound V3",
+  "chain": "Unichain",
+  "launch": "2025-05-09",
+  "proto": 52.25956229144699,
+  "mkt": 67.57522635274292,
+  "home": 53.32448215556755,
+  "newchain": 14.71228,
+  "protoTvlAtLaunch": 1.510596527
+ },
+ {
+  "name": "Compound V3",
+  "chain": "Optimism",
+  "launch": "2024-04-23",
+  "proto": -1.3005461653022743,
+  "mkt": 12.263204759201152,
+  "home": -6.9729783617025864,
+  "newchain": 38.33862,
+  "protoTvlAtLaunch": 1.619294921
+ },
+ {
+  "name": "Compound V3",
+  "chain": "Polygon",
+  "launch": "2023-03-09",
+  "proto": 43.10113532758542,
+  "mkt": -3.9449814029087427,
+  "home": 32.534785709534006,
+  "newchain": 29.763706,
+  "protoTvlAtLaunch": 0.379142906
+ },
+ {
+  "name": "Compound V3",
+  "chain": "Arbitrum",
+  "launch": "2023-05-17",
+  "proto": 56.672400823643486,
+  "mkt": -20.315963867104582,
+  "home": 48.2727918775496,
+  "newchain": 18.453262,
+  "protoTvlAtLaunch": 0.570763935
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Corn",
+  "launch": "2025-04-23",
+  "proto": 77.364510266416,
+  "mkt": 46.76512482289192,
+  "home": 16.40374823599473,
+  "newchain": 7.9809,
+  "protoTvlAtLaunch": 3.060280189
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Botanix",
+  "launch": "2025-10-03",
+  "proto": -18.66441901914936,
+  "mkt": -23.588513458204506,
+  "home": -37.676157424092025,
+  "newchain": 2.705603,
+  "protoTvlAtLaunch": 7.376981135
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Soneium",
+  "launch": "2025-09-05",
+  "proto": 4.6788118117717215,
+  "mkt": -10.813074289876901,
+  "home": -11.259345368069884,
+  "newchain": 2.181221,
+  "protoTvlAtLaunch": 5.898055235
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "TAC",
+  "launch": "2025-07-18",
+  "proto": 80.84622989140206,
+  "mkt": 37.5450586626038,
+  "home": 54.290397975283746,
+  "newchain": 12.22333,
+  "protoTvlAtLaunch": 4.125911972
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Lisk",
+  "launch": "2025-06-24",
+  "proto": 126.1018586008245,
+  "mkt": 41.29287864895892,
+  "home": 99.68352328370673,
+  "newchain": 8.413247,
+  "protoTvlAtLaunch": 3.525457007
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Etherlink",
+  "launch": "2025-10-28",
+  "proto": -5.82781880218306,
+  "mkt": -23.573695638999727,
+  "home": -16.506582446098438,
+  "newchain": 1.870724,
+  "protoTvlAtLaunch": 6.904264351
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Scroll",
+  "launch": "2025-10-16",
+  "proto": -17.629899753669708,
+  "mkt": -20.386717878319093,
+  "home": -39.71412211900179,
+  "newchain": 0.001541,
+  "protoTvlAtLaunch": 8.303424849
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Citrea",
+  "launch": "2026-05-05",
+  "proto": 6.616040547465096,
+  "mkt": -19.676154692940163,
+  "home": -5.814030964628802,
+  "newchain": 4.035663,
+  "protoTvlAtLaunch": 7.063987239
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Hemi",
+  "launch": "2025-10-09",
+  "proto": -16.367525574191323,
+  "mkt": -18.16105678229477,
+  "home": -36.35067803444778,
+  "newchain": 1.25963,
+  "protoTvlAtLaunch": 7.661408527
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Stable",
+  "launch": "2025-12-13",
+  "proto": 5.0000064454317705,
+  "mkt": -26.410407139221938,
+  "home": -3.875710508199026,
+  "newchain": 0.001009,
+  "protoTvlAtLaunch": 7.037542508
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Flare",
+  "launch": "2026-02-07",
+  "proto": 18.22840221512154,
+  "mkt": -30.753817909057656,
+  "home": 31.208509654945594,
+  "newchain": 47.257963,
+  "protoTvlAtLaunch": 6.360056067
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Abstract",
+  "launch": "2026-03-10",
+  "proto": 15.367736868105908,
+  "mkt": -25.74065005435564,
+  "home": 23.711111834274323,
+  "newchain": 0.401585,
+  "protoTvlAtLaunch": 5.823241904
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "World Chain",
+  "launch": "2025-05-02",
+  "proto": 107.74244222363718,
+  "mkt": 48.75101860551454,
+  "home": 42.915914977474976,
+  "newchain": 56.633937,
+  "protoTvlAtLaunch": 2.81894389
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Unichain",
+  "launch": "2025-06-04",
+  "proto": 159.45557137286949,
+  "mkt": 53.35928703571948,
+  "home": 108.76681265916885,
+  "newchain": 108.077643,
+  "protoTvlAtLaunch": 2.804483754
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Celo",
+  "launch": "2026-05-08",
+  "proto": 1.3337101046012823,
+  "mkt": -22.176472526161017,
+  "home": -10.19069918251504,
+  "newchain": 0.872378,
+  "protoTvlAtLaunch": 7.43221924
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Plume Mainnet",
+  "launch": "2025-05-23",
+  "proto": 138.02069049128824,
+  "mkt": 61.74012952032395,
+  "home": 74.68901932284587,
+  "newchain": 55.402896,
+  "protoTvlAtLaunch": 2.720246862
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Optimism",
+  "launch": "2025-05-15",
+  "proto": 151.16632449955446,
+  "mkt": 77.26500281297584,
+  "home": 76.44159133538795,
+  "newchain": 1.853814,
+  "protoTvlAtLaunch": 2.565736552
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Katana",
+  "launch": "2025-07-01",
+  "proto": 93.43676706284809,
+  "mkt": 39.89151907596587,
+  "home": 58.81345198859902,
+  "newchain": 403.393382,
+  "protoTvlAtLaunch": 3.620752551
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Sei",
+  "launch": "2025-10-17",
+  "proto": -18.3047880408594,
+  "mkt": -19.203568238474546,
+  "home": -39.90567975985323,
+  "newchain": 3.23183,
+  "protoTvlAtLaunch": 8.379548813
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Hyperliquid L1",
+  "launch": "2025-05-11",
+  "proto": 142.933149758209,
+  "mkt": 71.85352458312391,
+  "home": 67.39674243323167,
+  "newchain": 417.238507,
+  "protoTvlAtLaunch": 2.522398401
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Polygon",
+  "launch": "2025-03-14",
+  "proto": 16.728781427598772,
+  "mkt": 7.8936173244754215,
+  "home": -14.822877748940389,
+  "newchain": 116.013273,
+  "protoTvlAtLaunch": 3.492685905
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Arbitrum",
+  "launch": "2025-05-17",
+  "proto": 141.5135077153424,
+  "mkt": 78.19636668698891,
+  "home": 64.49040072304332,
+  "newchain": 6.960803,
+  "protoTvlAtLaunch": 2.563305942
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Monad",
+  "launch": "2025-11-25",
+  "proto": -28.191504996741045,
+  "mkt": -38.667636491354095,
+  "home": -33.54864366997248,
+  "newchain": 64.736643,
+  "protoTvlAtLaunch": 7.785465995
+ },
+ {
+  "name": "Morpho Blue",
+  "chain": "Base",
+  "launch": "2024-06-19",
+  "proto": 25.875253522348096,
+  "mkt": -12.9516999463277,
+  "home": 14.14862066294129,
+  "newchain": 87.125249,
+  "protoTvlAtLaunch": 0.742969018
+ }
+]

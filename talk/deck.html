@@ -490,6 +490,17 @@
   .is-tight .migration { margin-top: 18px; padding: 14px 18px 12px; }
   .is-tight .verdict  { margin-top: 18px; padding-top: 14px; font-size: 17px; }
 
+  .method {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 22px 0 0;
+    max-width: 92ch;
+    padding-bottom: 4px;
+  }
+
+  .method strong { color: var(--fg); font-weight: 500; }
+
   /* ---------- migration strip ---------- */
 
   .migration {
@@ -660,6 +671,7 @@
      row. On the vanity-metric table the signal is the chain count and the
      top-chain share, never the TVL column. */
   table.score td.was.hi  { color: var(--amber); }
+  table.score td.now.hi  { color: var(--amber); }
   table.score td.was.alt  { color: var(--c-base); }
   /* Direction only, no valence. Colouring the decreases red said "these
      protocols failed" — but consolidating is a legitimate choice, and that is
@@ -991,6 +1003,23 @@
       <p class="verdict">Aerodrome on <b>one</b> chain out-traded Curve on twenty. Curve and Sushi expanded to 20 each and drifted <b>back home</b>. And bridges have leaked <b>$2.8B</b> &mdash; ~40% of all value ever stolen in web3.</p>
     </section>
 
+    <!-- 5d2 ─────────────────────────── event study: does a launch pay? -->
+    <section class="slide is-tight" data-notes="This is the analysis that answers the question properly, and it is the most original thing in the talk. Instead of comparing protocols to each other &mdash; which is confounded by sector and by cycle &mdash; it compares each protocol <b>to itself</b>, before and after it deployed to a new chain.|Method, say it plainly so nobody has to ask: 147 chain launches. Take the protocol&rsquo;s total TVL thirty days before the launch and ninety days after. Do the same for total DeFi TVL over the identical window. Subtract. What is left is growth that was <b>not</b> just the market going up.|Overall the median launch came in about four percent <b>behind</b> the market. Deploying to a new chain is, on average, not a growth strategy.|But the average hides the whole story, and this is the finding: split by what the protocol actually is. Lending protocols beat the market on 87% of their launches, median plus twenty-six. DEXes beat it on 24%, median minus nine. A thirty-five point gap.|<b>The mechanism is the part worth saying out loud.</b> A lending market is <b>local</b> &mdash; borrowers, collateral and rates are native to that chain, so a new deployment is a genuinely new market. Look at the home chain column: lending home chains grew twenty-nine percent too. Additive.|DEX liquidity is <b>fungible</b>. The same swap can route anywhere, so a new venue splits the book instead of growing it &mdash; and DEX home chains shrank six percent. Cannibalised.|So the answer to &ldquo;should we go multichain&rdquo; is not yes or no. It is: <b>what are you?</b> If your product is local to a chain, expansion adds. If it is fungible across chains, expansion divides.|Figures from the DefiLlama API. Re-run the week of the event.">
+      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>Event study</em></div>
+      <h2 class="title">Does a new chain actually pay?</h2>
+      <p class="method">147 chain launches. Each protocol measured against <strong>itself</strong> &mdash; total TVL 30 days before versus 90 days after &mdash; then the market&rsquo;s move over the same window subtracted out.</p>
+      <table class="score dense">
+        <thead>
+          <tr><th>Protocol type</th><th>Launches</th><th>Median growth over market</th><th>Beat the market</th><th>Home chain after</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lending<span class="sub">Aave &middot; Morpho &middot; Compound</span></td><td class="was">46</td><td class="was hi">+26.3%</td><td class="was hi">87%</td><td class="was">+29.0% &mdash; additive</td></tr>
+          <tr><td>DEX<span class="sub">Uniswap &middot; Curve &middot; Sushi &middot; Balancer &middot; Pancake</span></td><td class="was">101</td><td class="was">&minus;8.8%</td><td class="was">24%</td><td class="was">&minus;6.4% &mdash; cannibalised</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">Lending is <b>local</b> &mdash; a new chain is a new market. DEX liquidity is <b>fungible</b> &mdash; a new chain splits the book. The question isn&rsquo;t whether to expand. It&rsquo;s <b>what you are</b>.</p>
+    </section>
+
     <!-- 5e ──────────────────────────── the resolution -->
     <section class="slide is-tight" data-notes="This is the slide I would keep if I could only keep one.|The tension dissolves once you separate two things that get lumped together. <b>Deploying</b> to a chain and <b>reading</b> from one are not the same act and do not carry the same cost.|Deploying is contracts, bridged liquidity, an audit, an on-call rotation, and permanent attack surface. That is where consolidation is correct. Be deliberate. Pick the chain where the liquidity actually is. Fewer is genuinely safer.|Reading is a balance query. It holds no funds, signs nothing, and cannot be drained. Spreading your reads across twenty chains adds <b>zero</b> smart-contract risk.|So the strategy is not &ldquo;be everywhere.&rdquo; It is: <b>deploy few, read many.</b> Consolidate the risky half, spread the cheap half. And that is exactly the half an aggregator sells you.|The strip at the bottom is the proof, and it is worth slowing down for. ether.fi ran Cash and its Borrowing Market on Scroll. In April they moved to Optimism &mdash; and they did not run on both. Three hundred and sixty-six million dollars on Scroll on the seventh, three hundred and seventy-four million on Optimism by the ninth, with Scroll left holding three hundred thousand.|<b>Forty-eight hours, and it was a replacement rather than an addition.</b> That is what deploying deliberately looks like in practice: you pick a chain, and when the calculus changes you pick again. Nobody in that story was trying to be on twenty chains.|If someone pushes back hard tonight, this is the slide to go back to.">
       <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>The resolution</em></div>
@@ -1140,6 +1169,27 @@ export async function getUsdcBalances(
         <div class="row"><div class="lhs">&ldquo;Balance of USDC?&rdquo;</div><div class="rhs">Raw RPC, 140ms, 5/5 chains &mdash; and it beat the aggregator, which took 5.4s and got 4/5. The honest comparison.</div></div>
       </div>
       <p class="verdict">The first three aren&rsquo;t slow through RPC. They are <b>impossible</b>. That&rsquo;s the argument &mdash; not keystrokes.</p>
+    </section>
+
+    <!-- 9b ──────────────────────────── the agent's actual surface -->
+    <section class="slide is-tight" data-notes="This is the slide that answers &ldquo;so what is Uniblock actually for.&rdquo; Look down the middle column: <b>only the top row is an RPC node</b>. Everything else is a different kind of system entirely.|An agent allocating capital has to join all of these. Where am I? What is it worth? Where is the perp basis? What is the crowd pricing? What is the mood? Those are four different worlds with four different auth models, four rate limits, four response shapes &mdash; and no relationship to each other except that one agent needs all of them in the same loop.|<b>That is the product.</b> Not faster balanceOf. One key across systems that have nothing in common.|Be straight about the ticks. Everything marked verified, I ran against a live key while building this repo. Kraken came back 503 &mdash; insufficient providers on this plan &mdash; so it is available rather than proven, and I am not going to claim otherwise on a slide.|The honest caveat: the unified schema covers on-chain and Hyperliquid. Polymarket, LunarCrush and the rest arrive through direct passthrough, so you get that provider&rsquo;s own shape. Same key, same bill, unnormalized.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The surface</em></div>
+      <h2 class="title">One key, and almost none of it is a node</h2>
+      <table class="score dense">
+        <thead>
+          <tr><th>The agent asks</th><th>What actually answers it</th><th>Through Uniblock</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&ldquo;What&rsquo;s the balance?&rdquo;<span class="sub">state at a known address</span></td><td class="was">An RPC node</td><td class="now">verified &mdash; but raw RPC is faster</td></tr>
+          <tr><td>&ldquo;What do I hold?&rdquo;<span class="sub">discovery across chains</span></td><td class="was">An indexer &mdash; no RPC method exists</td><td class="now">verified</td></tr>
+          <tr><td>&ldquo;What&rsquo;s it worth?&rdquo;<span class="sub">USD prices, market cap</span></td><td class="was">CoinGecko &middot; CMC &middot; Birdeye</td><td class="now">verified inline</td></tr>
+          <tr><td>&ldquo;Where&rsquo;s the carry?&rdquo;<span class="sub">funding, tick premium, books</span></td><td class="was">Hyperliquid &mdash; its own L1</td><td class="now hi">verified &middot; unified schema</td></tr>
+          <tr><td>&ldquo;What&rsquo;s the crowd pricing?&rdquo;<span class="sub">event probabilities</span></td><td class="was">Polymarket</td><td class="now hi">verified &middot; passthrough</td></tr>
+          <tr><td>&ldquo;What&rsquo;s the mood?&rdquo;<span class="sub">social sentiment</span></td><td class="was">LunarCrush</td><td class="now hi">verified &middot; passthrough</td></tr>
+          <tr><td>&ldquo;What&rsquo;s the CEX doing?&rdquo;<span class="sub">centralised book, basis</span></td><td class="was">Kraken</td><td class="now">available &mdash; 503 on this plan</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">Only the first row is a node. The other six are <b>different systems entirely</b> &mdash; and joining them is the agent&rsquo;s whole job.</p>
     </section>
 
     <!-- 10 ───────────────────────────── scorecard -->
