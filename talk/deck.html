@@ -1339,6 +1339,23 @@ export const CHAIN_IDS = {
       <p class="verdict">Every figure above came from an API, and the scripts are in the repo. <b>The one I took on trust was the one that was wrong.</b></p>
     </section>
 
+    <!-- 13c ────────────────────────── why a reading agent is worth having -->
+    <section class="slide is-tight" data-notes="You have seen one cross-venue join. Here is why it generalises, and it is the answer to &ldquo;why bother with an agent if it cannot trade&rdquo;.|<b>Attention is the real constraint.</b> One key reaches 1,846 instruments &mdash; 232 perp markets, 943 including spot, 600 liquid prediction questions, 71 chains holding meaningful stablecoin balances. A good desk actively tracks maybe ten. Everything else is unwatched, not because it is uninteresting but because nobody has the hours.|<b>Continuity is the one people forget</b>, and it is why the latency slide does not sting. A loop that runs every five minutes does not care about seven hundred milliseconds. It cares that it ran at 3am when you did not. Twelve checks an hour against your two a day is a 140x difference in when you find out.|<b>Capital placement</b> is the concrete one. Our own scan says it plainly: fifty thousand dollars sitting on Ethereum while the carry is somewhere else. That is not a trading signal, it is an inventory problem, and it is embarrassing precisely because it is easy to fix once you can see it.|<b>Observability</b> is the one only an aggregator gives you. The 2.39x vol disagreement was invisible to both venues. Neither Polymarket nor Hyperliquid was wrong &mdash; neither could see the other.|Land on the last line. None of these four require the agent to be right about the market. They require it to <b>look</b>, which is the part humans are worst at and machines are cheapest at.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>Why bother</em></div>
+      <h2 class="title">What a reading agent is actually for</h2>
+      <table class="score dense">
+        <thead><tr><th>&nbsp;</th><th>The constraint</th><th>Measured</th></tr></thead>
+        <tbody>
+          <tr><td>Attention<span class="sub">watch more than you can</span></td><td class="was">A desk tracks ~10 instruments</td><td class="now hi">1,846 reachable on one key</td></tr>
+          <tr><td>Continuity<span class="sub">watch when you aren&rsquo;t</span></td><td class="was">You check twice a day</td><td class="now">every 5 min &mdash; 140&times; more often</td></tr>
+          <tr><td>Capital placement<span class="sub">know where your money isn&rsquo;t working</span></td><td class="was">Idle balances are invisible</td><td class="now">$50,810 on Ethereum, carry elsewhere</td></tr>
+          <tr class="key"><td>Observability<span class="sub">see what no single venue can</span></td><td class="was">Each venue knows only itself</td><td class="now">2.39&times; vol gap, invisible to both</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">None of these need the agent to be <b>right about the market</b>. They need it to <b>look</b> &mdash; which is what humans are worst at and machines are cheapest at.</p>
+      <p class="source"><b>Source:</b> Hyperliquid meta/allMids + Polymarket gamma via Uniblock, sampled 2 Aug 2026 &middot; USDC chain count from DefiLlama</p>
+    </section>
+
     <!-- 13 ───────────────────────────── CTA -->
     <section class="slide" data-notes="Be specific about the ask. &ldquo;Get involved&rdquo; converts nobody; &ldquo;clone this, run it, open a PR&rdquo; converts a few, and a few is how a community starts.|Say the October demo slots are open <b>before</b> the room disperses. The single highest-value thing you can leave with tonight is a committed date and one person who has said yes to demoing.">
       <div class="eyebrow"><span>03 &mdash; The artifact</span><span class="tick"></span><em>Your move</em></div>
