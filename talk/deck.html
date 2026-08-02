@@ -676,6 +676,21 @@
     line-height: 1.45;
   }
 
+  .demos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 26px;
+    flex: none;
+  }
+
+  .demo-out {
+    font-size: 12.5px;
+    line-height: 1.62;
+    padding: 16px 18px;
+    margin: 0;
+  }
+
   /* ---------- scorecard ---------- */
 
   table.score {
@@ -1356,6 +1371,36 @@ export const CHAIN_IDS = {
         <div class="row"><div class="lhs">Archive access</div><div class="rhs">Historical state, if you want more than the latest block</div></div>
         <div class="row"><div class="lhs">Test vectors</div><div class="rhs">Known wallets, known balances, known edge cases</div></div>
       </div>
+    </section>
+
+    <!-- 19b ────────────────────────── the demos, actually run -->
+    <section class="slide is-tight" data-notes="Two commands, and they are the reason to trust anything else I have said tonight.|<b>Left: npm run compare.</b> It reads every balance twice &mdash; once straight off the chain, once through the aggregator &mdash; and diffs them. Four of five agree exactly. Base says <b>unverified</b> rather than guessing, because free-tier provider coverage could not answer and printing a zero there would have been a confident lie.|That script found every bug in this repo. A symbol match that returned a bridged USDC.e balance on Optimism while the real one was zero. Three chains reporting &ldquo;no USDC&rdquo; because the token list is paginated. Two returning undefined because the provider failed inside an HTTP 200. <b>None of them threw. All of them looked plausible.</b> A diff against ground truth is the only thing that catches that class of bug.|<b>Right: npm run verify.</b> Six chains, and the decimals are not uniform. That is the Conflux slide, executable.|The line to land: everything in this talk is a command you can run. If you think a number is wrong, clone it and prove me wrong &mdash; that is a better outcome for both of us than you believing me.">
+      <div class="eyebrow"><span>03 &mdash; The artifact</span><span class="tick"></span><em>Don&rsquo;t trust me, run it</em></div>
+      <h2 class="title">The demos, actually run</h2>
+      <div class="demos">
+        <pre class="demo-out"><code>$ npm run compare
+
+chain          on-chain      via API    verdict
+Ethereum       50,810.846  50,810.846   match
+Arbitrum One       37.014      37.014   match
+Base              104.382  unverified   ? provider gap
+OP Mainnet              0           0   match
+Polygon PoS        50.075      50.075   match
+
+4/5 agree | 1 unverified | 0 mismatched</code></pre>
+        <pre class="demo-out"><code>$ npm run verify
+
+Ethereum        USDC    6 decimals
+Arbitrum One    USDC    6 decimals
+Base            USDC    6 decimals
+OP Mainnet      USDC    6 decimals
+Polygon PoS     USDC    6 decimals
+Conflux eSpace  USDC   18 decimals
+
+Distinct decimals across 6 chains: 6, 18</code></pre>
+      </div>
+      <p class="verdict">The diff on the left found <b>every bug in this repo</b> &mdash; a bridged lookalike, three paginated misses, two errors inside an HTTP 200. <b>None of them threw.</b></p>
+      <p class="source"><b>Source:</b> Both commands run live against Ethereum, Arbitrum, Base, Optimism, Polygon and Conflux eSpace &middot; 2 Aug 2026</p>
     </section>
 
     <!-- 18b ─────────────────────────── sources and method -->
