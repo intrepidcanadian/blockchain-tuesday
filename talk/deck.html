@@ -911,7 +911,7 @@
     </section>
 
     <!-- 3 ───────────────────────────── fragmentation -->
-    <section class="slide" data-notes="This is the actual state of the world. The &ldquo;same&rdquo; token exists in a dozen incompatible forms. Every wrapped variant is a separate pool with separate depth, separate slippage, separate risk.|Don&rsquo;t rush this slide &mdash; the rest of the economic argument is just consequences of this picture.|The five colours matter: this is the fragmented state. Later slides collapse to one colour.">
+    <section class="slide" data-notes="This is the actual state of the world. The &ldquo;same&rdquo; token exists in a dozen incompatible forms. Every wrapped variant is a separate pool with separate depth, separate slippage, separate risk.|Don&rsquo;t rush this slide &mdash; the rest of the economic argument is just consequences of this picture.|<b>The numbers underneath are the point.</b> Seventy-one chains hold more than a million dollars of USDC. Twenty-six billion of it &mdash; over a third of all USDC &mdash; sits somewhere that is not Ethereum. Every one of those is a separate pool with its own depth and its own slippage. This is not a diagram, it is the measured state of the largest stablecoin in the world.|Worth noting for later: Hyperliquid&rsquo;s own L1 holds six billion of it. When we get to the agent section, that is why a perps venue is somewhere your capital actually has to be.|The five colours matter: this is the fragmented state. Later slides collapse to one colour.">
       <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>Fragmentation</em></div>
       <h2 class="title">Same asset. Many chains. None of it pooled.</h2>
       <div class="chips">
@@ -922,6 +922,11 @@
         <div class="chip" style="--hue: var(--c-poly)"><div class="name">USDC</div><div class="where">Polygon</div></div>
         <div class="chip is-ghost"><div class="name">USDC.e</div><div class="where">Bridged variant</div></div>
         <div class="chip is-ghost"><div class="name">Wrapped</div><div class="where">&hellip; and the rest</div></div>
+      </div>
+      <div class="chart-foot" style="margin-top:26px">
+        <div class="hero"><b>71</b><span>chains hold more than $1M of USDC</span></div>
+        <div class="hero"><b>$25.9B</b><span>of USDC sits off Ethereum &mdash; 36% of supply</span></div>
+        <div class="hero quiet"><b>$72.1B</b><span>total, and no two pools are the same pool</span></div>
       </div>
       <p class="verdict">Fragmentation is the <b>default state</b> of crypto liquidity &mdash; and everyone pays for it.</p>
     </section>
@@ -982,7 +987,7 @@
     </section>
 
     <!-- 5d ──────────────────────────── case studies: does more chains mean more volume? -->
-    <section class="slide is-tight" data-notes="Eight DEXes, one instrument, all cumulative volume from DefiLlama. This is the objection with teeth and I want to make it <b>for</b> you rather than field it in Q&amp;A.|Read the first column against the third. <b>Aerodrome runs on one chain and has out-traded Curve, which runs on twenty.</b> Raydium, also one chain, has done nearly as much volume as Curve, Sushi and Balancer combined across fifty-three.|<b>Head off the incentives objection here, because it is the right one.</b> Somebody will say these numbers are just emissions and farming cycles, not chain strategy. Partly true &mdash; which is exactly why this table is cumulative volume across eight protocols and several cycles, rather than one protocol&rsquo;s TVL over one boom. Curve and Sushi are the cleanest evidence: same sector, same cycles, both deployed to twenty chains, and both drifted home anyway.|Then the last column, which is the part nobody expects. Uniswap and PancakeSwap did grow off their home chain &mdash; thirty to forty-seven percent, four to twenty-three. But <b>Curve and Sushi went multichain and went backwards</b>: Curve eleven percent down to five, Sushi fifty-six down to thirty-seven. They deployed to twenty chains each and the share drifted home anyway.|So deploying more places is not a growth strategy. It is a cost you pay hoping demand shows up, and for half this table it did not.|Add the security bill &mdash; $2.8B through bridges, about forty percent of everything ever stolen &mdash; and consolidation stops looking like caution. It looks correct.|That is the honest floor of this talk. The next slide is what survives it.">
+    <section class="slide is-tight" data-notes="Eight DEXes, one instrument, all cumulative volume from DefiLlama. This is the objection with teeth and I want to make it <b>for</b> you rather than field it in Q&amp;A.|Read the first column against the third. <b>Aerodrome runs on one chain and has out-traded Curve, which runs on twenty.</b> Raydium, also one chain, has done nearly as much volume as Curve, Sushi and Balancer combined across fifty-three.|<b>Head off the incentives objection here, because it is the right one.</b> Somebody will say these numbers are just emissions and farming cycles, not chain strategy. Partly true &mdash; which is exactly why this table is cumulative volume across eight protocols and several cycles, rather than one protocol&rsquo;s TVL over one boom. Curve and Sushi are the cleanest evidence: same sector, same cycles, both deployed to twenty chains, and both drifted home anyway.|Then the last column, which is the part nobody expects. Uniswap and PancakeSwap did grow off their home chain &mdash; thirty to forty-seven percent, four to twenty-three. But <b>Curve and Sushi went multichain and went backwards</b>: Curve eleven percent down to five, Sushi fifty-six down to thirty-seven. They deployed to twenty chains each and the share drifted home anyway.|So deploying more places is not a growth strategy. It is a cost you pay hoping demand shows up, and for half this table it did not.|Add the security bill. <b>$3.30B through bridges across 61 incidents</b> &mdash; that is 19.7% of the $16.8B ever stolen in this industry, computed from DefiLlama&rsquo;s hack register rather than quoted from a blog. An earlier draft of this talk said forty percent; it was wrong and this is the checkable number.|And the shape has changed in a way worth a sentence. <b>2026 has had 31 bridge incidents &mdash; more than the previous five years combined</b> &mdash; for $413M, against 2022&rsquo;s nine incidents for $1.9B. The attacks did not stop. They got frequent and small. Consolidation stops looking like caution.|That is the honest floor of this talk. The next slide is what survives it.">
       <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>The objection with teeth</em></div>
       <h2 class="title">More chains does not mean more volume</h2>
       <table class="score dense">
@@ -1000,7 +1005,7 @@
           <tr><td>Balancer<span class="sub">Weighted-pool AMM &middot; Ethereum</span></td><td class="was">13</td><td class="now">$133B</td><td class="was">16% &uarr; 20%</td></tr>
         </tbody>
       </table>
-      <p class="verdict">Aerodrome on <b>one</b> chain out-traded Curve on twenty. Curve and Sushi expanded to 20 each and drifted <b>back home</b>. And bridges have leaked <b>$2.8B</b> &mdash; ~40% of all value ever stolen in web3.</p>
+      <p class="verdict">Aerodrome on <b>one</b> chain out-traded Curve on twenty. Curve and Sushi expanded to 20 each and drifted <b>back home</b>. And bridges have leaked <b>$3.30B</b> over 61 incidents &mdash; <b>31 of them in 2026 alone</b>, more than the previous five years combined.</p>
     </section>
 
     <!-- 5d2 ─────────────────────────── event study: does a launch pay? -->
