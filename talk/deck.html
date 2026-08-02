@@ -1,0 +1,1359 @@
+<title>Why Omnichain Matters &mdash; Blockchain Tuesday, September 2026</title>
+
+<style>
+  :root {
+    --ink:      #0F1217;
+    --ink-2:    #161A21;
+    --ink-3:    #1D222B;
+    --fg:       #EDEAE4;
+    --muted:    #8C93A1;
+    --faint:    #5A6272;
+    --line:     #262C36;
+    --amber:    #E9A23B;
+    --amber-dim:#8A6427;
+
+    --c-eth:    #8A8FE0;
+    --c-arb:    #4E9FC4;
+    --c-base:   #5FA98A;
+    --c-op:     #CE7076;
+    --c-poly:   #A67BC9;
+
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    --pad: 68px;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--fg);
+    font-family: var(--sans);
+    overflow: hidden;
+  }
+
+  /* ---------- stage & canvas ---------- */
+
+  .stage {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 0;
+  }
+
+  .canvas {
+    width: 1280px;
+    height: 720px;
+    flex: none;
+    position: relative;
+    background: var(--ink);
+    transform: scale(var(--scale, 1));
+    transform-origin: center center;
+    box-shadow: 0 0 0 1px var(--line), 0 40px 120px -40px rgba(0,0,0,.9);
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: var(--pad);
+    display: none;
+    flex-direction: column;
+  }
+
+  .slide.is-active { display: flex; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .slide.is-active > * {
+      animation: rise .34s cubic-bezier(.2,.7,.3,1) both;
+    }
+    .slide.is-active > *:nth-child(2) { animation-delay: .05s; }
+    .slide.is-active > *:nth-child(3) { animation-delay: .09s; }
+    .slide.is-active > *:nth-child(4) { animation-delay: .13s; }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ---------- shared type ---------- */
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--faint);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex: none;
+  }
+
+  .eyebrow .tick {
+    height: 1px;
+    background: var(--line);
+    flex: 1;
+    transform: translateY(-4px);
+  }
+
+  .eyebrow em {
+    font-style: normal;
+    color: var(--amber);
+  }
+
+  h2.title {
+    font-family: var(--mono);
+    font-size: 36px;
+    line-height: 1.16;
+    font-weight: 600;
+    letter-spacing: -.005em;
+    margin: 26px 0 0;
+    text-wrap: balance;
+    flex: none;
+  }
+
+  .statement {
+    font-family: var(--mono);
+    font-size: 52px;
+    line-height: 1.18;
+    font-weight: 500;
+    letter-spacing: -.02em;
+    margin: 0;
+    text-wrap: balance;
+    max-width: 22ch;
+  }
+
+  .statement .quiet { color: var(--faint); }
+  .statement .hot   { color: var(--amber); }
+
+  p.lede {
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 62ch;
+    margin: 22px 0 0;
+  }
+
+  .fill { flex: 1; min-height: 0; }
+
+  /* ---------- slide 1: title ---------- */
+
+  .cover {
+    justify-content: center;
+  }
+
+  .cover h1 {
+    font-family: var(--mono);
+    font-size: 74px;
+    line-height: 1.04;
+    font-weight: 600;
+    letter-spacing: -.035em;
+    margin: 0;
+    max-width: 17ch;
+  }
+
+  .cover h1 span { color: var(--amber); }
+
+  .cover .sub {
+    font-size: 23px;
+    color: var(--muted);
+    margin: 24px 0 0;
+    max-width: 46ch;
+    line-height: 1.45;
+  }
+
+  .cover .credits {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: .06em;
+    color: var(--faint);
+    margin-top: 52px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .cover .credits b { color: var(--fg); font-weight: 500; }
+  .cover .credits .dot { color: var(--line); }
+
+  /* ---------- fragmentation chips ---------- */
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 40px;
+    align-content: flex-start;
+  }
+
+  .chip {
+    border: 1px solid var(--line);
+    background: var(--ink-2);
+    padding: 16px 20px 15px;
+    min-width: 172px;
+    position: relative;
+  }
+
+  .chip::before {
+    content: "";
+    position: absolute;
+    left: -1px; top: -1px; bottom: -1px;
+    width: 3px;
+    background: var(--hue, var(--faint));
+  }
+
+  .chip .name {
+    font-family: var(--mono);
+    font-size: 17px;
+    letter-spacing: -.01em;
+  }
+
+  .chip .where {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-top: 7px;
+  }
+
+  .chip.is-ghost {
+    border-style: dashed;
+    background: transparent;
+  }
+
+  .chip.is-ghost .name { color: var(--muted); }
+
+  .verdict {
+    font-family: var(--mono);
+    font-size: 19px;
+    color: var(--muted);
+    margin-top: 38px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+
+  .verdict b { color: var(--amber); font-weight: 500; }
+
+  /* ---------- numbered reasons ---------- */
+
+  .reasons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px 44px;
+    margin-top: 38px;
+  }
+
+  .reason {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 16px;
+  }
+
+  .reason .n {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--amber);
+    letter-spacing: .08em;
+    padding-top: 5px;
+  }
+
+  .reason h3 {
+    font-family: var(--mono);
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0 0 7px;
+    letter-spacing: -.01em;
+  }
+
+  .reason p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  /* ---------- bullets ---------- */
+
+  .rows {
+    margin-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 232px 1fr;
+    gap: 28px;
+    padding: 17px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+
+  .row .lhs {
+    font-family: var(--mono);
+    font-size: 17px;
+    letter-spacing: -.01em;
+  }
+
+  .row .rhs {
+    font-size: 16.5px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  /* ---------- code ---------- */
+
+  pre {
+    font-family: var(--mono);
+    margin: 0;
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    tab-size: 2;
+  }
+
+  pre code { display: block; white-space: pre; }
+
+  .code-dense {
+    font-size: 10.4px;
+    line-height: 1.5;
+    padding: 18px 22px;
+    columns: 3;
+    column-gap: 26px;
+    column-rule: 1px solid var(--line);
+    margin-top: 22px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* flex:none is load-bearing. As a default flex item this shrank to fit and
+     `overflow:hidden` ate the last lines of the function with no visible
+     symptom. Better to overflow loudly than to clip silently. */
+  .code-big {
+    flex: none;
+    font-size: 20.5px;
+    line-height: 1.62;
+    padding: 28px 38px;
+    margin-top: 28px;
+  }
+
+  .tok-com { color: var(--faint); }
+  .tok-str { color: var(--c-base); }
+  .tok-key { color: var(--c-eth); }
+  .tok-num { color: var(--c-arb); }
+
+  .code-note {
+    display: flex;
+    gap: 30px;
+    margin-top: 22px;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--muted);
+    flex: none;
+    flex-wrap: wrap;
+  }
+
+  .code-note span b {
+    color: var(--amber);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .code-note.is-good span b { color: var(--c-base); }
+
+  .warnbar {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--amber);
+    border: 1px dashed var(--amber-dim);
+    padding: 10px 14px;
+    margin-top: 18px;
+    flex: none;
+  }
+
+  /* ---------- chart ---------- */
+
+  .chart {
+    margin: 22px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: none;
+  }
+
+  .chart figcaption {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+  }
+
+  .chart-sub {
+    font-size: 14.5px;
+    line-height: 1.45;
+    color: var(--muted);
+    max-width: 52ch;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    justify-content: flex-end;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .legend i {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: baseline;
+  }
+
+  .legend b {
+    color: var(--faint);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    margin-left: 5px;
+  }
+
+  .chart svg { display: block; width: 100%; height: auto; }
+
+  .chart .gridline { stroke: var(--line); stroke-width: 1; }
+  /* Axis labels sit at 3:1 against the ground in --faint, which reads fine on a
+     laptop and vanishes from the back of a room. --muted is 6:1. Projected
+     type is the constraint here, not the on-screen preview. */
+  .chart .axis-txt {
+    fill: var(--muted);
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .chart .band { stroke: var(--ink-2); stroke-width: 2; stroke-linejoin: round; }
+  .chart .peakline { stroke: var(--amber); stroke-width: 1; stroke-dasharray: 3 3; }
+  .chart .crossline { stroke: var(--amber); stroke-width: 1; stroke-dasharray: 4 4; opacity: .75; }
+  .chart .crossdot { fill: var(--amber); stroke: var(--ink-2); stroke-width: 2; }
+  .chart .crosstxt { fill: var(--amber); font-family: var(--mono); font-size: 13px; }
+  .chart .peaktxt { fill: var(--amber); font-family: var(--mono); font-size: 13px; }
+
+  .chart-foot {
+    display: flex;
+    gap: 46px;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    flex: none;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .hero b {
+    font-family: var(--mono);
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -.025em;
+    color: var(--amber);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero span {
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+
+  .hero.quiet b { color: var(--fg); }
+
+  /* Slide-scoped compaction. The resolution slide carries two cards AND the
+     migration evidence; at the default rhythm that overflowed by 104px. Tighten
+     this slide only, rather than shrinking every card in the deck or dropping
+     the proof. */
+  .is-tight .versus   { margin-top: 20px; }
+  .is-tight .vs-card  { padding: 18px 22px 18px; gap: 5px; }
+  .is-tight .vs-name  { font-size: 20px; margin-top: 2px; }
+  .is-tight .vs-meta  { font-size: 14px; }
+  .is-tight .vs-num   { font-size: 30px; margin-top: 8px; }
+  .is-tight .vs-note  { font-size: 13.5px; }
+  .is-tight .migration { margin-top: 18px; padding: 14px 18px 12px; }
+  .is-tight .verdict  { margin-top: 18px; padding-top: 14px; font-size: 17px; }
+
+  /* ---------- migration strip ---------- */
+
+  .migration {
+    margin-top: 26px;
+    border: 1px solid var(--line);
+    background: var(--ink-2);
+    padding: 18px 22px 16px;
+    flex: none;
+  }
+
+  .mig-head {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  .mig-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .mig-row {
+    display: grid;
+    grid-template-columns: 62px 82px 92px 92px 92px;
+    align-items: baseline;
+    font-family: var(--mono);
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+  }
+
+  .mig-row .d  { color: var(--faint); font-size: 13px; }
+  .mig-row .c,
+  .mig-row .c2 { color: var(--faint); font-size: 13px; }
+  .mig-row .v  { color: var(--fg); }
+  .mig-row .v2 { color: var(--fg); }
+  .mig-row.is-done .v  { color: var(--faint); }
+  .mig-row.is-done .v2 { color: var(--amber); }
+
+  .mig-note {
+    font-size: 14.5px;
+    color: var(--muted);
+    margin-top: 12px;
+    padding-top: 11px;
+    border-top: 1px solid var(--line);
+  }
+
+  .mig-note b { color: var(--fg); font-weight: 500; }
+
+  /* ---------- versus ---------- */
+
+  .versus {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 34px;
+  }
+
+  .vs-card {
+    background: var(--ink);
+    padding: 26px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .vs-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .vs-name {
+    font-family: var(--mono);
+    font-size: 22px;
+    letter-spacing: -.015em;
+    margin-top: 4px;
+  }
+
+  .vs-meta {
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .vs-num {
+    font-family: var(--mono);
+    font-size: 46px;
+    font-weight: 600;
+    letter-spacing: -.03em;
+    margin-top: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Status colours ONLY where worse/better is genuinely the claim (the
+     Renzo vs ether.fi TVL comparison). Two strategies that are each
+     correct for different work get no valence at all. */
+  .vs-num.is-down { color: #e66767; }
+  .vs-num.is-up   { color: #199e70; }
+  .vs-num.is-even { color: var(--fg); }
+  .vs-num.is-even::after { content: ""; }
+
+  .vs-note {
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  /* ---------- scorecard ---------- */
+
+  table.score {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  table.score th,
+  table.score td {
+    text-align: left;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+    font-size: 16px;
+  }
+
+  table.score thead th {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--faint);
+    border-bottom-color: var(--muted);
+  }
+
+  table.score td:first-child {
+    color: var(--fg);
+    width: 30%;
+  }
+
+  table.score td.was {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 14.5px;
+  }
+
+  table.score td.now {
+    color: var(--fg);
+    font-family: var(--mono);
+    font-size: 14.5px;
+  }
+
+  table.score tr.key td {
+    border-bottom: none;
+    padding-top: 17px;
+  }
+
+  table.score tr.key td.now { color: var(--amber); }
+  table.score tr.key td:first-child { color: var(--amber); }
+
+  /* Emphasis inside a cell, so the eye lands on the signal rather than a whole
+     row. On the vanity-metric table the signal is the chain count and the
+     top-chain share, never the TVL column. */
+  table.score td.was.hi  { color: var(--amber); }
+  table.score td.was.alt  { color: var(--c-base); }
+  /* Direction only, no valence. Colouring the decreases red said "these
+     protocols failed" — but consolidating is a legitimate choice, and that is
+     the slide's whole argument. The arrow glyph carries direction on its own. */
+  table.score td.was.warn { color: var(--muted); }
+  table.score td.was.dim  { color: var(--faint); font-style: italic; }
+
+  /* Eight case studies plus a header and a verdict line do not fit at the
+     default row rhythm — this variant reclaims the 43px of overflow rather
+     than cutting a protocol out of the comparison. */
+  table.score.dense th,
+  table.score.dense td { padding: 9px 16px; font-size: 15.5px; }
+  table.score.dense td.was,
+  table.score.dense td.now { font-size: 14px; }
+
+  /* ---------- break slide ---------- */
+
+  .break {
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .break .statement { max-width: 26ch; }
+
+  /* ---------- CTA ---------- */
+
+  .cta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 38px;
+  }
+
+  .cta {
+    background: var(--ink);
+    padding: 26px 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cta .when {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  .cta ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .cta li {
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--muted);
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .cta li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--faint);
+  }
+
+  .qr-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 26px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--faint);
+  }
+
+  .qr-slot {
+    border: 1px dashed var(--line);
+    padding: 14px 18px;
+    letter-spacing: .08em;
+  }
+
+  /* ---------- close ---------- */
+
+  .close-note {
+    font-size: 19px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-top: 44px;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+    max-width: 54ch;
+  }
+
+  .close-note b { color: var(--fg); font-weight: 500; }
+
+  /* ---------- chrome: progress, counter, notes ---------- */
+
+  .rail {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: 2px;
+    background: var(--ink-3);
+    z-index: 10;
+  }
+
+  .rail i {
+    display: block;
+    height: 100%;
+    background: var(--amber);
+    width: 0;
+    transition: width .3s cubic-bezier(.2,.7,.3,1);
+  }
+
+  .counter {
+    position: fixed;
+    right: 18px;
+    bottom: 16px;
+    z-index: 11;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .12em;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+  }
+
+  .hint {
+    position: fixed;
+    left: 18px;
+    bottom: 16px;
+    z-index: 11;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .06em;
+    color: var(--faint);
+    transition: opacity .5s;
+  }
+
+  .hint kbd {
+    font-family: var(--mono);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 1px 5px;
+    color: var(--muted);
+  }
+
+  .notes {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: 0;
+    overflow: hidden;
+    background: var(--ink-2);
+    border-top: 1px solid var(--line);
+    z-index: 9;
+    transition: height .25s cubic-bezier(.2,.7,.3,1);
+  }
+
+  .notes.is-open { height: 208px; }
+
+  .notes-inner {
+    padding: 22px 30px 26px;
+    max-width: 1000px;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .notes-inner h4 {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 0 0 12px;
+  }
+
+  .notes-inner p {
+    margin: 0 0 11px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .notes-inner p b { color: var(--fg); font-weight: 500; }
+  .notes-inner p:last-child { margin-bottom: 0; }
+
+  :focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="stage" id="stage">
+  <div class="canvas" id="canvas">
+
+    <!-- 1 ───────────────────────────── cover -->
+    <section class="slide cover" data-notes="Two halves tonight. First: why every serious app ends up multi-chain whether it planned to or not. Second: the code, because that&rsquo;s where the promise usually dies.|Set expectations early &mdash; tell them the code comparison is coming. It keeps the economics section from feeling like a detour.">
+      <h1>Why omnichain <span>matters</span></h1>
+      <p class="sub">And what it costs you to build. An argument in two halves &mdash; the economics, then the code.</p>
+      <div class="credits">
+        <b>Blockchain Tuesday</b><span class="dot">&bull;</span>Toronto<span class="dot">&bull;</span>September 2026
+        <span class="dot">&bull;</span>With Uniblock &amp; Conflux
+      </div>
+    </section>
+
+    <!-- 2 ───────────────────────────── the question -->
+    <section class="slide break" data-notes="Let it sit. Don&rsquo;t fill the silence.|Then: your contract is fine, your UX is fine, but your addressable liquidity is whatever happens to sit on your chain today. Every user on every other chain has to bridge, pay a fee, wait, and trust something before they can even try you.|That&rsquo;s not a marketing problem. That&rsquo;s a structural cap on your TVL.">
+      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span></div>
+      <div class="fill" style="display:flex; align-items:center;">
+        <p class="statement">Your app is live on one chain.<br><span class="quiet">How much of the market can it </span><span class="hot">see?</span></p>
+      </div>
+    </section>
+
+    <!-- 3 ───────────────────────────── fragmentation -->
+    <section class="slide" data-notes="This is the actual state of the world. The &ldquo;same&rdquo; token exists in a dozen incompatible forms. Every wrapped variant is a separate pool with separate depth, separate slippage, separate risk.|Don&rsquo;t rush this slide &mdash; the rest of the economic argument is just consequences of this picture.|The five colours matter: this is the fragmented state. Later slides collapse to one colour.">
+      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>Fragmentation</em></div>
+      <h2 class="title">Same asset. Many chains. None of it pooled.</h2>
+      <div class="chips">
+        <div class="chip" style="--hue: var(--c-eth)"><div class="name">USDC</div><div class="where">Ethereum</div></div>
+        <div class="chip" style="--hue: var(--c-arb)"><div class="name">USDC</div><div class="where">Arbitrum</div></div>
+        <div class="chip" style="--hue: var(--c-base)"><div class="name">USDC</div><div class="where">Base</div></div>
+        <div class="chip" style="--hue: var(--c-op)"><div class="name">USDC</div><div class="where">Optimism</div></div>
+        <div class="chip" style="--hue: var(--c-poly)"><div class="name">USDC</div><div class="where">Polygon</div></div>
+        <div class="chip is-ghost"><div class="name">USDC.e</div><div class="where">Bridged variant</div></div>
+        <div class="chip is-ghost"><div class="name">Wrapped</div><div class="where">&hellip; and the rest</div></div>
+      </div>
+      <p class="verdict">Fragmentation is the <b>default state</b> of crypto liquidity &mdash; and everyone pays for it.</p>
+    </section>
+
+    <!-- 4 ───────────────────────────── four reasons -->
+    <section class="slide" data-notes="Say up front that this is the <b>received argument</b>, not my conclusion. These four are the reasons everyone gives for going multichain, and each one is individually reasonable.|Then flag what is coming: over the next three slides I am going to take this apart with data, and only some of it survives. Setting that up now is what stops the deck feeling like it contradicts itself later.|The honest core, which does survive: single-chain deployment imposes a <b>ceiling</b>. That is different from claiming multichain guarantees growth.|<b>Be careful here.</b> If someone asks for a hard number on omnichain TVL uplift, the honest answer is that clean causal data is scarce &mdash; protocols that go omnichain also tend to be the ones with the resources to grow anyway. Say that out loud. It buys more credibility than a statistic would.">
+      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>The standard case</em></div>
+      <h2 class="title">The case for going multichain, as usually told</h2>
+      <div class="reasons">
+        <div class="reason">
+          <div class="n">01</div>
+          <div>
+            <h3>Addressable users</h3>
+            <p>Every chain you support is a user base that doesn&rsquo;t have to bridge before trying you. Bridging is the highest-drop-off step in all of crypto UX.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <div class="n">02</div>
+          <div>
+            <h3>Unified liquidity</h3>
+            <p>One deep pool beats six shallow ones. Less slippage attracts bigger flow, which deepens the pool. It compounds.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <div class="n">03</div>
+          <div>
+            <h3>Capital efficiency</h3>
+            <p>LPs stop having to pick a chain. Idle capital sitting on the wrong one earns nothing for anybody.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <div class="n">04</div>
+          <div>
+            <h3>Survivorship</h3>
+            <p>Chain-specific incentives dry up. Living on one chain makes your position a bet on that chain&rsquo;s emissions schedule.</p>
+          </div>
+        </div>
+      </div>
+      <p class="verdict">Every one of these is repeated constantly. <b>Only some of them survive the data</b> &mdash; next three slides.</p>
+    </section>
+
+    <!-- 5b ──────────────────────────── worked example: Uniswap volume -->
+    <section class="slide" data-notes="This is the strongest evidence in the talk, and it is volume rather than TVL on purpose. TVL moves when prices move and collapses when a protocol has an incident &mdash; it measures parked capital. Volume measures <b>use</b>.|Every band above the grey is a chain that did not carry Uniswap volume five years ago. In 2021 Ethereum was effectively a hundred percent of it. By 2026Q2 it is 52.7 percent.|The moment to point at is <b>2025Q2</b> &mdash; the first quarter Ethereum was not the majority of its own flagship protocol&rsquo;s volume. It stayed that way for four quarters.|<b>Then say the next bit before anyone catches it.</b> The most recent quarter, 2026Q2, Ethereum is back on top at 52.7 percent. This is not a one-way takeover and do not present it as one. It is an oscillation around roughly half, up from literally zero five years ago. That is still the entire argument, and stating the wobble yourself is what makes the rest of your numbers trustworthy.|Across all time Ethereum is still 70.7 percent of the $3.67T cumulative, because it had a four-year head start. Direction, not level, is the point.|If someone asks why not Aave: Aave works too, but its TVL took protocol-specific hits, so the curve argues about Aave rather than about multichain. Uniswap volume is the cleaner instrument.|Figures pulled from the DefiLlama API. <b>Re-pull the week of the event.</b>">
+      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>Worked example</em></div>
+      <h2 class="title">Uniswap: where the volume actually went</h2>
+      <figure class="chart">
+        <figcaption>
+          <span class="chart-sub">Share of Uniswap volume by chain, per quarter. Volume, not TVL &mdash; it measures use, and no price move or protocol incident flatters it.</span>
+          <span class="legend"><span><i style="background:#5C6675"></i>Ethereum<b>52.7%</b></span><span><i style="background:#3987e5"></i>Arbitrum<b>12.2%</b></span><span><i style="background:#199e70"></i>Base<b>18.4%</b></span><span><i style="background:#c98500"></i>BSC<b>6.1%</b></span><span><i style="background:#d55181"></i>Polygon<b>5.5%</b></span><span><i style="background:#d95926"></i>Unichain<b>0.6%</b></span><span><i style="background:#3A4250"></i>Other<b>4.5%</b></span></span>
+        </figcaption>
+        <svg viewBox="0 0 1102 280" role="img" aria-labelledby="uT uD"><title id="uT">Uniswap volume share by chain, 2021 to 2026</title><desc id="uD">100 percent stacked area. Ethereum falls from 100 percent of Uniswap volume in early 2021 to about 53 percent by 2026 Q2, first dropping below half in 2025 Q2. Arbitrum, Base, BSC, Polygon and Unichain take the remainder.</desc><g transform="translate(48,16)"><line class="gridline" x1="0" y1="238.0" x2="1044" y2="238.0"/><text class="axis-txt" x="-10" y="242.0" text-anchor="end">0%</text><line class="gridline" x1="0" y1="178.5" x2="1044" y2="178.5"/><text class="axis-txt" x="-10" y="182.5" text-anchor="end">25%</text><line class="gridline" x1="0" y1="119.0" x2="1044" y2="119.0"/><text class="axis-txt" x="-10" y="123.0" text-anchor="end">50%</text><line class="gridline" x1="0" y1="59.5" x2="1044" y2="59.5"/><text class="axis-txt" x="-10" y="63.5" text-anchor="end">75%</text><line class="gridline" x1="0" y1="0.0" x2="1044" y2="0.0"/><text class="axis-txt" x="-10" y="4.0" text-anchor="end">100%</text><polygon class="band" fill="#5C6675" points="0.0,0.0 49.7,0.0 99.4,1.0 149.1,5.8 198.9,13.7 248.6,17.2 298.3,29.4 348.0,37.1 397.7,48.4 447.4,71.9 497.1,63.9 546.9,75.6 596.6,68.2 646.3,81.0 696.0,73.7 745.7,95.7 795.4,85.5 845.1,126.6 894.9,120.3 944.6,136.8 994.3,134.6 1044.0,112.6 1044.0,238.0 994.3,238.0 944.6,238.0 894.9,238.0 845.1,238.0 795.4,238.0 745.7,238.0 696.0,238.0 646.3,238.0 596.6,238.0 546.9,238.0 497.1,238.0 447.4,238.0 397.7,238.0 348.0,238.0 298.3,238.0 248.6,238.0 198.9,238.0 149.1,238.0 99.4,238.0 49.7,238.0 0.0,238.0"/><polygon class="band" fill="#3987e5" points="0.0,0.0 49.7,0.0 99.4,0.0 149.1,1.0 198.9,9.3 248.6,13.4 298.3,23.5 348.0,24.2 397.7,20.0 447.4,17.6 497.1,22.9 546.9,26.4 596.6,26.7 646.3,41.4 696.0,31.1 745.7,46.7 795.4,42.7 845.1,87.0 894.9,89.4 944.6,98.9 994.3,92.0 1044.0,83.5 1044.0,112.6 994.3,134.6 944.6,136.8 894.9,120.3 845.1,126.6 795.4,85.5 745.7,95.7 696.0,73.7 646.3,81.0 596.6,68.2 546.9,75.6 497.1,63.9 447.4,71.9 397.7,48.4 348.0,37.1 298.3,29.4 248.6,17.2 198.9,13.7 149.1,5.8 99.4,1.0 49.7,0.0 0.0,0.0"/><polygon class="band" fill="#199e70" points="0.0,0.0 49.7,0.0 99.4,0.0 149.1,1.0 198.9,9.3 248.6,13.4 298.3,23.5 348.0,24.2 397.7,20.0 447.4,17.6 497.1,21.9 546.9,25.1 596.6,16.6 646.3,11.4 696.0,15.2 745.7,23.0 795.4,16.2 845.1,67.5 894.9,64.5 944.6,70.8 994.3,57.7 1044.0,39.7 1044.0,83.5 994.3,92.0 944.6,98.9 894.9,89.4 845.1,87.0 795.4,42.7 745.7,46.7 696.0,31.1 646.3,41.4 596.6,26.7 546.9,26.4 497.1,22.9 447.4,17.6 397.7,20.0 348.0,24.2 298.3,23.5 248.6,13.4 198.9,9.3 149.1,1.0 99.4,0.0 49.7,0.0 0.0,0.0"/><polygon class="band" fill="#c98500" points="0.0,0.0 49.7,0.0 99.4,0.0 149.1,1.0 198.9,9.3 248.6,13.4 298.3,23.5 348.0,24.2 397.7,19.8 447.4,15.9 497.1,19.5 546.9,24.0 596.6,10.0 646.3,7.3 696.0,10.8 745.7,17.2 795.4,12.9 845.1,38.1 894.9,32.7 944.6,24.1 994.3,19.6 1044.0,25.2 1044.0,39.7 994.3,57.7 944.6,70.8 894.9,64.5 845.1,67.5 795.4,16.2 745.7,23.0 696.0,15.2 646.3,11.4 596.6,16.6 546.9,25.1 497.1,21.9 447.4,17.6 397.7,20.0 348.0,24.2 298.3,23.5 248.6,13.4 198.9,9.3 149.1,1.0 99.4,0.0 49.7,0.0 0.0,0.0"/><polygon class="band" fill="#d55181" points="0.0,0.0 49.7,0.0 99.4,0.0 149.1,0.5 198.9,0.8 248.6,2.6 298.3,7.5 348.0,5.7 397.7,5.2 447.4,4.5 497.1,7.1 546.9,9.4 596.6,4.9 646.3,7.3 696.0,6.3 745.7,8.5 795.4,8.2 845.1,34.5 894.9,28.3 944.6,18.1 994.3,10.9 1044.0,12.1 1044.0,25.2 994.3,19.6 944.6,24.1 894.9,32.7 845.1,38.1 795.4,12.9 745.7,17.2 696.0,10.8 646.3,7.3 596.6,10.0 546.9,24.0 497.1,19.5 447.4,15.9 397.7,19.8 348.0,24.2 298.3,23.5 248.6,13.4 198.9,9.3 149.1,1.0 99.4,0.0 49.7,0.0 0.0,0.0"/><polygon class="band" fill="#d95926" points="0.0,0.0 49.7,0.0 99.4,0.0 149.1,0.5 198.9,0.8 248.6,2.6 298.3,7.5 348.0,5.7 397.7,5.2 447.4,4.5 497.1,7.1 546.9,9.4 596.6,4.9 646.3,7.3 696.0,6.3 745.7,8.5 795.4,7.7 845.1,5.9 894.9,4.7 944.6,7.4 994.3,9.0 1044.0,10.6 1044.0,12.1 994.3,10.9 944.6,18.1 894.9,28.3 845.1,34.5 795.4,8.2 745.7,8.5 696.0,6.3 646.3,7.3 596.6,4.9 546.9,9.4 497.1,7.1 447.4,4.5 397.7,5.2 348.0,5.7 298.3,7.5 248.6,2.6 198.9,0.8 149.1,0.5 99.4,0.0 49.7,0.0 0.0,0.0"/><polygon class="band" fill="#3A4250" points="0.0,0.0 49.7,0.0 99.4,0.0 149.1,-0.0 198.9,-0.0 248.6,0.0 298.3,0.0 348.0,0.0 397.7,0.0 447.4,0.0 497.1,-0.0 546.9,-0.0 596.6,0.0 646.3,0.0 696.0,0.0 745.7,-0.0 795.4,-0.0 845.1,0.0 894.9,0.0 944.6,0.0 994.3,0.0 1044.0,0.0 1044.0,10.6 994.3,9.0 944.6,7.4 894.9,4.7 845.1,5.9 795.4,7.7 745.7,8.5 696.0,6.3 646.3,7.3 596.6,4.9 546.9,9.4 497.1,7.1 447.4,4.5 397.7,5.2 348.0,5.7 298.3,7.5 248.6,2.6 198.9,0.8 149.1,0.5 99.4,0.0 49.7,0.0 0.0,0.0"/><line class="crossline" x1="845.1" y1="0" x2="845.1" y2="238"/><circle class="crossdot" cx="845.1" cy="119.0" r="4"/><text class="crosstxt" x="835.1" y="107.0" text-anchor="end">Ethereum drops below half &#183; 2025Q2</text><text class="axis-txt" x="0.0" y="256" text-anchor="middle">2021</text><text class="axis-txt" x="198.9" y="256" text-anchor="middle">2022</text><text class="axis-txt" x="397.7" y="256" text-anchor="middle">2023</text><text class="axis-txt" x="596.6" y="256" text-anchor="middle">2024</text><text class="axis-txt" x="795.4" y="256" text-anchor="middle">2025</text><text class="axis-txt" x="994.3" y="256" text-anchor="middle">2026</text></g></svg>
+      </figure>
+      <div class="chart-foot">
+        <div class="hero"><b>0 &rarr; ~half</b><span>of Uniswap volume off Ethereum, in five years</span></div>
+        <div class="hero"><b>4 of the last 5</b><span>quarters where non-Ethereum carried more volume than Ethereum</span></div>
+        <div class="hero quiet"><b>$3.67T</b><span>cumulative volume across all chains</span></div>
+      </div>
+    </section>
+
+    <!-- 5c ──────────────────────────── the counterexample -->
+    <section class="slide" data-notes="You will get asked this, so get in front of it.|Renzo took ezETH omnichain across thirteen chains via LayerZero &mdash; textbook execution of everything I just described. It peaked around $3.3B in April 2024. It is at $90M today.|ether.fi&rsquo;s staking protocol holds a hundred percent of its TVL on Ethereum. It is at $3.2B today &mdash; roughly thirty-five times larger.|<b>Be precise if challenged.</b> That is the staking protocol. ether.fi the company also runs Cash and a Borrowing Market, and those live on Optimism &mdash; having sat on Scroll until April. So this is not &ldquo;a single-chain team.&rdquo; It is a team that concentrates each product on one chain and moves it when the calculus changes. That distinction is the next slide, and it is a better story than the one I would have told.|So say the honest thing: <b>going omnichain did not save Renzo, and staying single-chain did not cap ether.fi.</b> Both were carried by the LRT points cycle and both drew down when it ended. Distribution is not product-market fit.|What the mechanism argument actually claims is narrower and still true: multichain removes a ceiling. It does not manufacture demand. If you only take one slide from tonight, this is a good one.">
+      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>The counterexample</em></div>
+      <h2 class="title">And the case against, which you should expect</h2>
+      <div class="versus">
+        <div class="vs-card">
+          <div class="vs-tag">Went omnichain</div>
+          <div class="vs-name">Renzo &mdash; ezETH</div>
+          <div class="vs-meta">13 chains via LayerZero OFT</div>
+          <div class="vs-num is-down">$0.09B</div>
+          <div class="vs-note">today &mdash; down from a ~$3.3B peak in April 2024</div>
+        </div>
+        <div class="vs-card">
+          <div class="vs-tag">Stayed on one chain</div>
+          <div class="vs-name">ether.fi &mdash; staking</div>
+          <div class="vs-meta">100% of its TVL on Ethereum</div>
+          <div class="vs-num is-up">$3.23B</div>
+          <div class="vs-note">today &mdash; roughly 35&times; the omnichain one. Concentrated on purpose, not by neglect &mdash; see the next slide.</div>
+        </div>
+      </div>
+      <p class="verdict">Omnichain removes a ceiling. It does not manufacture demand. <b>Distribution is not product-market fit.</b></p>
+    </section>
+
+    <!-- 5d ──────────────────────────── case studies: does more chains mean more volume? -->
+    <section class="slide" data-notes="Eight DEXes, one instrument, all cumulative volume from DefiLlama. This is the objection with teeth and I want to make it <b>for</b> you rather than field it in Q&amp;A.|Read the first column against the third. <b>Aerodrome runs on one chain and has out-traded Curve, which runs on twenty.</b> Raydium, also one chain, has done nearly as much volume as Curve, Sushi and Balancer combined across fifty-three.|Then the last column, which is the part nobody expects. Uniswap and PancakeSwap did grow off their home chain &mdash; thirty to forty-seven percent, four to twenty-three. But <b>Curve and Sushi went multichain and went backwards</b>: Curve eleven percent down to five, Sushi fifty-six down to thirty-seven. They deployed to twenty chains each and the share drifted home anyway.|So deploying more places is not a growth strategy. It is a cost you pay hoping demand shows up, and for half this table it did not.|Add the security bill &mdash; $2.8B through bridges, about forty percent of everything ever stolen &mdash; and consolidation stops looking like caution. It looks correct.|That is the honest floor of this talk. The next slide is what survives it.">
+      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>The objection with teeth</em></div>
+      <h2 class="title">More chains does not mean more volume</h2>
+      <table class="score dense">
+        <thead>
+          <tr><th>Protocol</th><th>Chains</th><th>Cumulative volume</th><th>Share off its home chain, 3yr</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Uniswap</td><td class="was">47</td><td class="now">$3.78T</td><td class="was">30% &uarr; 47%</td></tr>
+          <tr><td>PancakeSwap</td><td class="was">12</td><td class="now">$2.06T</td><td class="was">4% &uarr; 23%</td></tr>
+          <tr><td>Raydium</td><td class="was hi">1</td><td class="now">$720B</td><td class="was dim">single-chain</td></tr>
+          <tr><td>Aerodrome</td><td class="was hi">1</td><td class="now">$411B</td><td class="was dim">single-chain</td></tr>
+          <tr><td>Curve</td><td class="was">20</td><td class="now">$345B</td><td class="was warn">11% &darr; 5%</td></tr>
+          <tr><td>SushiSwap</td><td class="was">20</td><td class="now">$252B</td><td class="was warn">56% &darr; 37%</td></tr>
+          <tr><td>Hyperliquid</td><td class="was hi">1</td><td class="now">$160B</td><td class="was dim">single-chain</td></tr>
+          <tr><td>Balancer</td><td class="was">13</td><td class="now">$133B</td><td class="was">16% &uarr; 20%</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">Aerodrome on <b>one</b> chain out-traded Curve on twenty. Curve and Sushi expanded to 20 each and drifted <b>back home</b>. And bridges have leaked <b>$2.8B</b> &mdash; ~40% of all value ever stolen in web3.</p>
+    </section>
+
+    <!-- 5e ──────────────────────────── the resolution -->
+    <section class="slide is-tight" data-notes="This is the slide I would keep if I could only keep one.|The tension dissolves once you separate two things that get lumped together. <b>Deploying</b> to a chain and <b>reading</b> from one are not the same act and do not carry the same cost.|Deploying is contracts, bridged liquidity, an audit, an on-call rotation, and permanent attack surface. That is where consolidation is correct. Be deliberate. Pick the chain where the liquidity actually is. Fewer is genuinely safer.|Reading is a balance query. It holds no funds, signs nothing, and cannot be drained. Spreading your reads across twenty chains adds <b>zero</b> smart-contract risk.|So the strategy is not &ldquo;be everywhere.&rdquo; It is: <b>deploy few, read many.</b> Consolidate the risky half, spread the cheap half. And that is exactly the half an aggregator sells you.|The strip at the bottom is the proof, and it is worth slowing down for. ether.fi ran Cash and its Borrowing Market on Scroll. In April they moved to Optimism &mdash; and they did not run on both. Three hundred and sixty-six million dollars on Scroll on the seventh, three hundred and seventy-four million on Optimism by the ninth, with Scroll left holding three hundred thousand.|<b>Forty-eight hours, and it was a replacement rather than an addition.</b> That is what deploying deliberately looks like in practice: you pick a chain, and when the calculus changes you pick again. Nobody in that story was trying to be on twenty chains.|If someone pushes back hard tonight, this is the slide to go back to.">
+      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>The resolution</em></div>
+      <h2 class="title">Deploy few. Read many.</h2>
+      <div class="versus">
+        <div class="vs-card">
+          <div class="vs-tag">Deploying to a chain</div>
+          <div class="vs-name">Expensive &amp; permanent</div>
+          <div class="vs-meta">Contracts, bridged liquidity, an audit, an on-call rotation &mdash; and attack surface you own forever.</div>
+          <div class="vs-num is-even">Consolidate</div>
+          <div class="vs-note">Be deliberate. Pick the chain where the liquidity actually is. Fewer really is safer.</div>
+        </div>
+        <div class="vs-card">
+          <div class="vs-tag">Reading from a chain</div>
+          <div class="vs-name">Cheap &amp; reversible</div>
+          <div class="vs-meta">A balance query holds no funds, signs nothing, and cannot be drained.</div>
+          <div class="vs-num is-even">Spread</div>
+          <div class="vs-note">Twenty chains of reads add zero smart-contract risk. Follow liquidity instead of predicting it.</div>
+        </div>
+      </div>
+      <div class="migration">
+        <div class="mig-head">ether.fi Cash &amp; Borrowing Market &mdash; Scroll &rarr; Optimism, April 2026</div>
+        <div class="mig-rows">
+          <div class="mig-row"><span class="d">Apr 7</span><span class="c">Scroll</span><span class="v">$366M</span><span class="c2">Optimism</span><span class="v2">$0</span></div>
+          <div class="mig-row"><span class="d">Apr 8</span><span class="c">Scroll</span><span class="v">$62M</span><span class="c2">Optimism</span><span class="v2">$133M</span></div>
+          <div class="mig-row is-done"><span class="d">Apr 9</span><span class="c">Scroll</span><span class="v">$0.3M</span><span class="c2">Optimism</span><span class="v2">$374M</span></div>
+        </div>
+        <div class="mig-note">Not a second deployment. A <b>replacement</b> &mdash; the whole book moved in 48 hours.</div>
+      </div>
+      <p class="verdict">Deployment is a choice you <b>revise</b>, not a footprint you accumulate. The aggregator sells you the half that costs nothing to spread.</p>
+    </section>
+
+    <!-- 6 ───────────────────────────── conflux -->
+    <section class="slide" data-notes="Conflux is a useful case because it&rsquo;s internally multi-space before it&rsquo;s even multi-chain &mdash; and it has built its 2026 story around omnichain stablecoin rails into Asia.|Hand off to the Conflux speaker here if they&rsquo;re following you, or reference their talk if they went first. Either way, don&rsquo;t narrate their roadmap for them.">
+      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>A live case</em></div>
+      <h2 class="title">Conflux is already living this</h2>
+      <div class="rows">
+        <div class="row"><div class="lhs" style="color:var(--amber)">USDT0 / CNHT0</div><div class="rhs">Omnichain stablecoins &mdash; one supply, many chains, no wrapped variants to fragment</div></div>
+        <div class="row"><div class="lhs">Stargate</div><div class="rhs">Integrated for omnichain liquidity routing</div></div>
+        <div class="row"><div class="lhs">Core Space</div><div class="rhs">Asia-focused RWAs and regulatory-aligned stablecoins</div></div>
+        <div class="row"><div class="lhs">eSpace</div><div class="rhs">EVM-compatible, global DeFi, the surface most of this room would build against</div></div>
+        <div class="row"><div class="lhs">Core &harr; eSpace</div><div class="rhs">In-wallet bridge, executed as a single signature</div></div>
+      </div>
+      <p class="lede">Multi-space before it&rsquo;s multi-chain &mdash; which makes it a clean lens on what unification actually requires.</p>
+    </section>
+
+    <!-- 7 ───────────────────────────── break -->
+    <section class="slide break" data-notes="Everything so far has been the pitch. Here&rsquo;s the bill.|Short slide, short pause. The tone shifts from persuasion to demonstration &mdash; let the room feel the gear change.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span></div>
+      <div class="fill" style="display:flex; align-items:center;">
+        <p class="statement"><span class="quiet">So why doesn&rsquo;t everyone do it?</span><br>Because this is what <span class="hot">&ldquo;support one more chain&rdquo;</span> actually means.</p>
+      </div>
+    </section>
+
+    <!-- 8 ───────────────────────────── dense code -->
+    <section class="slide" data-notes="Scroll it slowly. Say: count what&rsquo;s here that has nothing to do with your product. Five RPC relationships. A hand-maintained address table. A decimals table. Retry logic.|And this is the <b>easy</b> version &mdash; one token, one call, no prices, no NFTs, no historical data, no failover when a provider goes down.|Chain six is another config block and another API key. Chain ten and you have a part-time job.|The density is the message. Don&rsquo;t apologise for the small type.|<b>One thing to say if anyone follows along in the repo:</b> this slide is written in viem because that is what people actually reach for. The repo is deliberately zero-dependency raw JSON-RPC, so forty people can clone and run it without npm install on office wifi. Same work, fewer moving parts on the night.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>By hand</em></div>
+      <h2 class="title">One balance. Five chains. Written by hand.</h2>
+      <pre class="code-dense"><code>// 1. A client per chain. Each needs its own RPC URL,
+//    its own key, its own rate limit, its own bill.
+import { createPublicClient, http, erc20Abi,
+         formatUnits } from 'viem'
+import { mainnet, arbitrum, base, optimism,
+         polygon } from 'viem/chains'
+
+const clients = {
+  ethereum: createPublicClient({ chain: mainnet,
+    transport: http(process.env.ETH_RPC!) }),
+  arbitrum: createPublicClient({ chain: arbitrum,
+    transport: http(process.env.ARB_RPC!) }),
+  base: createPublicClient({ chain: base,
+    transport: http(process.env.BASE_RPC!) }),
+  optimism: createPublicClient({ chain: optimism,
+    transport: http(process.env.OP_RPC!) }),
+  polygon: createPublicClient({ chain: polygon,
+    transport: http(process.env.POLY_RPC!) }),
+}
+
+// 2. The same token has a different address on every
+//    chain. Maintained by hand. Goes stale silently.
+const USDC = {
+  ethereum: '0xA0b8...eB48',
+  arbitrum: '0xaf88...6831',
+  base:     '0x8335...2913',
+  optimism: '0x0b2C...5Ff85',
+  polygon:  '0x3c49...3359',
+} as const
+
+// 3. Decimals differ per chain for some tokens.
+//    Assume nothing.
+const DECIMALS = { ethereum: 6, arbitrum: 6, base: 6,
+                   optimism: 6, polygon: 6 }
+
+// 4. Your own retry logic, because free-tier RPCs
+//    fail, and nobody ships without this after the
+//    first 2am page.
+async function withRetry&lt;T&gt;(
+  fn: () =&gt; Promise&lt;T&gt;, tries = 3
+): Promise&lt;T&gt; {
+  for (let i = 0; i &lt; tries; i++) {
+    try { return await fn() }
+    catch (err) {
+      if (i === tries - 1) throw err
+      const ms = 2 ** i * 250
+      await new Promise(r =&gt; setTimeout(r, ms))
+    }
+  }
+  throw new Error('unreachable')
+}
+
+// 5. Finally, the thing you actually wanted.
+export async function getUsdcBalances(
+  wallet: `0x${string}`
+) {
+  const jobs = Object.entries(clients).map(
+    async ([chain, client]) =&gt; {
+      const raw = await withRetry(() =&gt;
+        client.readContract({
+          address: USDC[chain as keyof typeof USDC],
+          abi: erc20Abi,
+          functionName: 'balanceOf',
+          args: [wallet],
+        })
+      )
+      return [chain, formatUnits(raw,
+        DECIMALS[chain as keyof typeof DECIMALS])]
+    }
+  )
+  return Object.fromEntries(await Promise.all(jobs))
+}</code></pre>
+      <div class="code-note">
+        <span><b>~50</b> lines</span>
+        <span><b>5</b> RPC keys, bills, rate limits</span>
+        <span><b>2</b> hand-maintained tables</span>
+        <span><b>0</b> failover</span>
+      </div>
+    </section>
+
+    <!-- 9 ───────────────────────────── the questions RPC cannot answer -->
+    <section class="slide" data-notes="Here is the turn. Everything you just watched me hand-code was tedious &mdash; but it was <b>possible</b>, and honestly raw RPC did it in 140 milliseconds and got all five chains right. Through the aggregator the same query took five seconds and got four. Say that out loud. If the argument were &ldquo;balanceOf is easier through an API&rdquo;, the argument would be wrong.|Now change the question to the one an <b>agent</b> asks. An agent does not know what it holds, what it is worth, or where the edge is. It has to discover all three.|And two of those have no RPC method at all. Not slow &mdash; <b>absent</b>. eth_getTokenBalances is not a method. USD prices are not on-chain in readable form. Hyperliquid&rsquo;s funding and tick premium are not on an EVM chain you can eth_call at all.|So the abstraction is not saving you keystrokes. It is the only way to ask the question. That is a structural argument and it is the one worth making.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The turn</em></div>
+      <h2 class="title">Now ask what an agent asks</h2>
+      <div class="rows">
+        <div class="row"><div class="lhs" style="color:var(--amber)">&ldquo;What do I hold?&rdquo;</div><div class="rhs"><code>eth_getTokenBalances</code> &mdash; <strong style="color:var(--fg);font-weight:500">the method does not exist.</strong> A node stores state by address; it cannot enumerate what you own.</div></div>
+        <div class="row"><div class="lhs" style="color:var(--amber)">&ldquo;What is it worth?&rdquo;</div><div class="rhs">Not on-chain in any readable form. Price is off-chain data by nature.</div></div>
+        <div class="row"><div class="lhs" style="color:var(--amber)">&ldquo;Where is the carry?&rdquo;</div><div class="rhs">Hyperliquid funding and tick premium aren&rsquo;t on an EVM chain you can <code>eth_call</code>.</div></div>
+        <div class="row"><div class="lhs">&ldquo;Balance of USDC?&rdquo;</div><div class="rhs">Raw RPC, 140ms, 5/5 chains &mdash; and it beat the aggregator, which took 5.4s and got 4/5. The honest comparison.</div></div>
+      </div>
+      <p class="verdict">The first three aren&rsquo;t slow through RPC. They are <b>impossible</b>. That&rsquo;s the argument &mdash; not keystrokes.</p>
+    </section>
+
+    <!-- 10 ───────────────────────────── scorecard -->
+    <section class="slide" data-notes="Read the top row and the bottom rows as two different verdicts, because they are.|<b>Top row: RPC wins.</b> Say it plainly. 140ms and five of five, against 5.4 seconds and four of five. When you already know the chain, the contract, the wallet and the decimals, the node is the shortest path by definition. Anyone who has built this knows it, and pretending otherwise costs you the room.|<b>Bottom rows: RPC cannot play.</b> There is no method. So the question is not which is faster &mdash; it is which questions you intend to ask.|Middle rows are the honest middle: one key instead of five, no ABI encoding, one schema. But you keep the token address and decimals tables. Earlier drafts of this talk claimed you did not, and that was wrong.|The last row is still the product: chain eleven costs what chain two cost.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>Scorecard</em></div>
+      <h2 class="title">What actually changed</h2>
+      <table class="score dense">
+        <thead>
+          <tr><th>&nbsp;</th><th>By hand</th><th>Aggregated</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Balance of a known token</td><td class="was hi">140ms, 5/5 &mdash; RPC wins</td><td class="now">5.4s, 4/5</td></tr>
+          <tr><td>RPC relationships</td><td class="was">5 keys, 5 bills, 5 rate limits</td><td class="now">1</td></tr>
+          <tr><td>ABI encoding</td><td class="was">Selectors, padding, hex decoding</td><td class="now">None of it</td></tr>
+          <tr><td>Token address &amp; decimals</td><td class="was">You maintain it</td><td class="now">Still yours</td></tr>
+          <tr><td>Response shape</td><td class="was">Different per provider</td><td class="now">One schema</td></tr>
+          <tr><td>&ldquo;What do I hold?&rdquo;</td><td class="was">No such RPC method</td><td class="now">One call</td></tr>
+          <tr><td>USD value, perp funding</td><td class="was">No such RPC method</td><td class="now">One call</td></tr>
+          <tr class="key"><td>Cost of chain #11</td><td class="was">Same as chains 1&ndash;10, again</td><td class="now">Same as chain #2 &mdash; flat</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">Top row: <b>RPC wins</b> the question you already know how to ask. Bottom rows: it cannot ask the others at all. <b>Buy the abstraction for discovery, not for lookups.</b></p>
+    </section>
+
+    <!-- 11 ───────────────────────────── the seam -->
+    <section class="slide" data-notes="Deliver this straight. No smirk.|That config line is real &mdash; it is in the repo they are about to clone, and adding it takes five seconds and buys nothing, because Uniblock does not route Conflux today.|So the chain comes back to you: an endpoint, the eSpace token address, its decimals, normalization into the same shape, a health check. Forty lines, for chain number six.|This is not a dunk on either partner. It&rsquo;s the clearest possible demonstration of what the abstraction was worth &mdash; because the room just watched it get removed.|Live-code this if the wifi holds. Fall back to the recording if it doesn&rsquo;t.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The honest part</em></div>
+      <h2 class="title">Now add one more chain.</h2>
+      <pre class="code-big" style="font-size:19px"><code>// src/config.js - the entire cost of chain #6, in theory
+export const CHAIN_IDS = {
+  ethereum: 1,  optimism: 10,  polygon: 137,
+  base: 8453,   arbitrum: 42161,
+  conflux: 1030,          // &lt;- one line. and it does nothing.
+}</code></pre>
+      <p class="lede">One line, five seconds &mdash; and the agent still cannot answer a single question about Conflux, because nothing routes it. So the chain comes back to you: an endpoint, the eSpace token address, its decimals, normalization, a health check. <strong style="color:var(--fg); font-weight:500">Forty lines, for chain number six.</strong></p>
+      <p class="verdict">You just watched the abstraction disappear. <b>That gap is the measurement.</b></p>
+    </section>
+
+    <!-- 12 ───────────────────────────── the spec -->
+    <section class="slide" data-notes="This isn&rsquo;t rhetorical. Everything on this list is real work someone has to do for every chain in a unified API &mdash; and it&rsquo;s the same list whether the chain is Conflux or anything else.|We&rsquo;re publishing it as an open issue tonight. If you want to see a chain routed, this is the shape of the contribution.|This slide is what turns a talk into a community artifact. Don&rsquo;t skip it for time.">
+      <div class="eyebrow"><span>03 &mdash; The artifact</span><span class="tick"></span><em>Tonight&rsquo;s open issue</em></div>
+      <h2 class="title">So what does adding a chain actually take?</h2>
+      <div class="rows">
+        <div class="row"><div class="lhs">Endpoints</div><div class="rhs">Reliable RPC access, with at least one fallback provider</div></div>
+        <div class="row"><div class="lhs">Token registry</div><div class="rhs">Canonical addresses, symbols and decimals, per chain</div></div>
+        <div class="row"><div class="lhs">Normalization</div><div class="rhs">Mapping provider responses into the unified schema</div></div>
+        <div class="row"><div class="lhs">Health &amp; failover</div><div class="rhs">Checks, thresholds, and what &ldquo;this provider is down&rdquo; means</div></div>
+        <div class="row"><div class="lhs">Archive access</div><div class="rhs">Historical state, if you want more than the latest block</div></div>
+        <div class="row"><div class="lhs">Test vectors</div><div class="rhs">Known wallets, known balances, known edge cases</div></div>
+      </div>
+    </section>
+
+    <!-- 13 ───────────────────────────── CTA -->
+    <section class="slide" data-notes="Be specific about the ask. &ldquo;Get involved&rdquo; converts nobody; &ldquo;clone this, run it, open a PR&rdquo; converts a few, and a few is how a community starts.|Say the October demo slots are open <b>before</b> the room disperses. The single highest-value thing you can leave with tonight is a committed date and one person who has said yes to demoing.">
+      <div class="eyebrow"><span>03 &mdash; The artifact</span><span class="tick"></span><em>Your move</em></div>
+      <h2 class="title">What to do with this</h2>
+      <div class="cta-grid">
+        <div class="cta">
+          <div class="when">Tonight</div>
+          <ul>
+            <li>Clone the starter repo</li>
+            <li>Grab a free Uniblock key</li>
+            <li>Run it before you leave</li>
+          </ul>
+        </div>
+        <div class="cta">
+          <div class="when">This month</div>
+          <ul>
+            <li>Add a chain to the demo, open a PR</li>
+            <li>Contribute to the integration spec</li>
+          </ul>
+        </div>
+        <div class="cta">
+          <div class="when">Next Blockchain Tuesday</div>
+          <ul>
+            <li>Bring what you built</li>
+            <li>Demo slots are open &mdash; ask me tonight</li>
+          </ul>
+        </div>
+      </div>
+      <div class="qr-row">
+        <div class="qr-slot">[ QR &mdash; STARTER REPO ]</div>
+        <div class="qr-slot">[ QR &mdash; INTEGRATION SPEC ]</div>
+        <div class="qr-slot">[ QR &mdash; NEXT EVENT ]</div>
+      </div>
+    </section>
+
+    <!-- 14 ───────────────────────────── close -->
+    <section class="slide cover" data-notes="Land it and stop. Don&rsquo;t add a summary slide after this one.|Thank Uniblock for the space by name &mdash; they gave you the room, and saying so in front of forty people is the cheapest and most genuine thing you can do for them. Thank Conflux for making the trip.|Then get out of the way: the social half is the part people actually came for.">
+      <h1>Fragmented liquidity<br>is a <span>tax.</span></h1>
+      <p class="close-note">Fragmented tooling is why we keep paying it. <b>Thanks to Uniblock for the space, and to Conflux.</b> See you in October.</p>
+      <div class="credits">
+        <b>Tony Lau</b><span class="dot">&bull;</span>Blockchain Tuesday<span class="dot">&bull;</span>Toronto
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="notes" id="notes"><div class="notes-inner"><h4>Speaker notes</h4><div id="notesBody"></div></div></div>
+<div class="rail"><i id="railFill"></i></div>
+<div class="counter" id="counter">01 / 14</div>
+<div class="hint" id="hint"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> move &nbsp;&middot;&nbsp; <kbd>N</kbd> notes &nbsp;&middot;&nbsp; <kbd>F</kbd> fullscreen</div>
+
+<script>
+(function () {
+  var canvas   = document.getElementById('canvas');
+  var slides   = Array.prototype.slice.call(canvas.querySelectorAll('.slide'));
+  var counter  = document.getElementById('counter');
+  var railFill = document.getElementById('railFill');
+  var notes    = document.getElementById('notes');
+  var notesBody= document.getElementById('notesBody');
+  var hint     = document.getElementById('hint');
+  var i = 0;
+  var notesOpen = false;
+
+  /* ---- syntax highlighting ---- */
+  var KEYWORDS = /\b(import|from|export|const|let|async|function|await|return|for|if|throw|new|try|catch|as|of|typeof|keyof)\b/g;
+
+  function esc(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function highlight(el) {
+    var src = el.textContent;
+    var out = '';
+    var re = /(\/\/[^\n]*)|('[^'\n]*'|`[^`]*`|"[^"\n]*")/g;
+    var last = 0, m;
+    function plain(chunk) {
+      return esc(chunk)
+        .replace(KEYWORDS, '<span class="tok-key">$1</span>')
+        .replace(/\b(\d+)\b/g, '<span class="tok-num">$1</span>');
+    }
+    while ((m = re.exec(src)) !== null) {
+      out += plain(src.slice(last, m.index));
+      out += m[1]
+        ? '<span class="tok-com">' + esc(m[1]) + '</span>'
+        : '<span class="tok-str">' + esc(m[2]) + '</span>';
+      last = m.index + m[0].length;
+    }
+    out += plain(src.slice(last));
+    el.innerHTML = out;
+  }
+
+  canvas.querySelectorAll('pre code').forEach(highlight);
+
+  /* ---- sizing ---- */
+  function fit() {
+    var pad = 40;
+    var availH = window.innerHeight - pad - (notesOpen ? 208 : 0);
+    var availW = window.innerWidth - pad;
+    var s = Math.min(availW / 1280, availH / 720);
+    canvas.style.setProperty('--scale', s);
+    document.getElementById('stage').style.paddingBottom = (notesOpen ? 208 : 0) + 'px';
+  }
+
+  /* ---- navigation ---- */
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
+    counter.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+    railFill.style.width = ((i + 1) / slides.length * 100) + '%';
+    var raw = slides[i].getAttribute('data-notes') || '';
+    notesBody.innerHTML = raw
+      ? raw.split('|').map(function (p) { return '<p>' + p + '</p>'; }).join('')
+      : '<p>&mdash;</p>';
+    try {
+      if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+    } catch (err) { /* opaque origin (data:) — deep links just aren't available */ }
+  }
+
+  function toggleNotes() {
+    notesOpen = !notesOpen;
+    notes.classList.toggle('is-open', notesOpen);
+    fit();
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    switch (e.key) {
+      case 'ArrowRight': case 'PageDown': case ' ': e.preventDefault(); show(i + 1); break;
+      case 'ArrowLeft':  case 'PageUp':            e.preventDefault(); show(i - 1); break;
+      case 'Home': e.preventDefault(); show(0); break;
+      case 'End':  e.preventDefault(); show(slides.length - 1); break;
+      case 'n': case 'N': e.preventDefault(); toggleNotes(); break;
+      case 'f': case 'F':
+        e.preventDefault();
+        if (document.fullscreenElement) { document.exitFullscreen(); }
+        else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
+        break;
+    }
+  });
+
+  canvas.addEventListener('click', function (e) {
+    var r = canvas.getBoundingClientRect();
+    show(((e.clientX - r.left) / r.width < 0.28) ? i - 1 : i + 1);
+  });
+
+  window.addEventListener('resize', fit);
+
+  var start = parseInt((location.hash || '').slice(1), 10);
+  show(isNaN(start) ? 0 : start - 1);
+  fit();
+
+  setTimeout(function () { hint.style.opacity = '0'; }, 6000);
+})();
+</script>

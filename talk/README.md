@@ -1,0 +1,35 @@
+# Talk materials — Blockchain Tuesday, September 2026
+
+## `deck.html`
+
+The talk itself, 17 slides. Open it in a browser — no build step, no server
+needed for the deck (it has no fetches).
+
+- **arrow keys / space** — move
+- **N** — speaker notes (every slide has them, and they carry the caveats)
+- **F** — fullscreen
+
+Speaker notes are the source of truth for what to *say*, including the places
+where a number needs qualifying out loud. Read them before presenting.
+
+## `proposal.md`
+
+The event proposal: date reasoning, $1,000 CAD budget, run of show, venue
+checklist for hosting at the Uniblock offices, risks, and success criteria.
+
+## `outline.md`
+
+**Superseded** by the deck for slide content — its "Slide N" headings refer to
+an older 14-slide version. Kept for two things that are still current: the
+pre-stage verification checklist, and the Q&A preparation.
+
+## Before presenting
+
+1. **Re-pull every figure.** All market data came from the DefiLlama API and
+   moves. The Uniswap volume-share chart, the eight-DEX table and the ether.fi
+   migration numbers all need refreshing the week of the event.
+2. **Run `node src/agent-scan.js` live once.** It depends on a working Uniblock
+   key with providers connected — see the root README.
+3. **Read the notes on the scorecard slide.** It concedes that raw RPC beats the
+   aggregator on a plain balance lookup. That concession is deliberate and it is
+   what makes the rest of the argument credible. Do not soften it.
