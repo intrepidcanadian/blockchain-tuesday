@@ -15,7 +15,8 @@
     "conflux": "node src/add-conflux.js",
     "verify": "node src/verify-tokens.js",
     "test": "node --test src/lib/*.test.js",
-    "agent": "node src/agent-scan.js"
+    "agent": "node src/agent-scan.js",
+    "cross": "node src/cross-venue.js"
   },
   "license": "MIT"
 }

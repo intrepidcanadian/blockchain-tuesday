@@ -142,6 +142,37 @@ One honest note: Hyperliquid comes through the unified schema; Polymarket comes
 through Uniblock's direct-provider passthrough, so the response is Polymarket's
 own shape. Same key, same bill, unnormalized data.
 
+### Cross-venue: do two markets agree?
+
+```bash
+node src/cross-venue.js
+```
+
+Joins Polymarket's crowd odds against Hyperliquid's price and realised
+volatility, then asks whether they are consistent — a calculation **neither
+venue can perform**, because neither holds both halves.
+
+```
+Will Bitcoin hit $150k by December 31, 2026?
+   Polymarket   3.3% implied  ·  $185,698 liquidity  ·  152d to resolve
+   Hyperliquid  BTC at $63,423  ·  needs +137%  ·  realised vol 36%
+   For 3.3% to be right, forward vol must be ~85%.
+   BTC has actually realised 36% over 120 days.
+   the crowd is pricing far MORE volatility than has been realised (2.37x)
+```
+
+It inverts the crowd's probability through a driftless lognormal to get the
+volatility that would justify it, then compares that to realised vol from
+Hyperliquid daily candles.
+
+Note the two sources arrive by different routes — Hyperliquid through the
+unified schema, Polymarket through the direct-provider passthrough. One key,
+one bill, two very different response shapes. That is the argument.
+
+**Not trading advice.** A disagreement between two markets is a question, not
+an edge: realised vol is backward-looking, lognormal is a poor model of crypto
+tails, and prediction markets carry a known premium on lottery-shaped payoffs.
+
 ### Bonus — check the table yourself
 
 ```bash
