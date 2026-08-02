@@ -528,16 +528,16 @@
   .wire {
     display: grid;
     grid-template-columns: 1.35fr 1fr;
-    gap: 26px;
-    margin-top: 20px;
+    gap: 24px;
+    margin-top: 14px;
     align-items: start;
     flex: none;
   }
 
   .wire-code {
-    font-size: 12.5px;
-    line-height: 1.6;
-    padding: 14px 16px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    padding: 12px 14px;
     margin: 0;
   }
 
@@ -685,6 +685,7 @@
   }
 
   .demo-out {
+    flex: none;              /* as with .code-big: shrink = silent clipping */
     font-size: 12.5px;
     line-height: 1.62;
     padding: 16px 18px;
@@ -1207,6 +1208,36 @@ export async function getUsdcBalances(
       </div>
     </section>
 
+    <!-- 11b ────────────────────────── same question, both paths, run -->
+    <section class="slide is-tight" data-notes="Both commands, same wallet, same five chains, run just before this talk. This is the comparison the whole code section rests on, so let it sit for a moment.|Left is raw RPC: five of five, 268 milliseconds, and it needs no key at all. Right is the aggregator: same five numbers where it can answer, 5.5 seconds, and one chain it will not guess at.|<b>Point at Base.</b> The aggregator says UNVERIFIED rather than printing a zero, because free-tier provider coverage could not reach it. That is the correct behaviour and it is the one thing on this slide I am proud of &mdash; an earlier version printed a confident zero there, which is how you get a wrong number onto a dashboard.|And point at Optimism: both say zero, and they agree for different reasons. The chain says zero because the balance is zero. The aggregator says zero because it walked the full token list and USDC genuinely was not in it. Same answer, independently reached.|The honest read: for this question raw RPC wins on every axis that a benchmark measures. Hold that thought for two slides.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>Both paths, run</em></div>
+      <h2 class="title">The same five numbers, two ways</h2>
+      <div class="demos">
+        <pre class="demo-out"><code>$ npm run by-hand
+
+Ethereum       50,810.846 USDC
+Arbitrum One       37.014 USDC
+Base              104.382 USDC
+OP Mainnet              0 USDC
+Polygon PoS        50.075 USDC
+
+5/5 chains in 268ms
+5 RPC endpoints | 2 hand-kept tables</code></pre>
+        <pre class="demo-out"><code>$ npm run aggregated
+
+ethereum    50,810.846 USDC  [direct]
+arbitrum        37.014 USDC  [direct]
+base        UNVERIFIED       [provider gap]
+optimism             0 USDC  [list, absent]
+polygon         50.075 USDC  [direct]
+
+5/5 chains in 5565ms
+1 key | 1 host | 1 schema</code></pre>
+      </div>
+      <p class="verdict">Base says <b>UNVERIFIED</b>, not zero &mdash; coverage could not answer, and a zero there would have been a lie. <b>For this question, raw RPC wins outright.</b></p>
+      <p class="source"><b>Source:</b> Both run live against the same wallet and the same five chains &middot; 2 Aug 2026</p>
+    </section>
+
     <!-- 9 ───────────────────────────── the questions RPC cannot answer -->
     <section class="slide" data-notes="Here is the turn. Everything you just watched me hand-code was tedious &mdash; but it was <b>possible</b>, and honestly raw RPC did it in 140 milliseconds and got all five chains right. Through the aggregator the same query took five seconds and got four. Say that out loud. If the argument were &ldquo;balanceOf is easier through an API&rdquo;, the argument would be wrong.|Now change the question to the one an <b>agent</b> asks. An agent does not know what it holds, what it is worth, or where the edge is. It has to discover all three.|And two of those have no RPC method at all. Not slow &mdash; <b>absent</b>. eth_getTokenBalances is not a method. USD prices are not on-chain in readable form. Hyperliquid&rsquo;s funding and tick premium are not on an EVM chain you can eth_call at all.|So the abstraction is not saving you keystrokes. It is the only way to ask the question. That is a structural argument and it is the one worth making.">
       <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The turn</em></div>
@@ -1258,6 +1289,29 @@ Will Bitcoin hit $150k by December 31, 2026?
    <span class="tok-com">the crowd is pricing far MORE volatility than realised (2.37x)</span></code></pre>
       <p class="verdict">Polymarket doesn&rsquo;t know the price history. Hyperliquid doesn&rsquo;t know the odds. <b>Only the agent holds both</b> &mdash; and a disagreement is a question, not an edge.</p>
           <p class="source"><b>Source:</b> Polymarket + Hyperliquid, live via Uniblock &middot; run it yourself: npm run cross</p>
+    </section>
+
+    <!-- 13d ────────────────────────── the agent scan, run -->
+    <section class="slide is-tight" data-notes="This is npm run agent, and it is the whole agent argument in one screen: capital, carry, crowd, in that order, from one key.|Step one is inventory. Step two ranks perp funding on <b>persistence</b>, not the headline rate &mdash; look at the held column, everything shown survived ninety percent of the hours. An earlier version of this ranked on the latest print and put a fifty percent number at the top that turned out to be noise on a thin book.|Step three is a different venue entirely, arriving through a different route, in the same output.|The thing to say: none of these three questions can be answered by an RPC node, and none of them need the agent to be right about anything. It is inventory, ranking and reading. That is the job.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The scan, run</em></div>
+      <h2 class="title">npm run agent</h2>
+      <pre class="demo-out" style="font-size:12.5px;line-height:1.58;margin-top:24px"><code>1. Where is my capital?
+     Ethereum      50,810.846 USDC      Polygon PoS   50.075 USDC
+     Arbitrum One      37.014 USDC      OP Mainnet         0 USDC
+     ----------------------------  50,897.935 USDC deployable
+
+2. Where is the carry?   (Hyperliquid - funding and tick premium)
+     market      mid   median APR   held    premium
+     DYDX      0.112        10.9%   100%   -0.0005%   longs pay
+     GMX        6.12        10.9%    99%   -0.0014%   longs pay
+     STX        0.14        10.9%    98%   -0.0035%   longs pay
+     median over 7d, not the latest print. "held" = hours agreeing
+
+3. What is the crowd pricing?   (Polymarket - implied and depth)
+     Will Donald Trump Jr. win the 2028 US Pres...   1.1%   $916,782
+     Putin out as President of Russia by Dec 31...   8.5%   $715,540</code></pre>
+      <p class="verdict">Capital, carry, crowd &mdash; three venues, <b>one key</b>. Ranked on <b>persistence</b>, because the headline rate is usually noise.</p>
+      <p class="source"><b>Source:</b> npm run agent, live &middot; balances via Uniblock, Hyperliquid unified schema, Polymarket passthrough &middot; 2 Aug 2026</p>
     </section>
 
     <!-- 13c ────────────────────────── why a reading agent is worth having -->
@@ -1323,13 +1377,18 @@ Will Bitcoin hit $150k by December 31, 2026?
     <section class="slide" data-notes="Deliver this straight. No smirk.|That config line is real &mdash; it is in the repo they are about to clone, and adding it takes five seconds and buys nothing, because Uniblock does not route Conflux today.|So the chain comes back to you: an endpoint, the eSpace token address, its decimals, normalization into the same shape, a health check. Forty lines, for chain number six.|This is not a dunk on either partner. It&rsquo;s the clearest possible demonstration of what the abstraction was worth &mdash; because the room just watched it get removed.|Live-code this if the wifi holds. Fall back to the recording if it doesn&rsquo;t.">
       <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The honest part</em></div>
       <h2 class="title">Now add one more chain.</h2>
-      <pre class="code-big" style="font-size:19px"><code>// src/config.js - the entire cost of chain #6, in theory
+      <pre class="code-big" style="font-size:13.5px;line-height:1.45;padding:14px 20px"><code>// src/config.js - the entire cost of chain #6, in theory
 export const CHAIN_IDS = {
   ethereum: 1,  optimism: 10,  polygon: 137,
   base: 8453,   arbitrum: 42161,
   conflux: 1030,          // &lt;- one line. and it does nothing.
 }</code></pre>
-      <p class="lede">One line, five seconds &mdash; and the agent still cannot answer a single question about Conflux, because nothing routes it. So the chain comes back to you: an endpoint, the eSpace token address, its decimals, normalization, a health check. <strong style="color:var(--fg); font-weight:500">Forty lines, for chain number six.</strong></p>
+      <pre class="demo-out" style="margin:14px 0 0;font-size:10.8px;line-height:1.45"><code>$ npm run conflux
+  read with 18 decimals (correct)             944,981.24 USDC
+  read with  6 decimals (copied)  944,981,237,227,346,800 USDC
+
+Off by a factor of a trillion. No exception, no failing test.</code></pre>
+      <p class="verdict">One line, and nothing routes it &mdash; so the chain comes back to you. <b>Forty lines, for chain number six.</b></p>
       <p class="verdict">You just watched the abstraction disappear. <b>That gap is the measurement.</b></p>
     </section>
 
@@ -1344,6 +1403,8 @@ export const CHAIN_IDS = {
         <div class="row"><div class="lhs" style="color:var(--amber)">cross_venue_vol_check</div><div class="rhs">Do the two venues agree? The question neither can answer alone</div></div>
         <div class="row"><div class="lhs" style="color:#CE7076">place_order</div><div class="rhs"><strong style="color:var(--fg);font-weight:500">Deliberately absent.</strong> Propose and sign are different risk surfaces &mdash; keep the second one deterministic and human-gated</div></div>
       </div>
+      <pre class="demo-out" style="margin:16px 0 0;font-size:11px;line-height:1.5"><code>$ npm run mcp   # then: {"method":"tools/list"}
+-> wallet_positions  hyperliquid_carry  polymarket_odds  cross_venue_vol_check</code></pre>
       <div class="wire">
         <pre class="wire-code"><code>// ~/.nanobot/config.json
 "mcpServers": { "uniblock": {
