@@ -2,8 +2,27 @@
 
 ## `deck.html`
 
-The talk itself, 17 slides. Open it in a browser — no build step, no server
-needed for the deck (it has no fetches).
+The talk itself, 19 slides. Open it in a browser — no build step, and no server
+needed, because the deck makes no network requests at all:
+
+```bash
+open talk/deck.html
+```
+
+That matters on the night: you can present straight from the file with no
+server and no wifi.
+
+### If you are editing it and want to preview
+
+Use the bundled server rather than `python -m http.server`:
+
+```bash
+python3 talk/nocache_server.py 4830
+```
+
+`http.server` sends no `Cache-Control`, so a browser will keep serving the old
+deck after you have edited it — which looks exactly like "my changes did not
+save". This one sends `no-store`.
 
 - **arrow keys / space** — move
 - **N** — speaker notes (every slide has them, and they carry the caveats)
