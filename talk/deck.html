@@ -931,43 +931,6 @@
       <p class="verdict">Fragmentation is the <b>default state</b> of crypto liquidity &mdash; and everyone pays for it.</p>
     </section>
 
-    <!-- 4 ───────────────────────────── four reasons -->
-    <section class="slide" data-notes="Say up front that this is the <b>received argument</b>, not my conclusion. These four are the reasons everyone gives for going multichain, and each one is individually reasonable.|Then flag what is coming: over the next three slides I am going to take this apart with data, and only some of it survives. Setting that up now is what stops the deck feeling like it contradicts itself later.|The honest core, which does survive: single-chain deployment imposes a <b>ceiling</b>. That is different from claiming multichain guarantees growth.|<b>Be careful here.</b> If someone asks for a hard number on omnichain TVL uplift, the honest answer is that clean causal data is scarce &mdash; protocols that go omnichain also tend to be the ones with the resources to grow anyway. Say that out loud. It buys more credibility than a statistic would.">
-      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>The standard case</em></div>
-      <h2 class="title">The case for going multichain, as usually told</h2>
-      <div class="reasons">
-        <div class="reason">
-          <div class="n">01</div>
-          <div>
-            <h3>Addressable users</h3>
-            <p>Every chain you support is a user base that doesn&rsquo;t have to bridge before trying you. Bridging is the highest-drop-off step in all of crypto UX.</p>
-          </div>
-        </div>
-        <div class="reason">
-          <div class="n">02</div>
-          <div>
-            <h3>Unified liquidity</h3>
-            <p>One deep pool beats six shallow ones. Less slippage attracts bigger flow, which deepens the pool. It compounds.</p>
-          </div>
-        </div>
-        <div class="reason">
-          <div class="n">03</div>
-          <div>
-            <h3>Capital efficiency</h3>
-            <p>LPs stop having to pick a chain. Idle capital sitting on the wrong one earns nothing for anybody.</p>
-          </div>
-        </div>
-        <div class="reason">
-          <div class="n">04</div>
-          <div>
-            <h3>Survivorship</h3>
-            <p>Chain-specific incentives dry up. Living on one chain makes your position a bet on that chain&rsquo;s emissions schedule.</p>
-          </div>
-        </div>
-      </div>
-      <p class="verdict">Every one of these is repeated constantly. <b>Only some of them survive the data</b> &mdash; next three slides.</p>
-    </section>
-
     <!-- 5b ──────────────────────────── worked example: Uniswap volume -->
     <section class="slide" data-notes="This is the strongest evidence in the talk, and it is volume rather than TVL on purpose. TVL moves when prices move and collapses when a protocol has an incident &mdash; it measures parked capital. Volume measures <b>use</b>.|Every band above the grey is a chain that did not carry Uniswap volume five years ago. In 2021 Ethereum was effectively a hundred percent of it. By 2026Q2 it is 52.7 percent.|The moment to point at is <b>2025Q2</b> &mdash; the first quarter Ethereum was not the majority of its own flagship protocol&rsquo;s volume. It stayed that way for four quarters.|<b>Then say the next bit before anyone catches it.</b> The most recent quarter, 2026Q2, Ethereum is back on top at 52.7 percent. This is not a one-way takeover and do not present it as one. It is an oscillation around roughly half, up from literally zero five years ago. That is still the entire argument, and stating the wobble yourself is what makes the rest of your numbers trustworthy.|Across all time Ethereum is still 70.7 percent of the $3.67T cumulative, because it had a four-year head start. Direction, not level, is the point.|If someone asks why not Aave: Aave works too, but its TVL took protocol-specific hits, so the curve argues about Aave rather than about multichain. Uniswap volume is the cleaner instrument.|Figures pulled from the DefiLlama API. <b>Re-pull the week of the event.</b>">
       <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>Worked example</em></div>
@@ -1058,17 +1021,17 @@
     </section>
 
     <!-- 6 ───────────────────────────── conflux -->
-    <section class="slide" data-notes="Conflux is a useful case because it&rsquo;s internally multi-space before it&rsquo;s even multi-chain &mdash; and it has built its 2026 story around omnichain stablecoin rails into Asia.|Hand off to the Conflux speaker here if they&rsquo;re following you, or reference their talk if they went first. Either way, don&rsquo;t narrate their roadmap for them.">
+    <section class="slide" data-notes="Every line on this slide we checked against the chain ourselves while building tonight&rsquo;s repo. That matters more than it sounds, and it is why I am not putting a TVL number up here.|<b>The decimals line is the real content.</b> USDC is six decimals on Ethereum, Arbitrum, Base, Optimism and Polygon &mdash; every chain we integrated. On eSpace it is eighteen. We only found that because we called decimals() rather than trusting a table. Copy the constant across and every balance you print is wrong by a factor of a trillion, silently, with every test still green.|That is not a criticism of Conflux. It is what an EVM-equivalent chain that made its own choices looks like, and it is exactly the class of thing an aggregator exists to normalise. It is also the single most useful thing anyone will learn tonight about integrating a new chain.|Core and eSpace is the other genuinely distinctive bit: two execution environments over one asset base, bridged in a single signature. Conflux is multi-space before it is multi-chain, which makes it a clean lens on what unification actually requires.|Hand to the Conflux speaker here, or reference their talk if they went first. Do not narrate their roadmap for them.">
       <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>A live case</em></div>
       <h2 class="title">Conflux is already living this</h2>
       <div class="rows">
-        <div class="row"><div class="lhs" style="color:var(--amber)">USDT0 / CNHT0</div><div class="rhs">Omnichain stablecoins &mdash; one supply, many chains, no wrapped variants to fragment</div></div>
-        <div class="row"><div class="lhs">Stargate</div><div class="rhs">Integrated for omnichain liquidity routing</div></div>
-        <div class="row"><div class="lhs">Core Space</div><div class="rhs">Asia-focused RWAs and regulatory-aligned stablecoins</div></div>
-        <div class="row"><div class="lhs">eSpace</div><div class="rhs">EVM-compatible, global DeFi, the surface most of this room would build against</div></div>
-        <div class="row"><div class="lhs">Core &harr; eSpace</div><div class="rhs">In-wallet bridge, executed as a single signature</div></div>
+        <div class="row"><div class="lhs" style="color:var(--amber)">18 decimals</div><div class="rhs">eSpace USDC &mdash; against <strong style="color:var(--fg);font-weight:500">6 on every other chain we integrated</strong>. Read from the contract, not a doc. Get it wrong and you are off by 10<sup>12</sup>, silently</div></div>
+        <div class="row"><div class="lhs">chainId 1030</div><div class="rhs">eSpace, EVM-equivalent &mdash; verified against the live RPC while building tonight&rsquo;s repo</div></div>
+        <div class="row"><div class="lhs">Core &harr; eSpace</div><div class="rhs">Two execution environments over one asset base, bridged in a single signature</div></div>
+        <div class="row"><div class="lhs">USDT0 / CNHT0</div><div class="rhs">Omnichain stablecoins &mdash; one supply, no wrapped variants to fragment</div></div>
+        <div class="row"><div class="lhs">Core Space</div><div class="rhs">Asia-facing RWAs and regulatory-aligned stablecoins</div></div>
       </div>
-      <p class="lede">Multi-space before it&rsquo;s multi-chain &mdash; which makes it a clean lens on what unification actually requires.</p>
+      <p class="verdict">Every line here we <b>checked against the chain</b>. The decimals one would have silently broken our demo &mdash; and it is why the integration spec exists.</p>
     </section>
 
     <!-- 7 ───────────────────────────── break -->
