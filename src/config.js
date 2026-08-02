@@ -87,6 +87,20 @@ export const CHAIN_IDS = {
 /** The five chains the aggregated path covers today. */
 export const AGGREGATED_CHAINS = ['ethereum', 'arbitrum', 'base', 'optimism', 'polygon'];
 
-/** A wallet with balances on several chains, so the demo prints something. */
+/**
+ * Demo wallet: Binance 14, an exchange hot wallet.
+ *
+ * Chosen because it holds balances on every chain here, so the scripts always
+ * print something. Two things follow from that, and both matter if you are
+ * presenting:
+ *
+ *   - It is NOT idle capital. Seventeen million transactions have gone through
+ *     it. Do not describe its balances as money sitting around doing nothing;
+ *     a hot wallet is exactly where that money belongs.
+ *   - Balances move constantly, so your numbers will differ from any figure
+ *     quoted in the talk or this repo.
+ *
+ * Set WALLET in .env to point at your own address instead.
+ */
 export const DEMO_WALLET =
   process.env.WALLET || '0x28C6c06298d514Db089934071355E5743bf21d60';
