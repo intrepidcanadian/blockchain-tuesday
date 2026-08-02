@@ -378,6 +378,22 @@
     flex: none;
   }
 
+  /* Sourcing, on the slide rather than only in the notes. A data-heavy talk
+     that does not show its working invites the audience to take it on trust —
+     and this deck has already been wrong once by quoting a blog. */
+  .source {
+    position: absolute;
+    left: var(--pad);
+    right: var(--pad);
+    bottom: 24px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .04em;
+    color: var(--faint);
+  }
+
+  .source b { color: var(--muted); font-weight: 400; }
+
   /* ---------- chart ---------- */
 
   .chart {
@@ -929,6 +945,7 @@
         <div class="hero quiet"><b>$72.1B</b><span>total, and no two pools are the same pool</span></div>
       </div>
       <p class="verdict">Fragmentation is the <b>default state</b> of crypto liquidity &mdash; and everyone pays for it.</p>
+          <p class="source"><b>Source:</b> DefiLlama stablecoins API &middot; USDC circulating by chain &middot; pulled 2 Aug 2026</p>
     </section>
 
     <!-- 5b ──────────────────────────── worked example: Uniswap volume -->
@@ -947,6 +964,7 @@
         <div class="hero"><b>4 of the last 5</b><span>quarters where non-Ethereum carried more volume than Ethereum</span></div>
         <div class="hero quiet"><b>$3.67T</b><span>cumulative volume across all chains</span></div>
       </div>
+          <p class="source"><b>Source:</b> DefiLlama DEX volume API &middot; quarterly, complete quarters only &middot; pulled 2 Aug 2026</p>
     </section>
 
     <!-- 5d ──────────────────────────── case studies: does more chains mean more volume? -->
@@ -969,6 +987,7 @@
         </tbody>
       </table>
       <p class="verdict">Aerodrome on <b>one</b> chain out-traded Curve on twenty. Curve and Sushi expanded to 20 each and drifted <b>back home</b>. And bridges have leaked <b>$3.30B</b> over 61 incidents &mdash; <b>31 of them in 2026 alone</b>, more than the previous five years combined.</p>
+          <p class="source"><b>Source:</b> DefiLlama DEX volume (cumulative) + hack register &middot; pulled 2 Aug 2026</p>
     </section>
 
     <!-- 5d2 ─────────────────────────── event study: does a launch pay? -->
@@ -986,6 +1005,7 @@
         </tbody>
       </table>
       <p class="verdict">Lending is <b>local</b> &mdash; a new chain is a new market. DEX liquidity is <b>fungible</b> &mdash; a new chain splits the book. The question isn&rsquo;t whether to expand. It&rsquo;s <b>what you are</b>.</p>
+          <p class="source"><b>Source:</b> DefiLlama protocol + chain TVL &middot; 147 launches, 30d pre / 90d post, market-adjusted &middot; 2 Aug 2026</p>
     </section>
 
     <!-- 5e ──────────────────────────── the resolution -->
@@ -1018,6 +1038,7 @@
         <div class="mig-note">Not a second deployment. A <b>replacement</b> &mdash; the whole book moved in 48 hours.</div>
       </div>
       <p class="verdict">Deployment is a choice you <b>revise</b>, not a footprint you accumulate. Reads spread because they cost nothing; writes concentrate because they cost everything. <b>Same line, three times tonight.</b></p>
+          <p class="source"><b>Source:</b> DefiLlama protocol TVL, daily &middot; ether.fi Cash &amp; Borrowing Market &middot; pulled 2 Aug 2026</p>
     </section>
 
     <!-- 6 ───────────────────────────── conflux -->
@@ -1032,6 +1053,7 @@
         <div class="row"><div class="lhs">Core Space</div><div class="rhs">Asia-facing RWAs and regulatory-aligned stablecoins</div></div>
       </div>
       <p class="verdict">Every line here we <b>checked against the chain</b>. The decimals one would have silently broken our demo &mdash; and it is why the integration spec exists.</p>
+          <p class="source"><b>Source:</b> Read directly from Conflux eSpace RPC (chainId 1030) while building this repo</p>
     </section>
 
     <!-- 7 ───────────────────────────── break -->
@@ -1137,6 +1159,7 @@ export async function getUsdcBalances(
         <div class="row"><div class="lhs">&ldquo;Balance of USDC?&rdquo;</div><div class="rhs">Raw RPC, 140ms, 5/5 chains &mdash; and it beat the aggregator, which took 5.4s and got 4/5. The honest comparison.</div></div>
       </div>
       <p class="verdict">The first three aren&rsquo;t slow through RPC. They are <b>impossible</b>. That&rsquo;s the argument &mdash; not keystrokes.</p>
+          <p class="source"><b>Source:</b> Own benchmark &middot; warm connections, median of 7 &middot; see talk/ in the repo</p>
     </section>
 
     <!-- 9b ──────────────────────────── the agent's actual surface -->
@@ -1174,6 +1197,7 @@ Will Bitcoin hit $150k by December 31, 2026?
    BTC has actually realised <span class="tok-str">36%</span> over 120 days.
    <span class="tok-com">the crowd is pricing far MORE volatility than realised (2.37x)</span></code></pre>
       <p class="verdict">Polymarket doesn&rsquo;t know the price history. Hyperliquid doesn&rsquo;t know the odds. <b>Only the agent holds both</b> &mdash; and a disagreement is a question, not an edge.</p>
+          <p class="source"><b>Source:</b> Polymarket + Hyperliquid, live via Uniblock &middot; run it yourself: npm run cross</p>
     </section>
 
     <!-- 10 ───────────────────────────── scorecard -->
@@ -1196,6 +1220,7 @@ Will Bitcoin hit $150k by December 31, 2026?
         </tbody>
       </table>
       <p class="verdict">Top row: <b>RPC wins</b> the question you already know how to ask. Bottom rows: it cannot ask the others at all. <b>Buy the abstraction for discovery, not for lookups.</b></p>
+          <p class="source"><b>Source:</b> Own benchmark &middot; raw RPC vs Uniblock, same wallet, same chains</p>
     </section>
 
     <!-- 11 ───────────────────────────── the seam -->
@@ -1238,6 +1263,24 @@ export const CHAIN_IDS = {
         <div class="row"><div class="lhs">Archive access</div><div class="rhs">Historical state, if you want more than the latest block</div></div>
         <div class="row"><div class="lhs">Test vectors</div><div class="rhs">Known wallets, known balances, known edge cases</div></div>
       </div>
+    </section>
+
+    <!-- 18b ─────────────────────────── sources and method -->
+    <section class="slide is-tight" data-notes="Leave this up during questions. It is the slide that says &ldquo;check me&rdquo;, and in a room like this that is worth more than any individual number.|Two things to say. First: everything except the security figures came out of an API, and the scripts are in the repo, so anyone can re-run the whole analysis. Second: <b>I got one wrong.</b> An earlier draft quoted a blog saying bridges were forty percent of all value stolen. Computed from the actual register it is 19.7%. That is why the sourcing is on the slides now rather than in my notes.|If someone challenges a number tonight, the correct answer is &ldquo;here is where it came from, go and check&rdquo; &mdash; not a defence of the number.">
+      <div class="eyebrow"><span>03 &mdash; The artifact</span><span class="tick"></span><em>Check my working</em></div>
+      <h2 class="title">Sources, and one thing I got wrong</h2>
+      <table class="score dense">
+        <thead><tr><th>Claim</th><th>Source</th><th>How to check</th></tr></thead>
+        <tbody>
+          <tr><td>USDC across 71 chains<span class="sub">$72.1B, $25.9B off Ethereum</span></td><td class="was">DefiLlama stablecoins API</td><td class="now">stablecoins.llama.fi</td></tr>
+          <tr><td>Uniswap volume share<span class="sub">0 &rarr; ~half off Ethereum</span></td><td class="was">DefiLlama DEX volume</td><td class="now">api.llama.fi/summary/dexs</td></tr>
+          <tr><td>147-launch event study<span class="sub">lending +26.3%, DEX &minus;8.8%</span></td><td class="was">DefiLlama protocol TVL</td><td class="now">talk/event-study.json</td></tr>
+          <tr><td>Bridge losses<span class="sub">$3.30B, 61 incidents, 19.7%</span></td><td class="was">DefiLlama hack register</td><td class="now">api.llama.fi/hacks</td></tr>
+          <tr><td>Latency benchmarks<span class="sub">warm, median of 7</span></td><td class="was">Measured here</td><td class="now">clone the repo, re-run</td></tr>
+          <tr class="key"><td>&ldquo;Bridges are 40% of theft&rdquo;</td><td class="was">A blog. I quoted it.</td><td class="now">Wrong &mdash; it is 19.7%</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">Every figure above came from an API, and the scripts are in the repo. <b>The one I took on trust was the one that was wrong.</b></p>
     </section>
 
     <!-- 13 ───────────────────────────── CTA -->
@@ -1291,6 +1334,7 @@ export const CHAIN_IDS = {
         </tbody>
       </table>
       <p class="verdict">Eight venues, one auth, one bill, one schema, one place to add the ninth. <b>Aggregate to research. Go direct to execute.</b></p>
+          <p class="source"><b>Source:</b> Own benchmark &middot; warm connections, median of 7 runs per route &middot; 2 Aug 2026</p>
     </section>
 
     <!-- 14 ───────────────────────────── close -->
