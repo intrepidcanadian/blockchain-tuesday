@@ -1225,6 +1225,7 @@ export async function getUsdcBalances(
         </tbody>
       </table>
       <p class="verdict">Only the first row is a node. The other six are <b>different systems entirely</b> &mdash; and joining them is the agent&rsquo;s whole job.</p>
+          <p class="source"><b>Source:</b> Every &ldquo;verified&rdquo; row run against a live Uniblock key while building this repo &middot; Kraken returned 503 on this plan</p>
     </section>
 
     <!-- 9c ──────────────────────────── the cross-venue payoff -->
@@ -1242,6 +1243,42 @@ Will Bitcoin hit $150k by December 31, 2026?
    <span class="tok-com">the crowd is pricing far MORE volatility than realised (2.37x)</span></code></pre>
       <p class="verdict">Polymarket doesn&rsquo;t know the price history. Hyperliquid doesn&rsquo;t know the odds. <b>Only the agent holds both</b> &mdash; and a disagreement is a question, not an edge.</p>
           <p class="source"><b>Source:</b> Polymarket + Hyperliquid, live via Uniblock &middot; run it yourself: npm run cross</p>
+    </section>
+
+    <!-- 13c ────────────────────────── why a reading agent is worth having -->
+    <section class="slide is-tight" data-notes="You have seen one cross-venue join. Here is why it generalises, and it is the answer to &ldquo;why bother with an agent if it cannot trade&rdquo;.|<b>Attention is the real constraint.</b> One key reaches 1,614 instruments &mdash; 943 Hyperliquid markets of which 232 are perps, 600 liquid prediction questions, 71 chains holding meaningful stablecoin balances. An earlier version said 1,846; that added the perps twice, because allMids already contains them. A good desk actively tracks maybe ten. Everything else is unwatched, not because it is uninteresting but because nobody has the hours.|<b>Continuity is the one people forget</b>, and it is why the latency slide does not sting. A loop that runs every five minutes does not care about seven hundred milliseconds. It cares that it ran at 3am when you did not. Two hundred and eighty-eight checks a day against your two is a 144x difference in when you find out.|<b>Capital placement</b> is the plumbing one. The scan reports the balance on every chain and the carry on every market in the same breath, so &ldquo;can I even fund this&rdquo; is answered before &ldquo;is it a good idea&rdquo;.|<b>Do not claim you found idle capital.</b> An earlier draft of this slide said fifty thousand dollars was sitting idle on Ethereum &mdash; the number was real but the demo wallet is a Binance hot wallet with seventeen million transactions on it. That money is exactly where it should be. If you use a live wallet on stage, say whose it is.|<b>Observability</b> is the one only an aggregator gives you. The 2.39x vol disagreement was invisible to both venues. Neither Polymarket nor Hyperliquid was wrong &mdash; neither could see the other.|Land on the last line. None of these four require the agent to be right about the market. They require it to <b>look</b>, which is the part humans are worst at and machines are cheapest at.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>Why bother</em></div>
+      <h2 class="title">What a reading agent is actually for</h2>
+      <table class="score dense">
+        <thead><tr><th>&nbsp;</th><th>The constraint</th><th>Measured</th></tr></thead>
+        <tbody>
+          <tr><td>Attention<span class="sub">watch more than you can</span></td><td class="was">A desk tracks ~10 instruments</td><td class="now hi">1,614 reachable on one key</td></tr>
+          <tr><td>Continuity<span class="sub">watch when you aren&rsquo;t</span></td><td class="was">You check twice a day</td><td class="now">every 5 min &mdash; 144&times; more often</td></tr>
+          <tr><td>Capital placement<span class="sub">know where your money is before sizing</span></td><td class="was">Balances live on N chains, carry on others</td><td class="now">both in one call, joined</td></tr>
+          <tr class="key"><td>Observability<span class="sub">see what no single venue can</span></td><td class="was">Each venue knows only itself</td><td class="now">2.39&times; vol gap, invisible to both</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">None of these need the agent to be <b>right about the market</b>. They need it to <b>look</b> &mdash; which is what humans are worst at and machines are cheapest at.</p>
+      <p class="source"><b>Source:</b> Hyperliquid meta/allMids + Polymarket gamma via Uniblock, sampled 2 Aug 2026 &middot; USDC chain count from DefiLlama</p>
+    </section>
+
+    <!-- 13b ─────────────────────────── what it costs, what it buys -->
+    <section class="slide is-tight" data-notes="This is the slide that decides whether the room trusts you, so do not skip it and do not soften it.|<b>Uniblock is slower on every route I measured.</b> Warm connections, seven runs, medians. Hyperliquid direct is a hundred and sixty milliseconds; through Uniblock it is eight hundred and fifty. Polymarket fifty-two against a hundred and forty-five. The balance lookup was thirty-eight times slower.|Say those numbers out loud. Somebody in this room can check them with curl in thirty seconds, and if you have claimed a speed win you have lost them for the rest of the talk.|<b>Now the actual argument.</b> You are not buying latency. You are buying the right-hand column: one auth scheme instead of eight, one bill, one schema, one place to add the ninth venue. And for the discovery questions there is no direct route at any speed &mdash; eth_getTokenBalances still does not exist.|So the rule is the last line, and it is genuinely useful advice: <b>go direct in a hot path, aggregate while you are still finding out what you need.</b> Most agent work is the second thing. A research loop that runs every few minutes does not care about seven hundred milliseconds; it cares enormously about whether adding Kraken next week is an afternoon or a fortnight.|If someone asks &ldquo;so why not just go direct everywhere&rdquo; &mdash; the answer is that you can, and you will maintain eight integrations forever. That is a real choice, and for a small team it is usually the wrong one.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The honest trade</em></div>
+      <h2 class="title">You are not buying speed</h2>
+      <table class="score dense">
+        <thead>
+          <tr><th>Same call</th><th>Direct to source</th><th>Via Uniblock</th><th>What it costs you</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hyperliquid mids<span class="sub">warm, median of 7</span></td><td class="was">161ms</td><td class="was">854ms</td><td class="was">+693ms &middot; 5.3&times;</td></tr>
+          <tr><td>Polymarket markets<span class="sub">warm, median of 7</span></td><td class="was">52ms</td><td class="was">145ms</td><td class="was">+93ms &middot; 2.8&times;</td></tr>
+          <tr><td>USDC across 5 chains<span class="sub">against raw RPC</span></td><td class="was">140ms</td><td class="was">5,400ms</td><td class="was">+5.3s &middot; 38&times;</td></tr>
+          <tr class="key"><td>&ldquo;What do I hold?&rdquo;</td><td class="was">no route exists</td><td class="now">384ms</td><td class="now">&infin; faster than impossible</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">Eight venues, one auth, one bill, one schema, one place to add the ninth. <b>Aggregate to research. Go direct to execute.</b></p>
+          <p class="source"><b>Source:</b> Own benchmark &middot; warm connections, median of 7 runs per route &middot; 2 Aug 2026</p>
     </section>
 
     <!-- 10 ───────────────────────────── scorecard -->
@@ -1339,23 +1376,6 @@ export const CHAIN_IDS = {
       <p class="verdict">Every figure above came from an API, and the scripts are in the repo. <b>The one I took on trust was the one that was wrong.</b></p>
     </section>
 
-    <!-- 13c ────────────────────────── why a reading agent is worth having -->
-    <section class="slide is-tight" data-notes="You have seen one cross-venue join. Here is why it generalises, and it is the answer to &ldquo;why bother with an agent if it cannot trade&rdquo;.|<b>Attention is the real constraint.</b> One key reaches 1,846 instruments &mdash; 232 perp markets, 943 including spot, 600 liquid prediction questions, 71 chains holding meaningful stablecoin balances. A good desk actively tracks maybe ten. Everything else is unwatched, not because it is uninteresting but because nobody has the hours.|<b>Continuity is the one people forget</b>, and it is why the latency slide does not sting. A loop that runs every five minutes does not care about seven hundred milliseconds. It cares that it ran at 3am when you did not. Twelve checks an hour against your two a day is a 140x difference in when you find out.|<b>Capital placement</b> is the plumbing one. The scan reports the balance on every chain and the carry on every market in the same breath, so &ldquo;can I even fund this&rdquo; is answered before &ldquo;is it a good idea&rdquo;.|<b>Do not claim you found idle capital.</b> An earlier draft of this slide said fifty thousand dollars was sitting idle on Ethereum &mdash; the number was real but the demo wallet is a Binance hot wallet with seventeen million transactions on it. That money is exactly where it should be. If you use a live wallet on stage, say whose it is.|<b>Observability</b> is the one only an aggregator gives you. The 2.39x vol disagreement was invisible to both venues. Neither Polymarket nor Hyperliquid was wrong &mdash; neither could see the other.|Land on the last line. None of these four require the agent to be right about the market. They require it to <b>look</b>, which is the part humans are worst at and machines are cheapest at.">
-      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>Why bother</em></div>
-      <h2 class="title">What a reading agent is actually for</h2>
-      <table class="score dense">
-        <thead><tr><th>&nbsp;</th><th>The constraint</th><th>Measured</th></tr></thead>
-        <tbody>
-          <tr><td>Attention<span class="sub">watch more than you can</span></td><td class="was">A desk tracks ~10 instruments</td><td class="now hi">1,846 reachable on one key</td></tr>
-          <tr><td>Continuity<span class="sub">watch when you aren&rsquo;t</span></td><td class="was">You check twice a day</td><td class="now">every 5 min &mdash; 140&times; more often</td></tr>
-          <tr><td>Capital placement<span class="sub">know where your money is before sizing</span></td><td class="was">Balances live on N chains, carry on others</td><td class="now">both in one call, joined</td></tr>
-          <tr class="key"><td>Observability<span class="sub">see what no single venue can</span></td><td class="was">Each venue knows only itself</td><td class="now">2.39&times; vol gap, invisible to both</td></tr>
-        </tbody>
-      </table>
-      <p class="verdict">None of these need the agent to be <b>right about the market</b>. They need it to <b>look</b> &mdash; which is what humans are worst at and machines are cheapest at.</p>
-      <p class="source"><b>Source:</b> Hyperliquid meta/allMids + Polymarket gamma via Uniblock, sampled 2 Aug 2026 &middot; USDC chain count from DefiLlama</p>
-    </section>
-
     <!-- 13 ───────────────────────────── CTA -->
     <section class="slide" data-notes="Be specific about the ask. &ldquo;Get involved&rdquo; converts nobody; &ldquo;clone this, run it, open a PR&rdquo; converts a few, and a few is how a community starts.|Say the October demo slots are open <b>before</b> the room disperses. The single highest-value thing you can leave with tonight is a committed date and one person who has said yes to demoing.">
       <div class="eyebrow"><span>03 &mdash; The artifact</span><span class="tick"></span><em>Your move</em></div>
@@ -1389,25 +1409,6 @@ export const CHAIN_IDS = {
         <div class="qr-slot">[ QR &mdash; INTEGRATION SPEC ]</div>
         <div class="qr-slot">[ QR &mdash; NEXT EVENT ]</div>
       </div>
-    </section>
-
-    <!-- 13b ─────────────────────────── what it costs, what it buys -->
-    <section class="slide is-tight" data-notes="This is the slide that decides whether the room trusts you, so do not skip it and do not soften it.|<b>Uniblock is slower on every route I measured.</b> Warm connections, seven runs, medians. Hyperliquid direct is a hundred and sixty milliseconds; through Uniblock it is eight hundred and fifty. Polymarket fifty-two against a hundred and forty-five. The balance lookup was thirty-eight times slower.|Say those numbers out loud. Somebody in this room can check them with curl in thirty seconds, and if you have claimed a speed win you have lost them for the rest of the talk.|<b>Now the actual argument.</b> You are not buying latency. You are buying the right-hand column: one auth scheme instead of eight, one bill, one schema, one place to add the ninth venue. And for the discovery questions there is no direct route at any speed &mdash; eth_getTokenBalances still does not exist.|So the rule is the last line, and it is genuinely useful advice: <b>go direct in a hot path, aggregate while you are still finding out what you need.</b> Most agent work is the second thing. A research loop that runs every few minutes does not care about seven hundred milliseconds; it cares enormously about whether adding Kraken next week is an afternoon or a fortnight.|If someone asks &ldquo;so why not just go direct everywhere&rdquo; &mdash; the answer is that you can, and you will maintain eight integrations forever. That is a real choice, and for a small team it is usually the wrong one.">
-      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The honest trade</em></div>
-      <h2 class="title">You are not buying speed</h2>
-      <table class="score dense">
-        <thead>
-          <tr><th>Same call</th><th>Direct to source</th><th>Via Uniblock</th><th>What it costs you</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Hyperliquid mids<span class="sub">warm, median of 7</span></td><td class="was">161ms</td><td class="was">854ms</td><td class="was">+693ms &middot; 5.3&times;</td></tr>
-          <tr><td>Polymarket markets<span class="sub">warm, median of 7</span></td><td class="was">52ms</td><td class="was">145ms</td><td class="was">+93ms &middot; 2.8&times;</td></tr>
-          <tr><td>USDC across 5 chains<span class="sub">against raw RPC</span></td><td class="was">140ms</td><td class="was">5,400ms</td><td class="was">+5.3s &middot; 38&times;</td></tr>
-          <tr class="key"><td>&ldquo;What do I hold?&rdquo;</td><td class="was">no route exists</td><td class="now">384ms</td><td class="now">&infin; faster than impossible</td></tr>
-        </tbody>
-      </table>
-      <p class="verdict">Eight venues, one auth, one bill, one schema, one place to add the ninth. <b>Aggregate to research. Go direct to execute.</b></p>
-          <p class="source"><b>Source:</b> Own benchmark &middot; warm connections, median of 7 runs per route &middot; 2 Aug 2026</p>
     </section>
 
     <!-- 14 ───────────────────────────── close -->
