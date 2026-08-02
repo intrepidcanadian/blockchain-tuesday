@@ -1307,6 +1307,24 @@ export const CHAIN_IDS = {
       </div>
     </section>
 
+    <!-- 13b ─────────────────────────── what it costs, what it buys -->
+    <section class="slide is-tight" data-notes="This is the slide that decides whether the room trusts you, so do not skip it and do not soften it.|<b>Uniblock is slower on every route I measured.</b> Warm connections, seven runs, medians. Hyperliquid direct is a hundred and sixty milliseconds; through Uniblock it is eight hundred and fifty. Polymarket fifty-two against a hundred and forty-five. The balance lookup was thirty-eight times slower.|Say those numbers out loud. Somebody in this room can check them with curl in thirty seconds, and if you have claimed a speed win you have lost them for the rest of the talk.|<b>Now the actual argument.</b> You are not buying latency. You are buying the right-hand column: one auth scheme instead of eight, one bill, one schema, one place to add the ninth venue. And for the discovery questions there is no direct route at any speed &mdash; eth_getTokenBalances still does not exist.|So the rule is the last line, and it is genuinely useful advice: <b>go direct in a hot path, aggregate while you are still finding out what you need.</b> Most agent work is the second thing. A research loop that runs every few minutes does not care about seven hundred milliseconds; it cares enormously about whether adding Kraken next week is an afternoon or a fortnight.|If someone asks &ldquo;so why not just go direct everywhere&rdquo; &mdash; the answer is that you can, and you will maintain eight integrations forever. That is a real choice, and for a small team it is usually the wrong one.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The honest trade</em></div>
+      <h2 class="title">You are not buying speed</h2>
+      <table class="score dense">
+        <thead>
+          <tr><th>Same call</th><th>Direct to source</th><th>Via Uniblock</th><th>What it costs you</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hyperliquid mids<span class="sub">warm, median of 7</span></td><td class="was">161ms</td><td class="was">854ms</td><td class="was">+693ms &middot; 5.3&times;</td></tr>
+          <tr><td>Polymarket markets<span class="sub">warm, median of 7</span></td><td class="was">52ms</td><td class="was">145ms</td><td class="was">+93ms &middot; 2.8&times;</td></tr>
+          <tr><td>USDC across 5 chains<span class="sub">against raw RPC</span></td><td class="was">140ms</td><td class="was">5,400ms</td><td class="was">+5.3s &middot; 38&times;</td></tr>
+          <tr class="key"><td>&ldquo;What do I hold?&rdquo;</td><td class="was">no route exists</td><td class="now">384ms</td><td class="now">&infin; faster than impossible</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">Eight venues, one auth, one bill, one schema, one place to add the ninth. <b>Go direct in a hot path; aggregate while you&rsquo;re still finding out what you need.</b></p>
+    </section>
+
     <!-- 14 ───────────────────────────── close -->
     <section class="slide cover" data-notes="Land it and stop. Don&rsquo;t add a summary slide after this one.|Thank Uniblock for the space by name &mdash; they gave you the room, and saying so in front of forty people is the cheapest and most genuine thing you can do for them. Thank Conflux for making the trip.|Then get out of the way: the social half is the part people actually came for.">
       <h1>Fragmented liquidity<br>is a <span>tax.</span></h1>
