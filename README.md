@@ -191,8 +191,19 @@ the spec, made executable.
 npm run mcp            # MCP server over stdio
 ```
 
-Four read-only tools any MCP host can call — nanobot, Claude Desktop, your own
-loop. `nanobot.yaml` wires it up with a system prompt.
+Four read-only tools any MCP host can call. Wiring for
+[HKUDS nanobot](https://github.com/HKUDS/nanobot) is in `nanobot.config.json` —
+merge it into `~/.nanobot/config.json` under `tools.mcpServers` and set the
+absolute path, since nanobot launches the process itself:
+
+```bash
+npm run mcp                     # or let nanobot spawn it
+nanobot agent -m "where is my capital, and is there any carry worth having?"
+```
+
+The system prompt lives in `agent-prompt.md`, separately — every host puts the
+prompt somewhere different, while the MCP block is identical across all of them
+(Claude Desktop uses the same `command`/`args`/`env` shape).
 
 | Tool | Answers |
 |---|---|

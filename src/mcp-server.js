@@ -3,7 +3,7 @@
 //   node src/mcp-server.js          # speaks MCP over stdio
 //
 // Point any MCP host at this — nanobot, Claude Desktop, your own harness — and
-// the model gets four tools it can reason over. See nanobot.yaml.
+// the model gets four tools it can reason over. See nanobot.config.json.
 //
 // ─────────────────────────────────────────────────────────────────────────────
 //  EVERY TOOL HERE IS READ-ONLY. THAT IS A DESIGN DECISION, NOT AN OMISSION.
@@ -120,24 +120,36 @@ const TOOLS = {
       }
       const mids = await hyperliquid({ type: 'allMids' });
       const since = Date.now() - hours * 3600 * 1000;
+
+      // Batched rather than sequential. One market at a time took 17.8s for the
+      // default universe, which is uncomfortably close to a 30s tool timeout on
+      // conference wifi. Batches of 5 keep it well under without tripping the
+      // rate limiter the way an unbounded Promise.all does.
+      const targets = universe.slice(0, 20);
       const out = [];
-      for (const coin of universe.slice(0, 20)) {
-        try {
-          const h = await hyperliquid({ type: 'fundingHistory', coin, startTime: since });
-          if (!Array.isArray(h) || h.length < 12) continue;
-          const rates = h.map((x) => Number(x.fundingRate)).filter(Number.isFinite);
-          const med = median(rates);
-          const agree = rates.filter((r) => Math.sign(r) === Math.sign(med)).length / rates.length;
-          out.push({
-            coin,
-            mid: Number(mids[coin]) || null,
-            annualisedPct: +(med * HOURS_PER_YEAR * 100).toFixed(2),
-            tickPremiumPct: +(median(h.map((x) => Number(x.premium)).filter(Number.isFinite)) * 100).toFixed(4),
-            persistencePct: +(agree * 100).toFixed(0),
-            whoPays: med >= 0 ? 'longs pay shorts' : 'shorts pay longs',
-            samples: rates.length,
-          });
-        } catch { /* skip a market rather than fail the whole call */ }
+      for (let i = 0; i < targets.length; i += 5) {
+        const batch = await Promise.all(
+          targets.slice(i, i + 5).map(async (coin) => {
+            try {
+              const h = await hyperliquid({ type: 'fundingHistory', coin, startTime: since });
+              if (!Array.isArray(h) || h.length < 12) return null;
+              const rates = h.map((x) => Number(x.fundingRate)).filter(Number.isFinite);
+              if (!rates.length) return null;
+              const med = median(rates);
+              const agree = rates.filter((r) => Math.sign(r) === Math.sign(med)).length / rates.length;
+              return {
+                coin,
+                mid: Number(mids[coin]) || null,
+                annualisedPct: +(med * HOURS_PER_YEAR * 100).toFixed(2),
+                tickPremiumPct: +(median(h.map((x) => Number(x.premium)).filter(Number.isFinite)) * 100).toFixed(4),
+                persistencePct: +(agree * 100).toFixed(0),
+                whoPays: med >= 0 ? 'longs pay shorts' : 'shorts pay longs',
+                samples: rates.length,
+              };
+            } catch { return null; }
+          }),
+        );
+        out.push(...batch.filter(Boolean));
       }
       out.sort((a, b) => Math.abs(b.annualisedPct) * b.persistencePct - Math.abs(a.annualisedPct) * a.persistencePct);
       return { window: `${hours}h`, note: 'Rank on annualised x persistence. Treat <60% persistence as noise.', markets: out };

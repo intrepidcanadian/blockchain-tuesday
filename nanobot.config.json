@@ -1,0 +1,31 @@
+{
+  "_comment": [
+    "Merge this into ~/.nanobot/config.json for HKUDS nanobot (github.com/HKUDS/nanobot).",
+    "MCP servers live under tools.mcpServers. Replace /ABSOLUTE/PATH with your clone path —",
+    "nanobot launches the process itself, so a relative path will not resolve.",
+    "",
+    "toolTimeout is set above the 30s default on purpose: hyperliquid_carry fans out across",
+    "the perp universe and takes ~5s on a good connection, more on conference wifi.",
+    "",
+    "The same block works in any MCP host that speaks stdio — Claude Desktop uses the",
+    "identical command/args/env shape."
+  ],
+  "tools": {
+    "mcpServers": {
+      "uniblock": {
+        "command": "node",
+        "args": ["/ABSOLUTE/PATH/TO/blockchain-tuesday/src/mcp-server.js"],
+        "env": {
+          "UNIBLOCK_KEY": "${UNIBLOCK_KEY}"
+        },
+        "toolTimeout": 60000,
+        "enabledTools": [
+          "wallet_positions",
+          "hyperliquid_carry",
+          "polymarket_odds",
+          "cross_venue_vol_check"
+        ]
+      }
+    }
+  }
+}
