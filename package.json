@@ -16,7 +16,8 @@
     "verify": "node src/verify-tokens.js",
     "test": "node --test src/lib/*.test.js",
     "agent": "node src/agent-scan.js",
-    "cross": "node src/cross-venue.js"
+    "cross": "node src/cross-venue.js",
+    "mcp": "node src/mcp-server.js"
   },
   "license": "MIT"
 }
