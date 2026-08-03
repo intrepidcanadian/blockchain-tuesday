@@ -35,11 +35,10 @@ The evening is in two halves:
 
 - **The economics.** Is being on more chains even worth it? Measured across 147
   chain launches, the answer depends entirely on what you are building — lending
-  protocols beat the market on 87% of their launches, DEXes on 24%. For a lot of
-  the room the honest answer is no.
-- **The code.** If deploying to more chains mostly does not pay, then whatever is
-  worth doing across chains is not deployment. It is reading — and that is where
-  a unified API earns its place.
+  protocols beat the market on 87% of their launches, DEXes on 24%.
+- **The code.** One area where it is becoming more valuable is reading across
+  multiple chains and venues — and that is where a unified API earns its place,
+  for the simplicity and the speed of building alongside an agent.
 
 Everything is demonstrated live from a repo the room can clone, ending on a
 cross-venue scan that joins on-chain balances, Hyperliquid funding and Polymarket
