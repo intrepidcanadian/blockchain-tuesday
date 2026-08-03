@@ -66,18 +66,15 @@ material where it belongs.
 |---|---|---|
 | 5:45 | Lobby greeter in place | Essential in an office building — one person at the door or elevator bank with a sign, texting the group chat if anyone is stuck at security |
 | 6:00 | Doors, food, name tags | Food out immediately; people arrive hungry and leave early otherwise |
-| 6:30 | Welcome + community update | 5 min. What Blockchain Tuesday is, what's coming, who's hiring |
-| 6:35 | **Part 1 — the economics** | 20 min. Is being on more chains even worth it? Fragmentation, the event study, and why the answer depends on what you are building |
-| 6:55 | Questions, hands up | 10 min. Deliberately mid-talk — it resets attention before the technical half |
-| 7:05 | **Part 2 — the code** | 30 min. Live from the repo: raw RPC versus the aggregator, what an agent asks, the cross-venue scan, and adding Conflux by hand |
-| 7:35 | **Q&A — three chairs** | 20 min. Tony plus one voice each from Uniblock and Conflux. This is where partners answer for their own roadmaps |
-| 7:55 | Call to action + close | 5 min. Repo QR, integration spec, next event, demo slots for October |
-| 8:00 | Social, laptops open | The part people actually stay for |
+| 6:30 | Welcome + community update | 5 min. What Blockchain Tuesday is, what's coming, who wants to announce they are hiring |
+| 6:30 – 7:30 | **Presentation and Q&A** | Tony, with a chair each for Uniblock and Conflux on questions |
+| 7:30 – 8:30 | Social | The part people actually stay for |
 | 8:45 | Cleanup starts quietly | Bags, surfaces, chairs back. Don't leave it to the Uniblock team |
 | 9:00 | Out, hard stop | Someone from Uniblock has to lock up and go home |
 
-**On the timing.** Roughly 45 minutes of presentation across the two halves, with
-the mid-talk question slot as a natural buffer if part 1 runs long.
+**On the timing.** Roughly 45 minutes of presentation with Q&A.
+
+---
 
 ## 4. Venue
 
@@ -182,7 +179,7 @@ Recap post, photos, recording, repo link. Ask both partners to amplify. Open the
 | Sponsor framing friction over the honest framing | Settle on the pre-call, 4 weeks out. Both partners should hear the concessions from Tony before the room does |
 | Event reads as a Uniblock ad | Blockchain Tuesday branding first, Tony delivers throughout, Conflux credited on food. Covered above |
 | Low turnout | Over-invite to ~1.5× capacity. Student group outreach is the highest-yield channel in September |
-| Room splits — devs bored, beginners lost | Part 1 is economics and needs no code to follow. The deep material is in part 2, which is watchable even if you can't follow every line |
+| Room splits — devs bored, beginners lost | The economics half needs no code to follow. The deep material comes second, and is watchable even if you can't follow every line |
 | A partner can't make Q&A | Tony answers for the room and defers roadmap questions to a follow-up. The talk itself does not depend on either of them being present |
 
 ---
