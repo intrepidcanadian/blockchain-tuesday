@@ -1,5 +1,7 @@
 # Talk materials — Blockchain Tuesday, September 2026
 
+**"Observability Is All You Need"** — why unified APIs are becoming useful.
+
 ## `deck.html`
 
 The talk itself, 19 slides. Open it in a browser — no build step, and no server

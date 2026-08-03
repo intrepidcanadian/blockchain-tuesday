@@ -1,6 +1,8 @@
 # Blockchain Tuesday — September 2026
 
-## "Why Unified APIs Are Becoming Useful"
+## "Observability Is All You Need"
+
+*Why unified APIs are becoming useful*
 
 **Presented with Uniblock and Conflux Network**
 Hosted at the Uniblock offices, Toronto · Tuesday, September 15, 2026 · 6:00–9:00 PM
@@ -31,7 +33,11 @@ Uniblock does not currently route Conflux nodes. Rather than paper over that, it
 becomes the most interesting fifteen minutes of the evening — and the reason people
 come back in October.
 
-**The title is a question, and the honest answer starts with a concession.**
+**The title is a nod to "Attention Is All You Need"** — the transformer paper —
+and it is also literally what the talk argues. The hard part for an agent is not
+deciding, it is *seeing*.
+
+**The subtitle carries the concession, because that is where the honesty starts.**
 
 Unified APIs are *slower* than talking to a node directly — measured, 268ms
 against 5.5 seconds. On a single chain a free open-source explorer (Blockscout)

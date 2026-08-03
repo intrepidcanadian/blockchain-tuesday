@@ -1,4 +1,4 @@
-<title>Why Unified APIs Are Becoming Useful &mdash; Blockchain Tuesday, September 2026</title>
+<title>Observability Is All You Need &mdash; Blockchain Tuesday, September 2026</title>
 
 <style>
   :root {
@@ -160,12 +160,20 @@
 
   .cover h1 span { color: var(--amber); }
 
+  .cover .sub-lead {
+    font-family: var(--mono);
+    font-size: 21px;
+    letter-spacing: -.01em;
+    color: var(--fg);
+    margin: 26px 0 0;
+  }
+
   .cover .sub {
-    font-size: 23px;
+    font-size: 19px;
     color: var(--muted);
-    margin: 24px 0 0;
-    max-width: 46ch;
-    line-height: 1.45;
+    margin: 12px 0 0;
+    max-width: 58ch;
+    line-height: 1.5;
   }
 
   .cover .credits {
@@ -1061,8 +1069,9 @@
   <div class="canvas" id="canvas">
 
     <!-- 1 ───────────────────────────── cover -->
-    <section class="slide cover" data-notes="Open on the concession, because it is the honest version and it buys you the room. Unified APIs are <b>slower</b> than talking to a node directly &mdash; we measured it. On a single chain a free open-source explorer returns more data, faster, with no key. If the pitch were &ldquo;this is faster&rdquo;, someone here would disprove it with curl before I finished.|So the question worth an hour is not whether they are good. It is <b>why they are becoming useful now</b>, when they were not before. Something changed, and it is not the APIs.|Two halves. First the economics: is being on more chains even worth it, which turns out to depend entirely on what you are. Then the code, where the thing that changed &mdash; agents asking questions a node cannot answer &mdash; shows up.">
-      <h1>Why unified APIs are <span>becoming useful</span></h1>
+    <section class="slide cover" data-notes="<b>The title is a nod to &ldquo;Attention Is All You Need&rdquo;</b> &mdash; the transformer paper. Half this room will catch it and the other half will not care, so do not explain it. It also happens to be literally what the talk argues: the thing an agent actually needs is to be able to <b>see</b>, and that turns out to be the hard part.|Open on the concession, because it is the honest version and it buys you the room. Unified APIs are <b>slower</b> than talking to a node directly &mdash; we measured it. On a single chain a free open-source explorer returns more data, faster, with no key. If the pitch were &ldquo;this is faster&rdquo;, someone here would disprove it with curl before I finished.|So the question worth an hour is not whether they are good. It is <b>why they are becoming useful now</b>, when they were not before. Something changed, and it is not the APIs.|Two halves. First the economics: is being on more chains even worth it, which turns out to depend entirely on what you are. Then the code, where the thing that changed &mdash; agents asking questions a node cannot answer &mdash; shows up.">
+      <h1>Observability is <span>all you need</span></h1>
+      <p class="sub-lead">Why unified APIs are becoming useful</p>
       <p class="sub">They are slower than a node, and a free explorer beats them on one chain. Then agents started asking questions a node has no method for.</p>
       <div class="credits">
         <b>Blockchain Tuesday</b><span class="dot">&bull;</span>Toronto<span class="dot">&bull;</span>September 2026
