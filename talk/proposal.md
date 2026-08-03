@@ -12,96 +12,56 @@ Host: Tony Lau · Budget: $1,000 CAD
 
 ## 1. The idea
 
-Most builders in the room have hit the same wall: the app works on one chain, and
-then the second chain doubles the code. Different RPC providers, different rate
-limits, different token metadata shapes, different failure modes at 2 AM.
+**"Observability Is All You Need"** — why unified APIs are becoming useful.
 
-Uniblock's whole product is the answer to that — one endpoint, 160+ chains, 50+
-RPC providers, with routing that picks the fastest/cheapest source and fails over
-automatically. Conflux is the case study on the other side of the glass: a dual-space
-chain (Core Space for Asia-focused RWAs and regulatory-aligned stablecoins, eSpace
-for global EVM DeFi) that is already omnichain in practice through USDT0/CNHT0 and
-Stargate liquidity.
+The talk opens on a concession, because that is what makes the rest credible to
+a room of developers. Unified APIs are *slower* than talking to a node directly:
+268ms against 5.5 seconds, measured. On a single chain, a free open-source
+explorer returns more data than the paid aggregator, faster, with no key. If the
+pitch were "this is faster", someone disproves it with curl inside a minute.
 
-So the night has a spine, not just two sponsor decks: **what does it actually take
-to treat many chains as one?** Uniblock answers from the aggregator side. Conflux
-answers from the chain side. Then we build something live in front of everyone.
+So the question worth an evening is not whether unified APIs are good. It is
+**why they are becoming useful now, when they were not before** — and the thing
+that changed is not the APIs.
 
-### The honest part, used deliberately
-
-Uniblock does not currently route Conflux nodes. Rather than paper over that, it
-becomes the most interesting fifteen minutes of the evening — and the reason people
-come back in October.
-
-**The title is a nod to "Attention Is All You Need"** — the transformer paper —
-and it is also literally what the talk argues. The hard part for an agent is not
-deciding, it is *seeing*.
-
-**The subtitle carries the concession, because that is where the honesty starts.**
-
-Unified APIs are *slower* than talking to a node directly — measured, 268ms
-against 5.5 seconds. On a single chain a free open-source explorer (Blockscout)
-returns more data than the paid aggregator, faster, with no key. If the pitch
-were "this is faster", someone in that room disproves it with curl inside a
-minute.
-
-So the talk is not "unified APIs are good". It is **why they are becoming useful
-now, when they were not before** — and the thing that changed is not the APIs.
 It is that agents ask different questions. "What is the balance of this token"
-has a node method. "What do I hold, what is it worth, where is the edge" does
-not — `eth_getTokenBalances` does not exist, prices are not on-chain, and
-Hyperliquid's funding and Polymarket's odds are not on a chain at all.
+has a node method and always did. "What do I hold, what is it worth, where is
+the edge" does not — `eth_getTokenBalances` does not exist, prices are not
+on-chain in readable form, and neither Hyperliquid's funding nor Polymarket's
+odds live on a chain at all. Those are the questions an agent has to answer
+before it can do anything, and no node can be asked them at any speed.
 
-That reframe is what makes the evidence land instead of sounding like a pitch.
+The evening is in two halves:
 
-**This section was rewritten after building the talk, because the original plan
-did not survive contact with the API.**
+- **The economics.** Is being on more chains even worth it? Measured across 147
+  chain launches, the answer depends entirely on what you are building — lending
+  protocols beat the market on 87% of their launches, DEXes on 24%. For a lot of
+  the room the honest answer is no.
+- **The code.** If deploying to more chains mostly does not pay, then whatever is
+  worth doing across chains is not deployment. It is reading — and that is where
+  a unified API earns its place.
 
-The original idea was: read balances across five chains in one Uniblock call,
-then add Conflux by hand and watch six lines become forty. It does not work.
-Uniblock's `chainId` parameter is singular, so the aggregated path loops exactly
-like the by-hand one — and measured head to head, **raw RPC won**: 268ms and five
-of five chains, against 5.5 seconds and four of five. An aggregator cannot beat a
-node at a lookup you already know how to make, and pretending otherwise in a room
-of developers loses it in thirty seconds.
+Everything is demonstrated live from a repo the room can clone, ending on a
+cross-venue scan that joins on-chain balances, Hyperliquid funding and Polymarket
+odds through one key.
 
-So the demo moved to the question an aggregator genuinely answers. An agent does
-not know what it holds, what it is worth, or where the edge is, and **two of those
-have no RPC method at all** — `eth_getTokenBalances` does not exist, and prices
-are not on-chain in readable form. Nor is Hyperliquid's funding, or Polymarket's
-odds.
+### Where Conflux comes in
 
-The live demo is now a cross-venue scan: where is the capital, what are perps
-paying, what is the crowd pricing — three venues, one key — ending on a
-calculation neither venue can perform alone. Then Conflux, which nothing routes,
-comes back by hand.
+Conflux is the worked example for what integrating a new chain actually costs.
+eSpace USDC is **18 decimals** against 6 on every other chain in the demo — read
+from the contract, not a doc. Copy the constant across and every number is wrong
+by a factor of a trillion, silently, with every test still green.
 
-The room sees the abstraction's value where it actually exists: not in speed, but
-in reaching things a node cannot be asked about at all.
+That is the most useful integration lesson in the talk, it is specific to
+Conflux, and it is flattering in the way that matters to a developer audience.
+Uniblock does not route Conflux today, so the demo adds it by hand — which is
+also the setup for the closing artifact: a public spec for what adding a chain
+to a unified API requires.
 
-And the closing slide is a real call to action: here is the spec for what adding a
-chain to a unified API requires. That's a public artifact the community can work on,
-and a natural agenda item for the next event.
-
-> **Framing note:** agree this angle with both partners on the pre-call. It only
-> works if it reads as *roadmap*, not *gap* — Uniblock gets to talk about how chains
-> get onboarded, Conflux gets to make the case for why it should be next. If either
-> side is uncomfortable, the fallback is a generic 6th chain for the contrast and
-> Conflux stays purely on the omnichain-stablecoin story.
-
-### Why this room, this month
-
-- **Mixed audience is handled.** The Uniblock segment includes the no-code path, so
-  students and non-devs build a working multi-chain dashboard in the same session
-  where the senior devs are reading routing logic. Nobody is stranded.
-- **September is a recruiting month.** Students are back, hackathon season is
-  starting. An event that ends with "here's a repo you can clone" converts better in
-  September than any other month of the year.
-- **It continues your existing arc.** ERC-20 & omni-tokens via LayerZero (Nov 2024),
-  Build a Blockchain AI Agent (Jan 2025), x402, Prediction Markets & APIs (Apr 2026).
-  This is the same thread — APIs and payments across chains — pulled one step further.
-
----
+> **Framing note:** walk both partners through this on the pre-call. It reads as
+> roadmap, not gap — Uniblock gets a concrete signal on integration demand,
+> Conflux gets the case for being next. If either is uncomfortable, the fallback
+> is a generic sixth chain for the contrast.
 
 ## 2. Date
 
@@ -117,44 +77,31 @@ and a natural agenda item for the next event.
 
 ## 3. Run of show
 
-| Time | Segment | Who | Notes |
-|---|---|---|---|
-| 5:45 | Lobby greeter in place | Volunteer | In an office building this is essential — one person at the front door or elevator bank with a sign, texting the group chat if anyone gets stuck at security |
-| 6:00 | Doors, food, name tags | — | Food out immediately; people arrive hungry and leave early otherwise |
-| 6:30 | Welcome + community update | Tony | 5 min. What Blockchain Tuesday is, what's coming, who's hiring |
-| 6:35 | **The multi-chain problem** | Uniblock | 20 min + 5 Q. Unified API, intelligent routing, failover. Include the no-code dashboard path for the newer half of the room |
-| 7:00 | **A chain worth integrating** | Conflux | 20 min + 5 Q. Core Space vs eSpace, USDT0/CNHT0 omnichain stablecoins, Stargate liquidity, what Asia-facing RWA rails look like |
-| 7:25 | **Live build: the cross-venue agent** | Tony | 35 min &mdash; see the timing note below. Ends on the "what a chain integration needs" spec |
-| 8:00 | Open Q&A / three chairs | All | 15 min. Both sponsors + Tony, audience questions |
-| 8:15 | Call to action + close | Tony | Repo QR, next event, how to get involved |
-| 8:20 | Social, laptops open | — | The part people actually stay for |
-| 8:45 | Cleanup starts quietly | Volunteers | Garbage bagged, surfaces wiped, chairs back. Don't leave this to the Uniblock team |
-| 9:00 | Out, hard stop | — | Respect the hard stop absolutely. Someone from Uniblock has to lock up and go home |
+Tony delivers the whole talk. Both partners join for Q&A rather than presenting
+separately — one voice through the argument, and the deck already carries their
+material where it belongs.
 
-### Timing — this needs a decision before the pre-call
+| Time | Segment | Notes |
+|---|---|---|
+| 5:45 | Lobby greeter in place | Essential in an office building — one person at the door or elevator bank with a sign, texting the group chat if anyone is stuck at security |
+| 6:00 | Doors, food, name tags | Food out immediately; people arrive hungry and leave early otherwise |
+| 6:30 | Welcome + community update | 5 min. What Blockchain Tuesday is, what's coming, who's hiring |
+| 6:35 | **Part 1 — the economics** | 20 min. Is being on more chains even worth it? Fragmentation, the event study, and why the answer depends on what you are building |
+| 6:55 | Questions, hands up | 10 min. Deliberately mid-talk — it resets attention before the technical half |
+| 7:05 | **Part 2 — the code** | 30 min. Live from the repo: raw RPC versus the aggregator, what an agent asks, the cross-venue scan, and adding Conflux by hand |
+| 7:35 | **Q&A — three chairs** | 20 min. Tony plus one voice each from Uniblock and Conflux. This is where partners answer for their own roadmaps |
+| 7:55 | Call to action + close | 5 min. Repo QR, integration spec, next event, demo slots for October |
+| 8:00 | Social, laptops open | The part people actually stay for |
+| 8:45 | Cleanup starts quietly | Bags, surfaces, chairs back. Don't leave it to the Uniblock team |
+| 9:00 | Out, hard stop | Someone from Uniblock has to lock up and go home |
 
-The deck is **28 slides**. At a realistic pace that is 35–40 minutes, not the 20
-originally planned. Three ways out, in order of preference:
+**On the timing.** The deck runs 28 slides. Split across two 20–30 minute halves
+with a break between, that is comfortable rather than rushed — and the mid-talk
+question slot is a real buffer: if part 1 runs long, it absorbs the overflow.
 
-1. **Give Tony 35 minutes and trim the sponsor slots to 15 each.** The run of show
-   above assumes this. It ends at 8:15 rather than 8:00, which still leaves 45
-   minutes of social before the hard stop. Needs both sponsors to agree on the
-   pre-call — do not spring it on them.
-2. **Keep 20 minutes and cut the deck to ~16 slides.** The economics section
-   carries four worked examples where one would do, and three of the demo-output
-   slides make the same "here is proof" point. A 16-slide cut exists and is
-   straightforward.
-3. **Split it.** Run the economics half in September and the agent half in
-   October, which gives the next event a spine rather than a blank page.
-
-Option 1 is the recommendation, but it is a conversation with two sponsors about
-their own stage time, so have it early.
-
-**Target:** capacity-dependent — see the venue section below. Set the Luma cap at the
-office's real seated-plus-standing number, and invite to roughly 1.5× that (Luma
-show-rate runs 65–70%).
-
----
+If a run-through comes in over 55 minutes, cut from part 1 first. It carries four
+worked examples where two would do, and the technical half is the reason most of
+this room came.
 
 ## 4. Venue — the Uniblock offices
 
@@ -224,40 +171,43 @@ October or November follow-up.
 
 ## 6. What each partner gets
 
+Neither partner presents separately this time, so what they get is different —
+and in one respect better.
+
 **Uniblock**
-- Hosting credit — "hosted at the Uniblock offices" on the Luma page, the signage,
-  the recap post and every photo taken that night. Forty developers spend three hours
-  inside their office and leave with a physical sense of the company. No sponsor line
-  item buys that
-- 20-minute technical stage slot to the exact audience that buys developer infra
-- A live demo where a third party — not their own marketing — shows what their
-  abstraction reaches, in code, in real time
-- **Set this expectation on the pre-call:** the talk is an honest-broker one. It
-  concedes on stage that raw RPC beats Uniblock on a plain balance lookup, with
-  measurements, and that Blockscout beats it on single-chain discovery — for free.
-  It then argues the aggregator's real case, which is spanning chains *and*
-  exchange venues in one loop, something no explorer or node can do. That
-  concession is what makes the rest credible to this audience, but a sponsor
-  should hear it from Tony before they hear it from the stage
+- **Hosting credit** — "hosted at the Uniblock offices" on the Luma page, the
+  signage, the recap post and every photo taken that night. Forty developers
+  spend three hours inside their office and leave with a physical sense of the
+  company. No sponsor line item buys that
+- **Their product is the spine of the technical half**, demonstrated live by
+  someone who is not on their payroll, for roughly thirty minutes — considerably
+  more airtime than a twenty-minute slot of their own would have given them
+- A chair in Q&A, which is where roadmap questions belong anyway
 - A concrete signal on Conflux integration demand, generated by the room
 - Logo on Luma, signage, slides, and the recap post
-- Attendee sign-up funnel: the starter repo needs a free Uniblock key
+- Attendee funnel: the starter repo needs a free Uniblock key
+
+> **Set this expectation on the pre-call.** The talk is an honest-broker one. It
+> concedes on stage, with measurements, that raw RPC beats Uniblock on a plain
+> balance lookup and that a free explorer beats it on single-chain discovery. It
+> then argues the real case — spanning chains *and* exchange venues in one loop,
+> which no node or explorer can do. That concession is what makes the rest
+> credible to this audience, but a sponsor should hear it from Tony first.
 
 **Conflux**
-- The later speaking slot — last voice before the demo, which is the one the room
-  remembers. Deliberate counterweight to Uniblock hosting the room
-- 20-minute slot positioning Conflux to Toronto developers as an omnichain and
-  Asia-RWA story, not a generic L1
-- A documented case for inclusion in a major aggregator, made publicly
-- Continuity with the Conflux work already in market — the ETH Toronto agentic
-  economy panel, the x402 Hackfest workshop, the eSpace tutorials
+- The **decimals finding** is theirs and it is the sharpest technical detail in
+  the deck — eSpace USDC at 18 decimals against 6 everywhere else, read on-chain
+- Positioned to Toronto developers as an omnichain and Asia-RWA story rather
+  than a generic L1
+- A documented public case for inclusion in a major aggregator
+- A chair in Q&A
+- Continuity with work already in market — the ETH Toronto agentic economy panel,
+  the x402 Hackfest workshop, the eSpace tutorials
 - Same logo and recap placement
 
 **Both**
-- A recap post with photos, the recording, and the repo — evergreen, and it's the
-  asset that makes the *next* sponsor conversation easy
-
----
+- A recap post with photos, the recording and the repo — evergreen, and the asset
+  that makes the next sponsor conversation easy
 
 ## 7. Timeline
 
