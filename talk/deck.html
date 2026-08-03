@@ -604,6 +604,50 @@
 
   .gl-d b { color: var(--fg); font-weight: 500; }
 
+  .decomp {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    flex: none;
+  }
+
+  .dc-q {
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--amber);
+    margin-bottom: 14px;
+  }
+
+  .dc-body { display: grid; grid-template-columns: 1.15fr 1fr; gap: 30px; }
+
+  .dc-h {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 9px;
+  }
+
+  .dc-call {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .dc-call b { color: var(--fg); font-weight: 500; }
+  .dc-call span { color: var(--faint); display: block; font-size: 11.5px; margin-top: 1px; }
+
+  .dc-note {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin-bottom: 9px;
+  }
+
+  .dc-note b { color: var(--fg); font-weight: 500; }
+
   /* ---------- migration strip ---------- */
 
   .migration {
@@ -1311,7 +1355,7 @@ polygon         50.075 USDC  [direct]
     </section>
 
     <!-- 9 ───────────────────────────── the questions RPC cannot answer -->
-    <section class="slide" data-notes="Here is the turn. Everything you just watched me hand-code was tedious &mdash; but it was <b>possible</b>, and honestly raw RPC did it in 140 milliseconds and got all five chains right. Through the aggregator the same query took five seconds and got four. Say that out loud. If the argument were &ldquo;balanceOf is easier through an API&rdquo;, the argument would be wrong.|Now change the question to the one an <b>agent</b> asks. An agent does not know what it holds, what it is worth, or where the edge is. It has to discover all three.|And two of those have no RPC method at all. Not slow &mdash; <b>absent</b>. eth_getTokenBalances is not a method. USD prices are not on-chain in readable form. Hyperliquid&rsquo;s funding and tick premium are not on an EVM chain you can eth_call at all.|So the abstraction is not saving you keystrokes. It is the only way to ask the question. That is a structural argument and it is the one worth making.">
+    <section class="slide" data-notes="Here is the turn. Everything you just watched me hand-code was tedious &mdash; but it was <b>possible</b>, and honestly raw RPC did it in 140 milliseconds and got all five chains right. Through the aggregator the same query took five seconds and got four. Say that out loud. If the argument were &ldquo;balanceOf is easier through an API&rdquo;, the argument would be wrong.|Now change the question to the one an <b>agent</b> asks. An agent does not know what it holds, what it is worth, or where the edge is. It has to discover all three.|And two of those have no RPC method at all. Not slow &mdash; <b>absent</b>. eth_getTokenBalances is not a method. USD prices are not on-chain in readable form. Hyperliquid&rsquo;s funding and tick premium are not on an EVM chain you can eth_call at all.|So the abstraction is not saving you keystrokes. It is the only way to ask the question. That is a structural argument and it is the one worth making.|<b>Then walk the bottom half, because it answers &ldquo;how&rdquo;.</b> Nobody types a tool call. Somebody asks a loose question &mdash; is there anything worth doing with the USDC we are not using &mdash; and the model turns that into four <b>typed</b> calls, fires them, and joins what comes back.|Say the part people miss: the model does not need to know which provider served any of it. It asked for funding and got funding. Four venues, four response shapes, one key, and the routing is somebody else&rsquo;s problem.|<b>That translation is the whole job.</b> Vague in, typed out, joined back. It is the reason this works at all, and it is what you are actually buying when you wire tools into a harness.">
       <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The turn</em></div>
       <h2 class="title">Now ask what an agent asks</h2>
       <div class="rows">
@@ -1320,9 +1364,36 @@ polygon         50.075 USDC  [direct]
         <div class="row"><div class="lhs" style="color:var(--amber)">&ldquo;Where is the carry?&rdquo;</div><div class="rhs">Hyperliquid funding and tick premium aren&rsquo;t on an EVM chain you can <code>eth_call</code>.</div></div>
         <div class="row"><div class="lhs">&ldquo;Balance of USDC?&rdquo;</div><div class="rhs">Raw RPC, 140ms, 5/5 chains &mdash; and it beat the aggregator, which took 5.4s and got 4/5. The honest comparison.</div></div>
       </div>
+      
       <p class="verdict">The first three aren&rsquo;t slow through RPC. They are <b>impossible</b>. That&rsquo;s the argument &mdash; not keystrokes.</p>
           <p class="source"><b>Source:</b> Own benchmark &middot; warm connections, median of 7 &middot; see talk/ in the repo</p>
     </section>
+
+    <!-- 13a ────────────────────────── how the agent asks -->
+    <section class="slide is-tight" data-notes="Nobody types a tool call. Somebody asks a loose question &mdash; is there anything worth doing with the USDC we are not using &mdash; and the model turns that into four <b>typed</b> calls, fires them, and joins what comes back.|<b>That translation is the whole job.</b> Vague in, typed out, joined back. It is the reason any of this works, and it is what you are actually buying when you wire tools into a harness.|Say the part people miss: the model does not need to know which provider served any of it. It asked for funding and got funding. Four venues, four response shapes, one key, and the routing is somebody else&rsquo;s problem.|Note the order is not arbitrary either. Positions first, because an idea you cannot fund is not an idea. Then carry, then the crowd, then whether those two agree. The model is choosing the sequence, not just the calls.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>How it asks</em></div>
+      <h2 class="title">A vague question becomes typed calls</h2>
+      <div class="decomp">
+        <div class="dc-q">&ldquo;Is there anything worth doing with the USDC we&rsquo;re not using?&rdquo;</div>
+        <div class="dc-body">
+          <div class="dc-col">
+            <div class="dc-h">the agent decomposes it</div>
+            <div class="dc-call"><b>wallet_positions</b>(wallet)<span>where is it, and how much</span></div>
+            <div class="dc-call"><b>hyperliquid_carry</b>()<span>what is funding paying, and did it hold</span></div>
+            <div class="dc-call"><b>polymarket_odds</b>(topic)<span>what is the crowd pricing</span></div>
+            <div class="dc-call"><b>cross_venue_vol_check</b>(&hellip;)<span>do those two agree</span></div>
+          </div>
+          <div class="dc-col">
+            <div class="dc-h">then joins what came back</div>
+            <div class="dc-note">Four venues, four response shapes, <b>one key</b>. The model does not need to know which provider served any of it &mdash; only what it asked and what came back.</div>
+            <div class="dc-note">The question was vague. <b>The calls are typed.</b> That translation is the whole job, and it is why this works at all.</div>
+          </div>
+        </div>
+      </div>
+      <p class="verdict">The question was loose. <b>The calls are typed.</b> That translation is what an agent is <em style="font-style:normal;color:var(--fg)">for</em> &mdash; and the routing underneath is somebody else&rsquo;s problem.</p>
+      <p class="source"><b>Source:</b> The four tools are real &mdash; npm run mcp, and all four run against a live key</p>
+    </section>
+
 
     <!-- 9b ──────────────────────────── the agent's actual surface -->
     <section class="slide is-tight" data-notes="This is the slide that answers &ldquo;so what is Uniblock actually for.&rdquo; Look down the middle column: <b>only the top row is an RPC node</b>. Everything else is a different kind of system entirely.|An agent allocating capital has to join all of these. Where am I? What is it worth? Where is the perp basis? What is the crowd pricing? What is the mood? Those are four different worlds with four different auth models, four rate limits, four response shapes &mdash; and no relationship to each other except that one agent needs all of them in the same loop.|<b>That is the product.</b> Not faster balanceOf. One key across systems that have nothing in common.|Be straight about the ticks. Everything marked verified, I ran against a live key while building this repo. Kraken came back 503 &mdash; insufficient providers on this plan &mdash; so it is available rather than proven, and I am not going to claim otherwise on a slide.|The honest caveat: the unified schema covers on-chain and Hyperliquid. Polymarket, LunarCrush and the rest arrive through direct passthrough, so you get that provider&rsquo;s own shape. Same key, same bill, unnormalized.">
