@@ -95,13 +95,8 @@ material where it belongs.
 | 8:45 | Cleanup starts quietly | Bags, surfaces, chairs back. Don't leave it to the Uniblock team |
 | 9:00 | Out, hard stop | Someone from Uniblock has to lock up and go home |
 
-**On the timing.** The deck runs 28 slides. Split across two 20–30 minute halves
-with a break between, that is comfortable rather than rushed — and the mid-talk
-question slot is a real buffer: if part 1 runs long, it absorbs the overflow.
-
-If a run-through comes in over 55 minutes, cut from part 1 first. It carries four
-worked examples where two would do, and the technical half is the reason most of
-this room came.
+**On the timing.** Roughly 45 minutes of presentation across the two halves, with
+the mid-talk question slot as a natural buffer if part 1 runs long.
 
 ## 4. Venue — the Uniblock offices
 
@@ -216,7 +211,8 @@ Partner pre-call. Confirm speakers, confirm the demo framing, get logos and bios
 walk the full venue checklist above — capacity, building access, AV, wifi, food and
 alcohol policy, accessibility. **Visit the office in person if you can**; ten minutes
 standing in the room answers questions a call won't. Set the Luma cap to the confirmed
-capacity and put the page live.
+capacity and put the page live — invite to roughly 1.5× the cap, since Luma
+show-rate runs 65–70%.
 
 **3 weeks out (Aug 25)**
 Announcement post with the accessibility and building-access details on it. Both
