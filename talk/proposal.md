@@ -129,7 +129,8 @@ credit, which is worth more than top billing anyway.
 - Screen or projector: resolution, HDMI vs USB-C, whether there's sound
 - Guest wifi — network name, password, and whether it throttles at 30+ devices
 - Food policy: is hot food fine, where does the garbage go, is there a kitchen or
-  fridge, who takes out the trash
+  fridge, who takes out the trash. Conflux is funding the food, so confirm this
+  before anyone places an order
 - Alcohol: allowed or not. Assume not unless told otherwise, and don't buy any until
   it's explicitly cleared — it's a liability question for their landlord, not a
   preference question
@@ -140,27 +141,54 @@ credit, which is worth more than top billing anyway.
 
 ---
 
-## 5. Budget — $1,000 CAD
+## 5. Who covers what
 
-With the venue donated, the $150 venue line is gone. It goes to content and to a
-larger contingency, plus a small line for the things an office host shouldn't have to
-absorb.
+Three buckets, so nobody has to guess who is paying for the cups.
+
+### Uniblock — in kind
+
+The venue and everything attached to it. No cash ask.
+
+- The office, from 5:30 until the 9:00 hard stop
+- AV: screen or projector, HDMI and USB-C, sound
+- Guest wifi that holds up with 40 devices on it
+- Building access — door codes, security desk, elevator, a named on-site contact
+  who holds the keys at the end
+
+### Conflux — food and drinks, ~$590
+
+The single line that most determines whether people stay past 8:30.
 
 | Line | Amount | Detail |
 |---|---:|---|
-| Food | $480 | Pizza for ~45 (approx. 16–18 large @ ~$26 delivered). Scale to confirmed capacity. Includes vegetarian and halal options — non-negotiable, roughly a third of the order |
+| Food | $480 | Pizza for ~45 (approx. 16–18 large @ ~$26 delivered). Scale to confirmed capacity. Vegetarian and halal options are non-negotiable — roughly a third of the order |
 | Drinks | $110 | Pop, sparkling water, still water, ice, cups, napkins |
-| Venue extras | $70 | Garbage bags, paper towel, disinfectant wipes, table cover for the food surface, folding chairs if the office is short. Leave the office cleaner than you found it — this is what gets you invited back |
-| Supplies | $60 | Name tags, markers, HDMI + USB-C adapters, power bar, extension cord |
-| Print & signage | $50 | Lobby/door wayfinding sign (important in an office — people get lost), sponsor cards for the food table, QR standees for the repo and Luma |
-| Photo / content | $150 | Community photographer stipend plus clip editing, so the demo becomes a shareable video. Every past event that got photographed still earns you reach — the cheapest marketing line on the list |
-| Contingency | $80 | Someone always needs a cable, and an unfamiliar building always costs you something |
-| **Total** | **$1,000** | |
+| | **$590** | |
 
-**Not in this budget, by design:** no prizes. The $1,000 buys turnout and repeat
-attendance, which is the actual goal. A bounty or prize pool, if either sponsor wants
-one, sits on top as separate sponsor spend — and is the natural upgrade for an
+### Other — ~$410
+
+Everything else, from the community budget.
+
+| Line | Amount | Detail |
+|---|---:|---|
+| Photo / content | $150 | Photographer stipend plus clip editing, so the demo becomes a shareable video. Every past event that got photographed still earns reach — the cheapest marketing line on the list |
+| Venue extras | $70 | Garbage bags, paper towel, wipes, table cover, folding chairs if the office is short. Leave it cleaner than you found it — that is what gets you invited back |
+| Supplies | $60 | Name tags, markers, HDMI + USB-C adapters, power bar, extension cord |
+| Print &amp; signage | $50 | Lobby and door wayfinding (people get lost in offices), sponsor cards for the food table, QR standees for the repo and Luma |
+| Contingency | $80 | Someone always needs a cable, and an unfamiliar building always costs something |
+| | **$410** | |
+
+**Total cash: $1,000 CAD.** Venue and AV are in kind on top of that.
+
+**Not in this budget, by design:** no prizes. The money buys turnout and repeat
+attendance, which is the actual goal. A bounty or prize pool, if either sponsor
+wants one, sits on top as separate spend — and is the natural upgrade for an
 October or November follow-up.
+
+**Two things to confirm early.** Whether Conflux pays the vendor directly or
+reimburses (it changes who places the order and who eats a late delivery), and
+whether Uniblock's office has a food policy — hot food, garbage disposal, and
+alcohol are all landlord questions, not preference questions.
 
 ---
 
@@ -169,7 +197,7 @@ October or November follow-up.
 Neither partner presents separately this time, so what they get is different —
 and in one respect better.
 
-**Uniblock**
+**Uniblock** — contributing the venue and AV, in kind
 - **Hosting credit** — "hosted at the Uniblock offices" on the Luma page, the
   signage, the recap post and every photo taken that night. Forty developers
   spend three hours inside their office and leave with a physical sense of the
@@ -189,7 +217,9 @@ and in one respect better.
 > which no node or explorer can do. That concession is what makes the rest
 > credible to this audience, but a sponsor should hear it from Tony first.
 
-**Conflux**
+**Conflux** — funding food and drinks, ~$590
+- **Food sponsor credit** on the Luma page, the signage and the recap — and
+  practically, the reason anyone is still in the room at 8:30
 - The **decimals finding** is theirs and it is the sharpest technical detail in
   the deck — eSpace USDC at 18 decimals against 6 everywhere else, read on-chain
 - Positioned to Toronto developers as an omnichain and Asia-RWA story rather
