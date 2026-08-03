@@ -159,7 +159,7 @@ and small.
 
 | | |
 |---|---|
-| [`talk/deck.html`](talk/deck.html) | The talk, 27 slides. Open it in a browser — no server needed. **N** for speaker notes, **F** for fullscreen |
+| [`talk/deck.html`](talk/deck.html) | The talk, 24 slides. Open it in a browser — no server needed. **N** for speaker notes, **F** for fullscreen |
 | [`talk/proposal.md`](talk/proposal.md) | The event proposal — date, run of show, venue, who covers what |
 | [`docs/data-layer-landscape.md`](docs/data-layer-landscape.md) | The six layers — RPC providers, explorers, multichain APIs, routers, custom indexers, warehouses — and which to reach for |
 | [`docs/chain-integration-spec.md`](docs/chain-integration-spec.md) | What adding a chain to a unified API actually requires |

@@ -1587,93 +1587,11 @@ Off by a factor of a trillion. No exception, no failing test.</code></pre>
       </div>
     </section>
 
-    <!-- 19b ────────────────────────── the demos, actually run -->
-    <section class="slide is-tight" data-notes="Two commands, and they are the reason to trust anything else I have said tonight.|<b>Left: npm run compare.</b> It reads every balance twice &mdash; once straight off the chain, once through the aggregator &mdash; and diffs them. Four of five agree exactly. Base says <b>unverified</b> rather than guessing, because free-tier provider coverage could not answer and printing a zero there would have been a confident lie.|That script found every bug in this repo. A symbol match that returned a bridged USDC.e balance on Optimism while the real one was zero. Three chains reporting &ldquo;no USDC&rdquo; because the token list is paginated. Two returning undefined because the provider failed inside an HTTP 200. <b>None of them threw. All of them looked plausible.</b> A diff against ground truth is the only thing that catches that class of bug.|<b>Right: npm run verify.</b> Six chains, and the decimals are not uniform. That is the Conflux slide, executable.|The line to land: everything in this talk is a command you can run. If you think a number is wrong, clone it and prove me wrong &mdash; that is a better outcome for both of us than you believing me.">
-      <div class="eyebrow"><span>03 &mdash; The artifact</span><span class="tick"></span><em>Don&rsquo;t trust me, run it</em></div>
-      <h2 class="title">The demos, actually run</h2>
-      <div class="demos">
-        <pre class="demo-out"><code>$ npm run compare
-
-chain          on-chain      via API    verdict
-Ethereum       50,810.846  50,810.846   match
-Arbitrum One       37.014      37.014   match
-Base              104.382  unverified   ? provider gap
-OP Mainnet              0           0   match
-Polygon PoS        50.075      50.075   match
-
-4/5 agree | 1 unverified | 0 mismatched</code></pre>
-        <pre class="demo-out"><code>$ npm run verify
-
-Ethereum        USDC    6 decimals
-Arbitrum One    USDC    6 decimals
-Base            USDC    6 decimals
-OP Mainnet      USDC    6 decimals
-Polygon PoS     USDC    6 decimals
-Conflux eSpace  USDC   18 decimals
-
-Distinct decimals across 6 chains: 6, 18</code></pre>
-      </div>
-      <p class="verdict">The diff on the left found <b>every bug in this repo</b> &mdash; a bridged lookalike, three paginated misses, two errors inside an HTTP 200. <b>None of them threw.</b></p>
-      <p class="source"><b>Source:</b> Both commands run live against Ethereum, Arbitrum, Base, Optimism, Polygon and Conflux eSpace &middot; 2 Aug 2026</p>
-    </section>
-
-    <!-- 18b ─────────────────────────── sources and method -->
-    <section class="slide is-tight" data-notes="Leave this up during questions. It is the slide that says &ldquo;check me&rdquo;, and in a room like this that is worth more than any individual number.|Two things to say. First: everything except the security figures came out of an API, and the scripts are in the repo, so anyone can re-run the whole analysis. Second: <b>I got one wrong.</b> An earlier draft quoted a blog saying bridges were forty percent of all value stolen. Computed from the actual register it is 19.7%. That is why the sourcing is on the slides now rather than in my notes.|If someone challenges a number tonight, the correct answer is &ldquo;here is where it came from, go and check&rdquo; &mdash; not a defence of the number.">
-      <div class="eyebrow"><span>03 &mdash; The artifact</span><span class="tick"></span><em>Check my working</em></div>
-      <h2 class="title">Sources, and one thing I got wrong</h2>
-      <table class="score dense">
-        <thead><tr><th>Claim</th><th>Source</th><th>How to check</th></tr></thead>
-        <tbody>
-          <tr><td>USDC across 71 chains<span class="sub">$72.1B, $25.9B off Ethereum</span></td><td class="was">DefiLlama stablecoins API</td><td class="now">stablecoins.llama.fi</td></tr>
-          <tr><td>Uniswap volume share<span class="sub">0 &rarr; ~half off Ethereum</span></td><td class="was">DefiLlama DEX volume</td><td class="now">api.llama.fi/summary/dexs</td></tr>
-          <tr><td>147-launch event study<span class="sub">lending +26.3%, DEX &minus;8.8%</span></td><td class="was">DefiLlama protocol TVL</td><td class="now">talk/event-study.json</td></tr>
-          <tr><td>Bridge losses<span class="sub">$3.30B, 61 incidents, 19.7%</span></td><td class="was">DefiLlama hack register</td><td class="now">api.llama.fi/hacks</td></tr>
-          <tr><td>Latency benchmarks<span class="sub">warm, median of 7</span></td><td class="was">Measured here</td><td class="now">clone the repo, re-run</td></tr>
-          <tr class="key"><td>&ldquo;Bridges are 40% of theft&rdquo;</td><td class="was">A blog. I quoted it.</td><td class="now">Wrong &mdash; it is 19.7%</td></tr>
-        </tbody>
-      </table>
-      <p class="verdict">Every figure above came from an API, and the scripts are in the repo. <b>The one I took on trust was the one that was wrong.</b></p>
-    </section>
-
-    <!-- 13 ───────────────────────────── CTA -->
-    <section class="slide" data-notes="Be specific about the ask. &ldquo;Get involved&rdquo; converts nobody; &ldquo;clone this, run it, open a PR&rdquo; converts a few, and a few is how a community starts.|Say the October demo slots are open <b>before</b> the room disperses. The single highest-value thing you can leave with tonight is a committed date and one person who has said yes to demoing.">
-      <div class="eyebrow"><span>03 &mdash; The artifact</span><span class="tick"></span><em>Your move</em></div>
-      <h2 class="title">What to do with this</h2>
-      <div class="cta-grid">
-        <div class="cta">
-          <div class="when">Tonight</div>
-          <ul>
-            <li>Clone the starter repo</li>
-            <li>Grab a free Uniblock key</li>
-            <li>Run it before you leave</li>
-          </ul>
-        </div>
-        <div class="cta">
-          <div class="when">This month</div>
-          <ul>
-            <li>Add a chain to the demo, open a PR</li>
-            <li>Contribute to the integration spec</li>
-          </ul>
-        </div>
-        <div class="cta">
-          <div class="when">Next Blockchain Tuesday</div>
-          <ul>
-            <li>Bring what you built</li>
-            <li>Demo slots are open &mdash; ask me tonight</li>
-          </ul>
-        </div>
-      </div>
-      <div class="qr-row">
-        <div class="qr-slot">[ QR &mdash; STARTER REPO ]</div>
-        <div class="qr-slot">[ QR &mdash; INTEGRATION SPEC ]</div>
-        <div class="qr-slot">[ QR &mdash; NEXT EVENT ]</div>
-      </div>
-    </section>
-
     <!-- 14 ───────────────────────────── close -->
-    <section class="slide cover" data-notes="Land it and stop. Don&rsquo;t add a summary slide after this one.|<b>This is the whole talk in four words, and it earned itself three separate times tonight.</b> Deploy few, read many &mdash; because bridges leak and reads cannot. No place_order tool &mdash; because a model proposing and a model signing are different risk surfaces.|Two independent arguments land on the same boundary &mdash; the economics of deploying, and the security of signing. When separate lines of reasoning converge like that you have probably found something real rather than something you wanted to be true. Say that. When that happens you have probably found something real rather than something you wanted to be true. Say that.|Thank Uniblock for the space by name &mdash; they gave you the room, and saying so in front of forty people is the cheapest and most genuine thing you can do for them. Thank Conflux for making the trip.|Then get out of the way: the social half is the part people actually came for.">
-      <h1>Read wide.<br>Sign <span>narrow.</span></h1>
-      <p class="close-note">Aggregate to find out what is true &mdash; across every chain and venue, where latency is cheap and mistakes are free. Go direct to act on it, where both are expensive. <b>Thanks to Uniblock for the space, and to Conflux.</b> See you in October.</p>
+    <section class="slide cover" data-notes="Land it and stop. Do not add a summary slide after this one.|<b>Close on the title, because by now they have the evidence for it.</b> The hard part was never deciding &mdash; it was seeing. Where the money is, what it is worth, what the market is paying, what the crowd expects. Two of those questions have no node method at all, and that is the whole reason any of this is becoming useful.|Read wide, sign narrow &mdash; two independent arguments landed there tonight, the economics of deploying and the security of signing. When separate lines of reasoning converge like that you have probably found something real rather than something you wanted to be true.|Thank both sponsors by name. Uniblock gave you the room; saying so in front of forty people is the cheapest and most genuine thing you can do for them. Conflux paid for the food everyone just ate.|Then get out of the way. The social half is the part people actually came for."> 
+      <h1>Observability is <span>all you need</span></h1>
+      <p class="close-note">The hard part was never deciding. It was <b>seeing</b> &mdash; across every chain and venue, where reading costs nothing and mistakes are free. <b>Read wide. Sign narrow.</b></p>
+      <p class="close-note" style="margin-top:22px;padding-top:0;border-top:none"><b>Thanks to Uniblock and Conflux for sponsoring the event.</b></p>
       <div class="credits">
         <b>Tony Lau</b><span class="dot">&bull;</span>Blockchain Tuesday<span class="dot">&bull;</span>Toronto
       </div>
