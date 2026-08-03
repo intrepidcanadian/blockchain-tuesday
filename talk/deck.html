@@ -1180,7 +1180,7 @@
           <tr><td>DEX<span class="sub">Uniswap &middot; Curve &middot; Sushi &middot; Balancer &middot; Pancake</span></td><td class="was">101</td><td class="was">&minus;8.8%</td><td class="was">24%</td><td class="was">&minus;6.4% &mdash; cannibalised</td></tr>
         </tbody>
       </table>
-      <p class="verdict">Lending is <b>local</b> &mdash; a new chain is a new market. DEX liquidity is <b>fungible</b> &mdash; a new chain splits the book. The question isn&rsquo;t whether to expand. It&rsquo;s <b>what you are</b>.</p>
+      <p class="verdict">Borrowers and collateral <b>live on one chain</b>, so a lending market on a new chain is a new market. A swap can route <b>anywhere</b>, so a new venue just splits the same order book. The question isn&rsquo;t whether to expand &mdash; it&rsquo;s <b>which of those two you are</b>.</p>
           <p class="source"><b>Source:</b> DefiLlama protocol + chain TVL &middot; 147 launches, 30d pre / 90d post, market-adjusted &middot; 2 Aug 2026</p>
     </section>
 
@@ -1396,7 +1396,7 @@ polygon         50.075 USDC  [direct]
 
 
     <!-- 9b ──────────────────────────── the agent's actual surface -->
-    <section class="slide is-tight" data-notes="This is the slide that answers &ldquo;so what is Uniblock actually for.&rdquo; Look down the middle column: <b>only the top row is an RPC node</b>. Everything else is a different kind of system entirely.|An agent allocating capital has to join all of these. Where am I? What is it worth? Where is the perp basis? What is the crowd pricing? What is the mood? Those are four different worlds with four different auth models, four rate limits, four response shapes &mdash; and no relationship to each other except that one agent needs all of them in the same loop.|<b>That is the product.</b> Not faster balanceOf. One key across systems that have nothing in common.|Be straight about the ticks. Everything marked verified, I ran against a live key while building this repo. Kraken came back 503 &mdash; insufficient providers on this plan &mdash; so it is available rather than proven, and I am not going to claim otherwise on a slide.|The honest caveat: the unified schema covers on-chain and Hyperliquid. Polymarket, LunarCrush and the rest arrive through direct passthrough, so you get that provider&rsquo;s own shape. Same key, same bill, unnormalized.">
+    <section class="slide is-tight" data-notes="This is the slide that answers &ldquo;so what is Uniblock actually for.&rdquo; Look down the middle column: <b>only the top row is an RPC node</b>. Everything else is a different kind of system entirely.|An agent allocating capital has to join all of these. Where am I? What is it worth? Where is the perp basis? What is the crowd pricing? What is the mood? Those are four different worlds with four different auth models, four rate limits, four response shapes &mdash; and no relationship to each other except that one agent needs all of them in the same loop.|<b>That is the product.</b> Not faster balanceOf. One key across systems that have nothing in common.|Everything marked accessible, I ran against a live key while building this repo. Kraken came back 503 &mdash; not enabled on this plan &mdash; so say that plainly rather than implying it works.|<b>Do not linger on the balance row.</b> Raw RPC is faster at it and that is covered properly two slides on, with numbers. Making the point here, without the measurement, just sounds defensive.|The honest caveat: the unified schema covers on-chain and Hyperliquid. Polymarket, LunarCrush and the rest arrive through direct passthrough, so you get that provider&rsquo;s own shape. Same key, same bill, unnormalized.">
       <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The surface</em></div>
       <h2 class="title">One key, and almost none of it is a node</h2>
       <table class="score dense">
@@ -1404,17 +1404,17 @@ polygon         50.075 USDC  [direct]
           <tr><th>The agent asks</th><th>What actually answers it</th><th>Through Uniblock</th></tr>
         </thead>
         <tbody>
-          <tr><td>&ldquo;What&rsquo;s the balance?&rdquo;<span class="sub">state at a known address</span></td><td class="was">An RPC node</td><td class="now">verified &mdash; but raw RPC is faster</td></tr>
-          <tr><td>&ldquo;What do I hold?&rdquo;<span class="sub">discovery across chains</span></td><td class="was">An indexer &mdash; no RPC method exists</td><td class="now">verified</td></tr>
-          <tr><td>&ldquo;What&rsquo;s it worth?&rdquo;<span class="sub">USD prices, market cap</span></td><td class="was">CoinGecko &middot; CMC &middot; Birdeye</td><td class="now">verified inline</td></tr>
-          <tr><td>&ldquo;Where&rsquo;s the carry?&rdquo;<span class="sub">funding, tick premium, books</span></td><td class="was">Hyperliquid &mdash; its own L1</td><td class="now hi">verified &middot; unified schema</td></tr>
-          <tr><td>&ldquo;What&rsquo;s the crowd pricing?&rdquo;<span class="sub">event probabilities</span></td><td class="was">Polymarket</td><td class="now hi">verified &middot; passthrough</td></tr>
-          <tr><td>&ldquo;What&rsquo;s the mood?&rdquo;<span class="sub">social sentiment</span></td><td class="was">LunarCrush</td><td class="now hi">verified &middot; passthrough</td></tr>
-          <tr><td>&ldquo;What&rsquo;s the CEX doing?&rdquo;<span class="sub">centralised book, basis</span></td><td class="was">Kraken</td><td class="now">available &mdash; 503 on this plan</td></tr>
+          <tr><td>&ldquo;What&rsquo;s the balance?&rdquo;<span class="sub">state at a known address</span></td><td class="was">An RPC node</td><td class="was">accessible</td></tr>
+          <tr><td>&ldquo;What do I hold?&rdquo;<span class="sub">discovery across chains</span></td><td class="was">An indexer &mdash; no RPC method exists</td><td class="now">accessible</td></tr>
+          <tr><td>&ldquo;What&rsquo;s it worth?&rdquo;<span class="sub">USD prices, market cap</span></td><td class="was">CoinGecko &middot; CMC &middot; Birdeye</td><td class="now">accessible</td></tr>
+          <tr><td>&ldquo;Where&rsquo;s the carry?&rdquo;<span class="sub">what perps pay you to hold</span></td><td class="was">Hyperliquid &mdash; its own L1</td><td class="now hi">accessible</td></tr>
+          <tr><td>&ldquo;What&rsquo;s the crowd pricing?&rdquo;<span class="sub">event probabilities</span></td><td class="was">Polymarket</td><td class="now hi">accessible</td></tr>
+          <tr><td>&ldquo;What&rsquo;s the mood?&rdquo;<span class="sub">social sentiment</span></td><td class="was">LunarCrush</td><td class="now hi">accessible</td></tr>
+          <tr><td>&ldquo;What&rsquo;s the CEX doing?&rdquo;<span class="sub">centralised order book</span></td><td class="was">Kraken</td><td class="was">not on this plan</td></tr>
         </tbody>
       </table>
       <p class="verdict">Only the first row is a node. The other six are <b>different systems entirely</b> &mdash; and joining them is the agent&rsquo;s whole job.</p>
-          <p class="source"><b>Source:</b> Every &ldquo;verified&rdquo; row run against a live Uniblock key while building this repo &middot; Kraken returned 503 on this plan</p>
+          <p class="source"><b>Source:</b> Every row marked accessible was run against a live Uniblock key while building this repo &middot; Kraken returned 503 on this plan</p>
     </section>
 
     <!-- 9c ──────────────────────────── the cross-venue payoff -->
@@ -1453,12 +1453,12 @@ Will Bitcoin hit $150k by December 31, 2026?
 3. What is the crowd pricing?   (Polymarket - implied and depth)
      Will Donald Trump Jr. win the 2028 US Pres...   1.1%   $916,782
      Putin out as President of Russia by Dec 31...   8.5%   $715,540</code></pre>
-      <p class="verdict">Capital, carry, crowd &mdash; three venues, <b>one key</b>. Ranked on <b>persistence</b>, because the headline rate is usually noise.</p>
+      <p class="verdict">Three questions in one run: <b>where the money is</b>, <b>what perps pay you to hold a position</b>, and <b>what the crowd expects</b>. Sorted by rates that held for a week &mdash; one good hour on a thin market annualises into a number that isn&rsquo;t real.</p>
       <p class="source"><b>Source:</b> npm run agent, live &middot; balances via Uniblock, Hyperliquid unified schema, Polymarket passthrough &middot; 2 Aug 2026</p>
     </section>
 
     <!-- 13c ────────────────────────── why a reading agent is worth having -->
-    <section class="slide is-tight" data-notes="You have seen one cross-venue join. Here is why it generalises, and it is the answer to &ldquo;why bother with an agent if it cannot trade&rdquo;.|<b>Attention is the real constraint.</b> One key reaches 1,614 instruments &mdash; 943 Hyperliquid markets of which 232 are perps, 600 liquid prediction questions, 71 chains holding meaningful stablecoin balances. An earlier version said 1,846; that added the perps twice, because allMids already contains them. A good desk actively tracks maybe ten. Everything else is unwatched, not because it is uninteresting but because nobody has the hours.|<b>Continuity is the one people forget</b>, and it is why the latency slide does not sting. A loop that runs every five minutes does not care about seven hundred milliseconds. It cares that it ran at 3am when you did not. Two hundred and eighty-eight checks a day against your two is a 144x difference in when you find out.|<b>Capital placement</b> is the plumbing one. The scan reports the balance on every chain and the carry on every market in the same breath, so &ldquo;can I even fund this&rdquo; is answered before &ldquo;is it a good idea&rdquo;.|<b>Do not claim you found idle capital.</b> An earlier draft of this slide said fifty thousand dollars was sitting idle on Ethereum &mdash; the number was real but the demo wallet is a Binance hot wallet with seventeen million transactions on it. That money is exactly where it should be. If you use a live wallet on stage, say whose it is.|<b>Observability</b> is the one only an aggregator gives you. The 2.39x vol disagreement was invisible to both venues. Neither Polymarket nor Hyperliquid was wrong &mdash; neither could see the other.|Land on the last line. None of these four require the agent to be right about the market. They require it to <b>look</b>, which is the part humans are worst at and machines are cheapest at.">
+    <section class="slide is-tight" data-notes="You have seen one cross-venue join. Here is why it generalises, and it is the answer to &ldquo;why bother with an agent if it cannot trade&rdquo;.|<b>Attention is the real constraint.</b> One key reaches 1,614 instruments &mdash; 943 Hyperliquid markets of which 232 are perps, 600 liquid prediction questions, 71 chains holding meaningful stablecoin balances. An earlier version said 1,846; that added the perps twice, because allMids already contains them. A good desk actively tracks maybe ten. Everything else is unwatched, not because it is uninteresting but because nobody has the hours.|<b>Continuity is the one people forget</b>, and it is why the latency slide does not sting. A loop that runs every five minutes does not care about seven hundred milliseconds. It cares that it ran at 3am when you did not. Two hundred and eighty-eight checks a day against your two is a 144x difference in when you find out.|<b>Capital placement</b> is the plumbing one. The scan reports the balance on every chain and the carry on every market in the same breath, so &ldquo;can I even fund this&rdquo; is answered before &ldquo;is it a good idea&rdquo;.|<b>Do not claim you found idle capital.</b> An earlier draft of this slide said fifty thousand dollars was sitting idle on Ethereum &mdash; the number was real but the demo wallet is a Binance hot wallet with seventeen million transactions on it. That money is exactly where it should be. If you use a live wallet on stage, say whose it is.|<b>Observability</b> is the one only an aggregator gives you. The 2.39x vol disagreement was invisible to both venues. Neither Polymarket nor Hyperliquid was wrong &mdash; neither could see the other.|<b>Say the verdict in those words.</b> Where the money is, what perps pay you to hold, what the crowd expects. Not &ldquo;capital, carry, crowd&rdquo; &mdash; that is three pieces of desk shorthand and half this room does not have it.|Land on the last line. None of these four require the agent to be right about the market. They require it to <b>look</b>, which is the part humans are worst at and machines are cheapest at.">
       <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>Why bother</em></div>
       <h2 class="title">What a reading agent is actually for</h2>
       <table class="score dense">
@@ -1508,7 +1508,7 @@ Will Bitcoin hit $150k by December 31, 2026?
           <tr class="key"><td>&ldquo;What do I hold?&rdquo;</td><td class="was">no route exists</td><td class="now">384ms</td><td class="now">&infin; faster than impossible</td></tr>
         </tbody>
       </table>
-      <p class="verdict">Eight venues, one auth, one bill, one schema, one place to add the ninth. <b>Aggregate to research. Go direct to execute.</b></p>
+      <p class="verdict">Eight venues, one login, one bill, <b>one response format instead of eight</b>, and one place to add the ninth. <b>Aggregate while you&rsquo;re still working out what to do. Go direct once you know.</b></p>
           <p class="source"><b>Source:</b> Own benchmark &middot; warm connections, median of 7 runs per route &middot; 2 Aug 2026</p>
     </section>
 
@@ -1531,7 +1531,7 @@ Will Bitcoin hit $150k by December 31, 2026?
           <tr class="key"><td>Cost of chain #11</td><td class="was">Same as chains 1&ndash;10, again</td><td class="now">Same as chain #2 &mdash; flat</td></tr>
         </tbody>
       </table>
-      <p class="verdict">Top row: <b>RPC wins</b> the question you already know how to ask. Bottom rows: it cannot ask the others at all. <b>Buy the abstraction for discovery, not for lookups.</b></p>
+      <p class="verdict">Top row: <b>the node wins</b> when you already know exactly what to ask for. Bottom rows: the node <b>cannot be asked at all</b>. Pay for the aggregator when you&rsquo;re <b>finding out what exists</b> &mdash; not when you&rsquo;re looking up something you can already name.</p>
           <p class="source"><b>Source:</b> Own benchmark &middot; raw RPC vs Uniblock, same wallet, same chains</p>
     </section>
 
