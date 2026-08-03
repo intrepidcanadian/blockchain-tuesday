@@ -371,6 +371,19 @@ and for one or two chains you probably should. The router is buying uniformity
 across N, not capability at one. If someone is building on a single chain and
 asks whether they need this — the answer is no, and say so.
 
+**"What else is there?"** — the follow-up. There are six categories, and
+`docs/data-layer-landscape.md` in the repo maps them: RPC providers, per-chain
+explorers, multichain data APIs, routers, custom indexing frameworks, and
+analytics warehouses. Worth knowing the shape because most tools sit in exactly
+one, and confusing them is how people pay for something they already have.
+
+One more measured detail worth having ready: the free indexers **disagree with
+each other**. Blockscout returned 2,138 tokens for our wallet on Ethereum;
+Routescan returned 25 holdings for the same address. Neither is lying —
+"holdings" means different things to different indexers. That disagreement is
+itself an argument for a normalising layer, and also a reason to check what any
+provider actually means before trusting a number.
+
 **"Isn't the trend consolidation? Fewer chains, less attack surface."** ← ALSO LIKELY
 This is the sharpest objection, and the two slides "More chains does not mean
 more volume" and "Deploy few. Read many." exist to meet it head on. The strongest
