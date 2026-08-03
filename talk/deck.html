@@ -561,6 +561,42 @@
   .wire-loop .wl-stop { color: #CE7076; }
   .wire-loop .wl-stop .wl-n { color: #CE7076; }
 
+  /* Terms the room will not all share. Defining them under the table beats a
+     verdict line, because the table is meaningless if "attestation" is opaque. */
+  .glossary {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: none;
+  }
+
+  .gl-row {
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    gap: 22px;
+    align-items: baseline;
+  }
+
+  .gl-t {
+    font-family: var(--mono);
+    font-size: 14.5px;
+    color: var(--amber);
+    letter-spacing: -.01em;
+  }
+
+  .gl-t .gl-vs { color: var(--faint); }
+
+  .gl-d {
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .gl-d b { color: var(--fg); font-weight: 500; }
+
   /* ---------- migration strip ---------- */
 
   .migration {
@@ -1024,12 +1060,15 @@
           <tr><td>Wrapper created<span class="sub">the thing bridges do</span></td><td class="was">none</td><td class="was">none</td></tr>
           <tr><td>Circle attests<span class="sub">the actual difference</span></td><td class="was">after hard finality</td><td class="now">Standard: after &middot; <b style="color:var(--amber);font-weight:500">Fast: before</b></td></tr>
           <tr><td>Ethereum &rarr; L2<span class="sub">wall clock</span></td><td class="was">~13&ndash;19 min</td><td class="now">Standard ~15&ndash;19 min &middot; <b style="color:var(--amber);font-weight:500">Fast 8&ndash;20 sec</b></td></tr>
-          <tr><td>Circle fee</td><td class="was">none</td><td class="was">Standard none &middot; Fast small</td></tr>
           <tr><td>Actions on arrival</td><td class="was">&mdash;</td><td class="now">Hooks, atomic</td></tr>
           <tr><td>Status</td><td class="was" style="color:#CE7076">phase-out began 31 Jul 2026</td><td class="now">canonical</td></tr>
         </tbody>
       </table>
-      <p class="verdict">Fast Transfer mints against an <b>allowance before the burn is final</b>, replenished at finality. Circle carries the reorg risk, for a fee &mdash; so don&rsquo;t call both modes &ldquo;trustless&rdquo;.</p>
+      <div class="glossary">
+        <div class="gl-row"><div class="gl-t">Attestation</div><div class="gl-d">Circle&rsquo;s signed proof that the burn happened. The destination contract will not mint without it &mdash; it is the only link between the two chains, and the thing you are trusting.</div></div>
+        <div class="gl-row"><div class="gl-t">after <span class="gl-vs">vs</span> before</div><div class="gl-d"><b>Standard</b> signs once the burn is irreversible &mdash; safe, slow, free. <b>Fast</b> signs while a reorg could still undo it, and Circle fronts the destination mint from its own allowance until finality lands. You are paying Circle to hold that risk.</div></div>
+        <div class="gl-row"><div class="gl-t">Hooks, atomic</div><div class="gl-d">An action bundled into the same transaction as the mint &mdash; arrive and deposit in one step. <b>Either both happen or neither does</b>, so there is no window where funds land and sit unallocated.</div></div>
+      </div>
       <p class="source"><b>Source:</b> Circle CCTP documentation and V1 deprecation notice &middot; read 3 Aug 2026</p>
     </section>
 
