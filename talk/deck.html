@@ -992,25 +992,25 @@
     </section>
 
     <!-- 3 ───────────────────────────── fragmentation -->
-    <section class="slide" data-notes="This is the actual state of the world. The &ldquo;same&rdquo; token exists in a dozen incompatible forms. Every wrapped variant is a separate pool with separate depth, separate slippage, separate risk.|Don&rsquo;t rush this slide &mdash; the rest of the economic argument is just consequences of this picture.|<b>The numbers underneath are the point.</b> Seventy-one chains hold more than a million dollars of USDC. Twenty-six billion of it &mdash; over a third of all USDC &mdash; sits somewhere that is not Ethereum. Every one of those is a separate pool with its own depth and its own slippage. This is not a diagram, it is the measured state of the largest stablecoin in the world.|Worth noting for later: Hyperliquid&rsquo;s own L1 holds six billion of it. When we get to the agent section, that is why a perps venue is somewhere your capital actually has to be.|The five colours matter: this is the fragmented state. Later slides collapse to one colour.">
+    <section class="slide" data-notes="This is the actual state of the world. The &ldquo;same&rdquo; token exists in a dozen incompatible forms. Every wrapped variant is a separate pool with separate depth, separate slippage, separate risk.|Don&rsquo;t rush this slide &mdash; the rest of the economic argument is just consequences of this picture.|<b>Correct a thing people assume.</b> This is not one real USDC on Ethereum and a pile of wrappers. Circle mints <b>natively on more than forty chains</b> &mdash; every one of these is genuine Circle-issued USDC, and none of it is fungible with any other without bridging. That is what makes the fragmentation structural rather than a legacy artifact.|<b>Then the detail that costs people money.</b> On Optimism there are two contracts. The Circle-native one holds $153.7M. The legacy bridged one holds $21.4M. <b>They both answer symbol() with the string USDC.</b> The bridged one does not call itself USDC.e on chain &mdash; that name only exists in interfaces.|Our own code fell for exactly this. A symbol match returned the bridged balance while the canonical balance was zero. Address is identity; a ticker is a label anyone can write. That bug is on a later slide, and it started here.|<b>The numbers underneath are the point.</b> Seventy-one chains hold more than a million dollars of USDC. Twenty-six billion of it &mdash; over a third of all USDC &mdash; sits somewhere that is not Ethereum. Every one of those is a separate pool with its own depth and its own slippage. This is not a diagram, it is the measured state of the largest stablecoin in the world.|Worth noting for later: Hyperliquid&rsquo;s own L1 holds six billion of it. When we get to the agent section, that is why a perps venue is somewhere your capital actually has to be.|The five colours matter: this is the fragmented state. Later slides collapse to one colour.">
       <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>Fragmentation</em></div>
       <h2 class="title">Same asset. Many chains. None of it pooled.</h2>
       <div class="chips">
-        <div class="chip" style="--hue: var(--c-eth)"><div class="name">USDC</div><div class="where">Ethereum</div></div>
-        <div class="chip" style="--hue: var(--c-arb)"><div class="name">USDC</div><div class="where">Arbitrum</div></div>
-        <div class="chip" style="--hue: var(--c-base)"><div class="name">USDC</div><div class="where">Base</div></div>
-        <div class="chip" style="--hue: var(--c-op)"><div class="name">USDC</div><div class="where">Optimism</div></div>
-        <div class="chip" style="--hue: var(--c-poly)"><div class="name">USDC</div><div class="where">Polygon</div></div>
-        <div class="chip is-ghost"><div class="name">USDC.e</div><div class="where">Bridged variant</div></div>
-        <div class="chip is-ghost"><div class="name">Wrapped</div><div class="where">&hellip; and the rest</div></div>
+        <div class="chip" style="--hue: var(--c-eth)"><div class="name">USDC</div><div class="where">Ethereum &middot; native</div></div>
+        <div class="chip" style="--hue: var(--c-arb)"><div class="name">USDC</div><div class="where">Arbitrum &middot; native</div></div>
+        <div class="chip" style="--hue: var(--c-base)"><div class="name">USDC</div><div class="where">Base &middot; native</div></div>
+        <div class="chip" style="--hue: var(--c-op)"><div class="name">USDC</div><div class="where">Optimism &middot; native</div></div>
+        <div class="chip" style="--hue: var(--c-poly)"><div class="name">USDC</div><div class="where">Polygon &middot; native</div></div>
+        <div class="chip is-ghost"><div class="name">USDC</div><div class="where">&hellip; 35 more, all native</div></div>
+        <div class="chip is-ghost"><div class="name">USDC.e</div><div class="where">bridged, still circulating</div></div>
       </div>
+      <p class="verdict" style="margin-top:26px">Circle issues USDC <b>natively on 40+ chains</b> &mdash; these are not copies of an Ethereum original. On Optimism both the native contract and the legacy bridged one return <b>symbol() == &ldquo;USDC&rdquo;</b>: $153.7M and $21.4M. Same ticker, different asset.</p>
       <div class="chart-foot" style="margin-top:26px">
         <div class="hero"><b>71</b><span>chains hold more than $1M of USDC</span></div>
         <div class="hero"><b>$25.9B</b><span>of USDC sits off Ethereum &mdash; 36% of supply</span></div>
         <div class="hero quiet"><b>$72.1B</b><span>total, and no two pools are the same pool</span></div>
       </div>
-      <p class="verdict">Fragmentation is the <b>default state</b> of crypto liquidity &mdash; and everyone pays for it.</p>
-          <p class="source"><b>Source:</b> DefiLlama stablecoins API &middot; USDC circulating by chain &middot; pulled 2 Aug 2026</p>
+          <p class="source"><b>Source:</b> DefiLlama stablecoins API &middot; native-issuance count from Circle&rsquo;s address list &middot; Optimism supplies read on-chain &middot; 3 Aug 2026</p>
     </section>
 
     <!-- 5b ──────────────────────────── worked example: Uniswap volume -->

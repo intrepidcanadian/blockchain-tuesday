@@ -20,6 +20,27 @@ stores state by address and cannot enumerate what an address owns. If your
 question is "balance of a token I can already name", this is the shortest path
 and nothing beats it. We measured it: 5 chains in ~140ms, no key.
 
+## A note on "the same asset"
+
+USDC is **natively issued by Circle on 40+ mainnets** — Ethereum, Arbitrum, Base,
+Optimism, Polygon, Solana and the rest. These are not copies of an Ethereum
+original; each is a genuine Circle issuance, and none of it is fungible with any
+other without bridging or CCTP.
+
+Where Circle arrived after a bridge did, the legacy bridged token still
+circulates alongside. On Optimism, read on-chain:
+
+| Contract | `symbol()` | Supply |
+|---|---|---|
+| `0x0b2C…Ff85` — Circle native | **USDC** | $153.7M |
+| `0x7F5c…1607` — legacy bridged | **USDC** | $21.4M |
+
+**Both answer `symbol()` with "USDC".** The bridged one does not call itself
+USDC.e on chain — that name exists only in interfaces. This repo's aggregated
+path matched on symbol at one point and returned the bridged balance while the
+canonical balance was zero. Address is identity; a ticker is a label anyone can
+write.
+
 ## 2. Explorers and per-chain indexers
 
 **Blockscout (open source) · Etherscan family · Routescan · Otterscan**
