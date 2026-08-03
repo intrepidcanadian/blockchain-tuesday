@@ -1,6 +1,6 @@
 # Blockchain Tuesday — September 2026
 
-## "One Endpoint, Every Chain: Building Omni-Apps"
+## "Read Wide. Sign Narrow." — building agents across chains and venues
 
 **Presented with Uniblock and Conflux Network**
 Hosted at the Uniblock offices, Toronto · Tuesday, September 15, 2026 · 6:00–9:00 PM
@@ -31,13 +31,30 @@ Uniblock does not currently route Conflux nodes. Rather than paper over that, it
 becomes the most interesting fifteen minutes of the evening — and the reason people
 come back in October.
 
-The live demo builds an omni-app that reads stablecoin balances and prices across
-five chains through a single Uniblock call. It takes about six lines. Then we add
-Conflux eSpace — which means dropping to a raw RPC, hand-rolling the token metadata,
-writing our own retry logic. Suddenly it's forty lines and a config file.
+**This section was rewritten after building the talk, because the original plan
+did not survive contact with the API.**
 
-The room *sees* the abstraction's value by watching it disappear. Nobody has to be
-told why an aggregation layer matters; they just watched forty lines happen.
+The original idea was: read balances across five chains in one Uniblock call,
+then add Conflux by hand and watch six lines become forty. It does not work.
+Uniblock's `chainId` parameter is singular, so the aggregated path loops exactly
+like the by-hand one — and measured head to head, **raw RPC won**: 268ms and five
+of five chains, against 5.5 seconds and four of five. An aggregator cannot beat a
+node at a lookup you already know how to make, and pretending otherwise in a room
+of developers loses it in thirty seconds.
+
+So the demo moved to the question an aggregator genuinely answers. An agent does
+not know what it holds, what it is worth, or where the edge is, and **two of those
+have no RPC method at all** — `eth_getTokenBalances` does not exist, and prices
+are not on-chain in readable form. Nor is Hyperliquid's funding, or Polymarket's
+odds.
+
+The live demo is now a cross-venue scan: where is the capital, what are perps
+paying, what is the crowd pricing — three venues, one key — ending on a
+calculation neither venue can perform alone. Then Conflux, which nothing routes,
+comes back by hand.
+
+The room sees the abstraction's value where it actually exists: not in speed, but
+in reaching things a node cannot be asked about at all.
 
 And the closing slide is a real call to action: here is the spec for what adding a
 chain to a unified API requires. That's a public artifact the community can work on,
@@ -84,12 +101,31 @@ and a natural agenda item for the next event.
 | 6:30 | Welcome + community update | Tony | 5 min. What Blockchain Tuesday is, what's coming, who's hiring |
 | 6:35 | **The multi-chain problem** | Uniblock | 20 min + 5 Q. Unified API, intelligent routing, failover. Include the no-code dashboard path for the newer half of the room |
 | 7:00 | **A chain worth integrating** | Conflux | 20 min + 5 Q. Core Space vs eSpace, USDT0/CNHT0 omnichain stablecoins, Stargate liquidity, what Asia-facing RWA rails look like |
-| 7:25 | **Live build: omni-app in 20 minutes** | Tony | The demo above. Ends on the "what a chain integration needs" spec |
-| 7:45 | Open Q&A / three chairs | All | 15 min. Both sponsors + Tony, audience questions |
-| 8:00 | Call to action + close | Tony | Repo QR, next event, how to get involved |
-| 8:05 | Social, laptops open | — | The part people actually stay for |
+| 7:25 | **Live build: the cross-venue agent** | Tony | 35 min &mdash; see the timing note below. Ends on the "what a chain integration needs" spec |
+| 8:00 | Open Q&A / three chairs | All | 15 min. Both sponsors + Tony, audience questions |
+| 8:15 | Call to action + close | Tony | Repo QR, next event, how to get involved |
+| 8:20 | Social, laptops open | — | The part people actually stay for |
 | 8:45 | Cleanup starts quietly | Volunteers | Garbage bagged, surfaces wiped, chairs back. Don't leave this to the Uniblock team |
 | 9:00 | Out, hard stop | — | Respect the hard stop absolutely. Someone from Uniblock has to lock up and go home |
+
+### Timing — this needs a decision before the pre-call
+
+The deck is **28 slides**. At a realistic pace that is 35–40 minutes, not the 20
+originally planned. Three ways out, in order of preference:
+
+1. **Give Tony 35 minutes and trim the sponsor slots to 15 each.** The run of show
+   above assumes this. It ends at 8:15 rather than 8:00, which still leaves 45
+   minutes of social before the hard stop. Needs both sponsors to agree on the
+   pre-call — do not spring it on them.
+2. **Keep 20 minutes and cut the deck to ~16 slides.** The economics section
+   carries four worked examples where one would do, and three of the demo-output
+   slides make the same "here is proof" point. A 16-slide cut exists and is
+   straightforward.
+3. **Split it.** Run the economics half in September and the agent half in
+   October, which gives the next event a spine rather than a blank page.
+
+Option 1 is the recommendation, but it is a conversation with two sponsors about
+their own stage time, so have it early.
 
 **Target:** capacity-dependent — see the venue section below. Set the Luma cap at the
 office's real seated-plus-standing number, and invite to roughly 1.5× that (Luma
@@ -172,7 +208,14 @@ October or November follow-up.
   item buys that
 - 20-minute technical stage slot to the exact audience that buys developer infra
 - A live demo where a third party — not their own marketing — shows what their
-  abstraction saves you, in code, in real time
+  abstraction reaches, in code, in real time
+- **Set this expectation on the pre-call:** the talk is an honest-broker one. It
+  concedes on stage that raw RPC beats Uniblock on a plain balance lookup, with
+  measurements, and that Blockscout beats it on single-chain discovery — for free.
+  It then argues the aggregator's real case, which is spanning chains *and*
+  exchange venues in one loop, something no explorer or node can do. That
+  concession is what makes the rest credible to this audience, but a sponsor
+  should hear it from Tony before they hear it from the stage
 - A concrete signal on Conflux integration demand, generated by the room
 - Logo on Luma, signage, slides, and the recap post
 - Attendee sign-up funnel: the starter repo needs a free Uniblock key
