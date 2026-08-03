@@ -82,23 +82,6 @@ material where it belongs.
 
 **Target: 20–40 people.**
 
-Hosting in Uniblock's own space removes the single largest budget line, makes the
-wifi and AV a known quantity rather than a gamble, and gives the social half a
-better room than a lecture hall — people linger, laptops come out, conversations
-keep going past 8:30.
-
-**Neutrality.** Blockchain Tuesday is a community brand, and being in a sponsor's
-office nudges it toward reading as a Uniblock event. Cheap fixes: Blockchain
-Tuesday name first on the Luma page and the signage, Tony does the welcome and
-the close, and Conflux gets food sponsor credit alongside Uniblock's hosting
-credit. Hosting credit is worth more than top billing anyway.
-
-**Wayfinding matters more than it sounds.** An 11th-floor office at 6pm means a
-locked lobby, a security desk or a fob, and an elevator. The single biggest way
-an office event loses people is that they arrive and cannot get in — hence the
-greeter from 5:45 and building instructions on the Luma page rather than just an
-address.
-
 ---
 
 ## 5. Who covers what
@@ -177,7 +160,7 @@ Recap post, photos, recording, repo link. Ask both partners to amplify. Open the
 | **Venue evaporates if the partnership shifts** | Have one backup space loosely identified before you announce. You don't need it booked — you need to know who to call |
 | Wifi can't carry a live RPC demo | Much lower risk now that you can test on the real network a week out. Still record the demo in advance as a fallback and narrate over it if needed. Never live-code without an escape hatch |
 | Sponsor framing friction over the honest framing | Settle on the pre-call, 4 weeks out. Both partners should hear the concessions from Tony before the room does |
-| Event reads as a Uniblock ad | Blockchain Tuesday branding first, Tony delivers throughout, Conflux credited on food. Covered above |
+| Event reads as a Uniblock ad | Blockchain Tuesday branding first on the Luma page and signage, Tony delivers throughout, Conflux credited on food |
 | Low turnout | Over-invite to ~1.5× capacity. Student group outreach is the highest-yield channel in September |
 | Room splits — devs bored, beginners lost | The economics half needs no code to follow. The deep material comes second, and is watchable even if you can't follow every line |
 | A partner can't make Q&A | Tony answers for the room and defers roadmap questions to a follow-up. The talk itself does not depend on either of them being present |
