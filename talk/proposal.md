@@ -125,11 +125,9 @@ address.
 
 ## 5. Who covers what
 
-Three buckets, so nobody has to guess who is paying for the cups.
+### Uniblock
 
-### Uniblock — in kind
-
-The venue and everything attached to it. No cash ask.
+The venue and everything attached to it.
 
 - The office, from 5:30 until the 9:00 hard stop
 - AV: screen or projector, HDMI and USB-C, sound
@@ -137,40 +135,23 @@ The venue and everything attached to it. No cash ask.
 - Building access — door codes, security desk, elevator, a named on-site contact
   who holds the keys at the end
 
-### Conflux — food and drinks, ~$590
+### Conflux — food and drinks, ~$800
 
-The single line that most determines whether people stay past 8:30.
+| Line | Detail |
+|---|---|
+| Food | Pizza or other catered food (wraps / sandwiches) |
+| Drinks | Pop, sparkling water, still water, ice, cups, napkins |
 
-| Line | Amount | Detail |
-|---|---:|---|
-| Food | $480 | Pizza for ~40 (approx. 16–18 large @ ~$26 delivered). Vegetarian and halal options are non-negotiable — roughly a third of the order |
-| Drinks | $110 | Pop, sparkling water, still water, ice, cups, napkins |
-| | **$590** | |
+### Other — ~$200
 
-### Other — ~$410
+Photography, signage, name tags, adapters and the small things an office host
+shouldn't have to absorb — bags, wipes, a table cover for the food surface.
 
-Everything else, from the community budget.
+**Total: $1,000 CAD.** Venue and AV are in kind on top of that.
 
-| Line | Amount | Detail |
-|---|---:|---|
-| Photo / content | $150 | Photographer stipend plus clip editing, so the demo becomes a shareable video. Every past event that got photographed still earns reach — the cheapest marketing line on the list |
-| Venue extras | $70 | Garbage bags, paper towel, wipes, table cover, folding chairs if the office is short. Leave it cleaner than you found it — that is what gets you invited back |
-| Supplies | $60 | Name tags, markers, HDMI + USB-C adapters, power bar, extension cord |
-| Print &amp; signage | $50 | Lobby and door wayfinding (people get lost in offices), sponsor cards for the food table, QR standees for the repo and Luma |
-| Contingency | $80 | Someone always needs a cable, and an unfamiliar building always costs something |
-| | **$410** | |
-
-**Total cash: $1,000 CAD.** Venue and AV are in kind on top of that.
-
-**Not in this budget, by design:** no prizes. The money buys turnout and repeat
-attendance, which is the actual goal. A bounty or prize pool, if either sponsor
-wants one, sits on top as separate spend — and is the natural upgrade for an
+**No prizes, by design.** The money buys turnout and repeat attendance. A bounty
+or prize pool sits on top as separate spend, and is the natural upgrade for an
 October or November follow-up.
-
-**Two things to confirm early.** Whether Conflux pays the vendor directly or
-reimburses (it changes who places the order and who eats a late delivery), and
-whether Uniblock's office has a food policy — hot food, garbage disposal, and
-alcohol are all landlord questions, not preference questions.
 
 ---
 
