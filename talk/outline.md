@@ -371,6 +371,56 @@ and for one or two chains you probably should. The router is buying uniformity
 across N, not capability at one. If someone is building on a single chain and
 asks whether they need this — the answer is no, and say so.
 
+**"If USDC is issued natively everywhere, how does it move? Burn-and-mint?"**
+
+Three different mechanisms, and mixing them up is the most common confusion in
+the room. Worth being crisp.
+
+**Native issuance is neither.** Circle mints directly on each chain against
+dollar reserves it holds off-chain. USDC on Base is not backed by USDC on
+Ethereum — both are backed by the same reserve. Each chain's supply is an
+independent Circle liability, and there is no on-chain link between them. That
+is exactly *why* the fragmentation is structural: nothing connects Arbitrum's
+supply to Base's.
+
+**CCTP is burn-and-mint**, and it is Circle's answer to that. Burn native USDC on
+the source chain, Circle attests to the burn, mint native USDC on the
+destination. Supply moves; no wrapper is ever created. 1:1, no liquidity pools,
+no fillers.
+
+**Lock-and-mint is the old bridge model**, and it is what produced every USDC.e.
+The real USDC sits locked in a bridge contract; a derivative is minted on the
+other side. That derivative is backed by the bridge, not by Circle — which is
+why a bridge exploit destroys it while native USDC is untouched.
+
+| | Backed by | Bridge risk | Wrapper? |
+|---|---|---|---|
+| Native mint | Circle reserves | none | no |
+| CCTP burn-and-mint | Circle reserves | none | no |
+| Lock-and-mint bridge | locked collateral | full | yes |
+
+**And yes, there are versions — this matters for a September talk.**
+
+- **CCTP V1** is legacy. Circle began its phase-out on **31 July 2026**. It always
+  waited for full source-chain finality: roughly 13–19 minutes from Ethereum.
+- **CCTP V2** is now canonical, and splits into two modes:
+  - **Standard Transfer** — waits for hard finality, no Circle fee.
+  - **Fast Transfer** — Circle attests *before* the source chain finalises, so
+    settlement lands in roughly 8–20 seconds, for a small fee.
+  - **Hooks** — atomic actions on the destination after the mint, no added trust
+    assumptions.
+
+The interesting bit for this audience is *how* Fast Transfer is fast. Circle
+mints before the burn is final, temporarily backing it with a **Fast Transfer
+Allowance**, which is replenished once the source burn reaches hard finality. So
+Circle is carrying short-term reorg risk on your behalf. That is a genuinely
+different trust posture from Standard, and worth saying out loud rather than
+calling both "trustless".
+
+**Ties back to the Conflux slide.** USDT0 is the OFT version of the same shape —
+burn on source, mint on destination, one canonical supply, no wrapper. Same
+mechanism, different issuer and different trust assumptions.
+
 **"What else is there?"** — the follow-up. There are six categories, and
 `docs/data-layer-landscape.md` in the repo maps them: RPC providers, per-chain
 explorers, multichain data APIs, routers, custom indexing frameworks, and
