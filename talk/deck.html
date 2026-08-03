@@ -1435,20 +1435,21 @@ Will Bitcoin hit $150k by December 31, 2026?
     </section>
 
     <!-- 13d ────────────────────────── the agent scan, run -->
-    <section class="slide is-tight" data-notes="This is npm run agent, and it is the whole agent argument in one screen: capital, carry, crowd, in that order, from one key.|Step one is inventory. Step two ranks perp funding on <b>persistence</b>, not the headline rate &mdash; look at the held column, everything shown survived ninety percent of the hours. An earlier version of this ranked on the latest print and put a fifty percent number at the top that turned out to be noise on a thin book.|Step three is a different venue entirely, arriving through a different route, in the same output.|The thing to say: none of these three questions can be answered by an RPC node, and none of them need the agent to be right about anything. It is inventory, ranking and reading. That is the job.">
+    <section class="slide is-tight" data-notes="This is npm run agent, and it is the whole agent argument in one screen: capital, carry, crowd, in that order, from one key.|<b>Get the two numbers straight before anyone asks, because someone will.</b> Funding is what actually changes hands every hour &mdash; positive means longs pay shorts. Premium is the perp mark against spot &mdash; negative means the perp is trading below spot. They are different numbers and they routinely disagree in sign.|Why: Hyperliquid&rsquo;s funding is premium plus a clamped interest term, and that interest baseline is about eleven and a half percent a year. When the premium is near zero the baseline dominates, so you get a slightly negative premium and positive funding at the same time. Every row on this screen is that case.|Step one is inventory. Step two ranks perp funding on <b>persistence</b>, not the headline rate &mdash; look at the held column, everything shown survived ninety percent of the hours. An earlier version of this ranked on the latest print and put a fifty percent number at the top that turned out to be noise on a thin book.|Step three is a different venue entirely, arriving through a different route, in the same output.|The thing to say: none of these three questions can be answered by an RPC node, and none of them need the agent to be right about anything. It is inventory, ranking and reading. That is the job.">
       <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>The scan, run</em></div>
       <h2 class="title">npm run agent</h2>
-      <pre class="demo-out" style="font-size:12.5px;line-height:1.58;margin-top:24px"><code>1. Where is my capital?
+      <pre class="demo-out" style="font-size:12px;line-height:1.55;margin-top:22px"><code>1. Where is my capital?
      Ethereum      50,810.846 USDC      Polygon PoS   50.075 USDC
      Arbitrum One      37.014 USDC      OP Mainnet         0 USDC
      ----------------------------  50,897.935 USDC deployable
 
-2. Where is the carry?   (Hyperliquid - funding and tick premium)
-     market      mid   median APR   held    premium
-     DYDX      0.112        10.9%   100%   -0.0005%   longs pay
-     GMX        6.12        10.9%    99%   -0.0014%   longs pay
-     STX        0.14        10.9%    98%   -0.0035%   longs pay
-     median over 7d, not the latest print. "held" = hours agreeing
+2. What are perps paying?   (funding is paid; premium is perp vs spot)
+     market      mid   funding APR   held    vs spot   who pays
+     DYDX      0.113         10.9%   100%   -0.0003%   longs pay shorts
+     GMX       6.199         10.9%    99%   -0.0013%   longs pay shorts
+     STX       0.138         10.9%    99%   -0.0018%   longs pay shorts
+     negative "vs spot" = perp trades BELOW spot. Funding can still be
+     positive: Hyperliquid adds a ~11.6% APR interest baseline.
 
 3. What is the crowd pricing?   (Polymarket - implied and depth)
      Will Donald Trump Jr. win the 2028 US Pres...   1.1%   $916,782

@@ -54,12 +54,24 @@ async function polymarket(path) {
 }
 
 /**
- * Funding on Hyperliquid pays hourly. Annualising it is what turns a number
- * nobody can read into a number an agent can rank on.
+ * Funding on Hyperliquid pays hourly. Annualising it makes it rankable.
  *
- * A positive rate means longs pay shorts, so the carry trade is short-perp
- * against long-spot. Negative flips it. `premium` is the perp's deviation from
- * the index — the tick premium or discount itself.
+ * FUNDING IS NOT THE PREMIUM, and conflating them is the easiest way to look
+ * wrong in front of a trading audience. Hyperliquid's formula is:
+ *
+ *     funding = premium + clamp(interestRate - premium, -0.05%, +0.05%)
+ *
+ * where interestRate is a fixed 0.01% per 8h, about 11.6% APR.
+ *
+ *   premium  perp mark vs spot oracle. NEGATIVE means the perp trades at a
+ *            DISCOUNT to spot.
+ *   funding  what actually changes hands each hour. POSITIVE means longs pay
+ *            shorts.
+ *
+ * They routinely disagree in sign. With a premium near zero, the interest
+ * baseline dominates and funding sits around +11.6% APR even though the perp is
+ * a hair below spot. That is why a market can show a small negative premium and
+ * still have longs paying -- it is not a bug in this output.
  */
 const HOURS_PER_YEAR = 24 * 365;
 const annualise = (hourlyRate) => Number(hourlyRate) * HOURS_PER_YEAR * 100;
@@ -149,25 +161,28 @@ async function main() {
   console.log(`       ${'—'.repeat(16)} ${total.toLocaleString('en-US').padStart(12)} USDC deployable\n`);
 
   // ─── 2. Where is the edge? ────────────────────────────────────────────────
-  console.log('  2. Where is the carry?   (Hyperliquid perps — funding and tick premium)');
+  console.log('  2. What are perps paying?   (Hyperliquid — funding is paid; premium is perp vs spot)');
   const mids = await hyperliquid({ type: 'allMids' });
   const meta = await hyperliquid({ type: 'meta' });
   const universe = (meta.universe || []).map((u) => u.name).slice(0, 24);
 
   const carry = await carryTable(universe);
-  console.log(`       ${'market'.padEnd(7)}${'mid'.padStart(11)}${'median APR'.padStart(12)}${'last print'.padStart(12)}${'held'.padStart(7)}${'premium'.padStart(11)}`);
+  console.log(`       ${'market'.padEnd(7)}${'mid'.padStart(10)}${'funding APR'.padStart(13)}${'held'.padStart(6)}${'vs spot'.padStart(11)}${''.padStart(3)}who pays`);
   for (const r of carry.slice(0, 6)) {
     const mid = mids[r.coin] ? Number(mids[r.coin]).toLocaleString('en-US') : '—';
-    const side = r.apr >= 0 ? 'longs pay' : 'shorts pay';
+    const side = r.apr >= 0 ? 'longs pay shorts' : 'shorts pay longs';
     const weak = r.persistence < 60 ? '  << noisy' : '';
+    const prem = `${r.premium >= 0 ? '+' : ''}${r.premium.toFixed(4)}%`;
     console.log(
-      `       ${r.coin.padEnd(7)}${mid.padStart(11)}${(r.apr.toFixed(1) + '%').padStart(12)}` +
-      `${(r.lastApr.toFixed(1) + '%').padStart(12)}${(r.persistence.toFixed(0) + '%').padStart(7)}` +
-      `${(r.premium.toFixed(4) + '%').padStart(11)}   ${side}${weak}`,
+      `       ${r.coin.padEnd(7)}${mid.padStart(10)}${(r.apr.toFixed(1) + '%').padStart(13)}` +
+      `${(r.persistence.toFixed(0) + '%').padStart(6)}${prem.padStart(11)}   ${side}${weak}`,
     );
   }
-  console.log('       median over 7d, not the latest print. "held" = share of hours agreeing');
-  console.log('       with that sign — annualising one hour of a thin book invents yield.');
+  console.log('       funding APR = median over 7d, not the latest print. "held" = share of');
+  console.log('       hours agreeing with that sign.');
+  console.log('       "vs spot" is the premium: negative = perp trades BELOW spot. It can be');
+  console.log('       negative while funding is positive — Hyperliquid adds a ~11.6% APR');
+  console.log('       interest baseline, which dominates when the premium is near zero.');
 
   // ─── 3. The other venue ───────────────────────────────────────────────────
   //

@@ -103,8 +103,11 @@ const TOOLS = {
   hyperliquid_carry: {
     description:
       'Perp funding on Hyperliquid, ranked by carry that actually persisted. Returns median ' +
-      'annualised funding over a window plus a persistence score (share of hours agreeing with ' +
-      'that sign) and the tick premium. Low persistence means noise, not signal.',
+      'annualised FUNDING (what is paid hourly; positive = longs pay shorts), a persistence ' +
+      'score (share of hours agreeing with that sign), and separately the PREMIUM (perp mark ' +
+      'vs spot oracle; negative = perp below spot). Funding and premium disagree in sign ' +
+      'routinely: Hyperliquid adds a ~11.6% APR interest baseline, so funding stays positive ' +
+      'when the premium is near zero. Low persistence means noise, not signal.',
     schema: {
       type: 'object',
       properties: {
@@ -141,9 +144,9 @@ const TOOLS = {
                 coin,
                 mid: Number(mids[coin]) || null,
                 annualisedPct: +(med * HOURS_PER_YEAR * 100).toFixed(2),
-                tickPremiumPct: +(median(h.map((x) => Number(x.premium)).filter(Number.isFinite)) * 100).toFixed(4),
+                premiumVsSpotPct: +(median(h.map((x) => Number(x.premium)).filter(Number.isFinite)) * 100).toFixed(4),
                 persistencePct: +(agree * 100).toFixed(0),
-                whoPays: med >= 0 ? 'longs pay shorts' : 'shorts pay longs',
+                whoPaysFunding: med >= 0 ? 'longs pay shorts' : 'shorts pay longs',
                 samples: rates.length,
               };
             } catch { return null; }
@@ -152,7 +155,16 @@ const TOOLS = {
         out.push(...batch.filter(Boolean));
       }
       out.sort((a, b) => Math.abs(b.annualisedPct) * b.persistencePct - Math.abs(a.annualisedPct) * a.persistencePct);
-      return { window: `${hours}h`, note: 'Rank on annualised x persistence. Treat <60% persistence as noise.', markets: out };
+      return {
+        window: `${hours}h`,
+        note: 'Rank on annualised x persistence. Treat <60% persistence as noise.',
+        fundingVsPremium:
+          'annualisedPct is FUNDING (paid hourly, positive = longs pay shorts). ' +
+          'premiumVsSpotPct is the perp mark against spot (negative = perp below spot). ' +
+          'They are different numbers and often differ in sign, because Hyperliquid funding = ' +
+          'premium + clamp(interestRate - premium), with interestRate ~11.6% APR.',
+        markets: out,
+      };
     },
   },
 
