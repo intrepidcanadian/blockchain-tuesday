@@ -1013,6 +1013,26 @@
           <p class="source"><b>Source:</b> DefiLlama stablecoins API &middot; native-issuance count from Circle&rsquo;s address list &middot; Optimism supplies read on-chain &middot; 3 Aug 2026</p>
     </section>
 
+    <!-- 3b ─────────────────────────── CCTP v1 vs v2 -->
+    <section class="slide is-tight" data-notes="Natural next question off that slide: if every chain has its own native issuance and nothing links them, how does anything move? Answer is CCTP, and the version matters right now.|<b>Lead with the row that does not change.</b> Both versions are burn-and-mint. Burn on the source, Circle attests, mint on the destination. No wrapper is ever created, no liquidity pool, no filler. V2 did not change the mechanism &mdash; people assume Fast Transfer must be doing something else, and it is not.|What changed is <b>when Circle attests</b>. V1 waited for hard finality on the source chain: thirteen to nineteen minutes out of Ethereum. V2 Standard still does that, and it is free. V2 Fast attests <b>before</b> the source finalises, which is how you get eight to twenty seconds.|<b>Here is the part worth saying out loud.</b> Fast Transfer works because Circle mints against a Fast Transfer Allowance before the burn is final, then replenishes it when finality lands. Circle is carrying short-term reorg risk on your behalf, for a fee. That is a genuinely different trust posture from Standard, and calling both &ldquo;trustless&rdquo; is sloppy.|Timing note: <b>V1 phase-out began on 31 July 2026</b>. If anyone in this room is still on V1 integrations, that is the actionable thing they take home tonight.|And the tie to Conflux: USDT0 is the OFT version of this exact shape. Burn on source, mint on destination, one supply, no wrapper. Same mechanism, different issuer, different trust assumptions.">
+      <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>How it actually moves</em></div>
+      <h2 class="title">CCTP V1 vs V2 &mdash; still burn-and-mint</h2>
+      <table class="score dense">
+        <thead><tr><th>&nbsp;</th><th>V1 &mdash; legacy</th><th>V2 &mdash; canonical</th></tr></thead>
+        <tbody>
+          <tr class="key"><td>Mechanism</td><td class="was hi">burn &rarr; attest &rarr; mint</td><td class="now hi">unchanged</td></tr>
+          <tr><td>Wrapper created<span class="sub">the thing bridges do</span></td><td class="was">none</td><td class="was">none</td></tr>
+          <tr><td>Circle attests<span class="sub">the actual difference</span></td><td class="was">after hard finality</td><td class="now">Standard: after &middot; <b style="color:var(--amber);font-weight:500">Fast: before</b></td></tr>
+          <tr><td>Ethereum &rarr; L2<span class="sub">wall clock</span></td><td class="was">~13&ndash;19 min</td><td class="now">Standard ~15&ndash;19 min &middot; <b style="color:var(--amber);font-weight:500">Fast 8&ndash;20 sec</b></td></tr>
+          <tr><td>Circle fee</td><td class="was">none</td><td class="was">Standard none &middot; Fast small</td></tr>
+          <tr><td>Actions on arrival</td><td class="was">&mdash;</td><td class="now">Hooks, atomic</td></tr>
+          <tr><td>Status</td><td class="was" style="color:#CE7076">phase-out began 31 Jul 2026</td><td class="now">canonical</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">Fast Transfer mints against an <b>allowance before the burn is final</b>, replenished at finality. Circle carries the reorg risk, for a fee &mdash; so don&rsquo;t call both modes &ldquo;trustless&rdquo;.</p>
+      <p class="source"><b>Source:</b> Circle CCTP documentation and V1 deprecation notice &middot; read 3 Aug 2026</p>
+    </section>
+
     <!-- 5b ──────────────────────────── worked example: Uniswap volume -->
     <section class="slide" data-notes="This is the strongest evidence in the talk, and it is volume rather than TVL on purpose. TVL moves when prices move and collapses when a protocol has an incident &mdash; it measures parked capital. Volume measures <b>use</b>.|Every band above the grey is a chain that did not carry Uniswap volume five years ago. In 2021 Ethereum was effectively a hundred percent of it. By 2026Q2 it is 52.7 percent.|The moment to point at is <b>2025Q2</b> &mdash; the first quarter Ethereum was not the majority of its own flagship protocol&rsquo;s volume. It stayed that way for four quarters.|<b>Then say the next bit before anyone catches it.</b> The most recent quarter, 2026Q2, Ethereum is back on top at 52.7 percent. This is not a one-way takeover and do not present it as one. It is an oscillation around roughly half, up from literally zero five years ago. That is still the entire argument, and stating the wobble yourself is what makes the rest of your numbers trustworthy.|Across all time Ethereum is still 70.7 percent of the $3.67T cumulative, because it had a four-year head start. Direction, not level, is the point.|If someone asks why not Aave: Aave works too, but its TVL took protocol-specific hits, so the curve argues about Aave rather than about multichain. Uniswap volume is the cleaner instrument.|Figures pulled from the DefiLlama API. <b>Re-pull the week of the event.</b>">
       <div class="eyebrow"><span>01 &mdash; The economics</span><span class="tick"></span><em>Worked example</em></div>
