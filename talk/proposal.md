@@ -98,46 +98,28 @@ material where it belongs.
 **On the timing.** Roughly 45 minutes of presentation across the two halves, with
 the mid-talk question slot as a natural buffer if part 1 runs long.
 
-## 4. Venue — the Uniblock offices
+## 4. Venue
 
-Hosting in Uniblock's own space is the right call. It removes the single largest
-budget line, it makes the wifi and AV a known quantity instead of a gamble, and an
-office is a better room for the social half of the night than a lecture hall — people
-linger, laptops come out, conversations keep going past 8:30.
+**Uniblock offices — 20 Bay Street, 11th Floor, Toronto, ON M5J 2N8**
 
-Two things to manage, neither difficult.
+**Target: 20–40 people.**
 
-**Capacity sets the plan, not the other way around.** Confirm the real number early —
-not the fire-code number, the number where people can still hear the speaker and get
-to the food. Every downstream decision (Luma cap, pizza count, chair rental, promo
-intensity) keys off it. If the room holds 30, that's a good Blockchain Tuesday; don't
-oversell it into a bad one.
+Hosting in Uniblock's own space removes the single largest budget line, makes the
+wifi and AV a known quantity rather than a gamble, and gives the social half a
+better room than a lecture hall — people linger, laptops come out, conversations
+keep going past 8:30.
 
 **Neutrality.** Blockchain Tuesday is a community brand, and being in a sponsor's
-office nudges it toward reading as a Uniblock event. Cheap fixes: keep the Blockchain
-Tuesday name first on the Luma page and the signage, give Conflux the closing speaker
-slot rather than the opener (last speaker is the one people remember), and have Tony —
-not a Uniblock employee — do the welcome and the close. Uniblock gets the hosting
-credit, which is worth more than top billing anyway.
+office nudges it toward reading as a Uniblock event. Cheap fixes: Blockchain
+Tuesday name first on the Luma page and the signage, Tony does the welcome and
+the close, and Conflux gets food sponsor credit alongside Uniblock's hosting
+credit. Hosting credit is worth more than top billing anyway.
 
-### Confirm with Uniblock on the pre-call
-
-- Seated and standing capacity for the presentation area
-- After-hours building access — does the front door lock at 6? Is there a security
-  desk, a sign-in sheet, an elevator fob, a freight elevator for the food?
-- Who from Uniblock is on-site until 9:00 and holds the keys at the end
-- Screen or projector: resolution, HDMI vs USB-C, whether there's sound
-- Guest wifi — network name, password, and whether it throttles at 30+ devices
-- Food policy: is hot food fine, where does the garbage go, is there a kitchen or
-  fridge, who takes out the trash. Conflux is funding the food, so confirm this
-  before anyone places an order
-- Alcohol: allowed or not. Assume not unless told otherwise, and don't buy any until
-  it's explicitly cleared — it's a liability question for their landlord, not a
-  preference question
-- Accessibility: step-free entrance, accessible washroom, elevator. This goes on the
-  Luma page verbatim
-- Anything in the office that shouldn't be photographed — whiteboards, monitors,
-  roadmap docs on walls. Ask before the photographer arrives, not after
+**Wayfinding matters more than it sounds.** An 11th-floor office at 6pm means a
+locked lobby, a security desk or a fob, and an elevator. The single biggest way
+an office event loses people is that they arrive and cannot get in — hence the
+greeter from 5:45 and building instructions on the Luma page rather than just an
+address.
 
 ---
 
@@ -161,7 +143,7 @@ The single line that most determines whether people stay past 8:30.
 
 | Line | Amount | Detail |
 |---|---:|---|
-| Food | $480 | Pizza for ~45 (approx. 16–18 large @ ~$26 delivered). Scale to confirmed capacity. Vegetarian and halal options are non-negotiable — roughly a third of the order |
+| Food | $480 | Pizza for ~40 (approx. 16–18 large @ ~$26 delivered). Vegetarian and halal options are non-negotiable — roughly a third of the order |
 | Drinks | $110 | Pop, sparkling water, still water, ice, cups, napkins |
 | | **$590** | |
 
@@ -196,8 +178,7 @@ alcohol are all landlord questions, not preference questions.
 
 **4 weeks out (Aug 18)**
 Partner pre-call. Confirm the framing and the concessions, agree the food budget and who pays the vendor, get logos, and
-walk the full venue checklist above — capacity, building access, AV, wifi, food and
-alcohol policy, accessibility. **Visit the office in person if you can**; ten minutes
+confirm building access, AV, wifi, food policy and accessibility with Uniblock. **Visit the office in person if you can**; ten minutes
 standing in the room answers questions a call won't. Set the Luma cap to the confirmed
 capacity and put the page live — invite to roughly 1.5× the cap, since Luma
 show-rate runs 65–70%.
@@ -232,7 +213,7 @@ Recap post, photos, recording, repo link. Ask both partners to amplify. Open the
 
 | Risk | Plan |
 |---|---|
-| **Office capacity caps the event** | Confirm the real number 4 weeks out and cap Luma to it. A full room of 30 reads better in photos and in the room than a half-empty 60 |
+| **Room fills or it doesn't** | Cap Luma at 40 and invite ~60. A full room of 25 reads better in photos and in the room than a half-empty 50 |
 | **People can't get into the building** | Lobby greeter from 5:45, building instructions in the reminder email and on the Luma page, a phone number on the door sign. This is the #1 way an office event loses attendees who already showed up |
 | **Venue evaporates if the partnership shifts** | Have one backup space loosely identified before you announce. You don't need it booked — you need to know who to call |
 | Wifi can't carry a live RPC demo | Much lower risk now that you can test on the real network a week out. Still record the demo in advance as a fallback and narrate over it if needed. Never live-code without an escape hatch |
