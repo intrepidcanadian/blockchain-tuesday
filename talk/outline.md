@@ -345,7 +345,33 @@ Real question, and the honest answer is measure it for your use case. Note the o
 intelligent routing to the fastest available provider can beat a single hardcoded RPC
 having a bad day. Offer to benchmark it live in the social half.
 
-**"Isn't the trend consolidation? Fewer chains, less attack surface."** ← MOST LIKELY
+**"Isn't this just Blockscout? Why pay for a router?"** ← EXPECT THIS ONE
+
+Different layers, and be precise or you will lose the argument.
+
+Blockscout **is** an indexer — it reads the chain itself and serves it, open
+source, self-hostable, free. Uniblock indexes nothing; it routes to providers
+who do (Etherscan-style APIs among them) plus off-chain venues. So Blockscout is
+one of the *kinds of thing* a router forwards to, not a competitor to it.
+
+And concede the real point immediately, because it is measurable: on Ethereum,
+Blockscout answered "what tokens does this wallet hold" with **2,138 tokens in
+1.6s, no key**. Uniblock managed 775 across 12 paginated pages in 5.4s. For one
+chain, Blockscout is better and free.
+
+The catch is the shape, not the quality. Testing the same wallet across six
+Blockscout hosts, **two answered**: Ethereum and Arbitrum. Base timed out at 12s,
+Optimism, Polygon and Gnosis returned nothing at the expected subdomain. That is
+not Blockscout being unreliable — it is what "one instance per chain" means. Six
+chains is six hostnames, six uptimes, six schemas to discover, six things to
+monitor.
+
+So the honest framing is the same as "why not go direct": you absolutely can,
+and for one or two chains you probably should. The router is buying uniformity
+across N, not capability at one. If someone is building on a single chain and
+asks whether they need this — the answer is no, and say so.
+
+**"Isn't the trend consolidation? Fewer chains, less attack surface."** ← ALSO LIKELY
 This is the sharpest objection, and the two slides "More chains does not mean
 more volume" and "Deploy few. Read many." exist to meet it head on. The strongest
 facts to have ready: Aerodrome runs on one chain and has out-traded Curve on
