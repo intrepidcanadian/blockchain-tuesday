@@ -4,7 +4,7 @@
 
 ## `deck.html`
 
-The talk itself, **28 slides**. Open it in a browser — no build step, and no
+The talk itself, **27 slides**. Open it in a browser — no build step, and no
 server needed, because the deck makes no network requests at all:
 
 ```bash
@@ -27,8 +27,8 @@ where a number needs qualifying out loud. Read them before presenting.
 |---|---|
 | **1–2** | Title, and the question the economics half answers |
 | **3–9** | *The economics.* Fragmentation, CCTP, Uniswap volume share, eight DEXes, the 147-launch event study, deploy few / read many, Conflux |
-| **10–22** | *The code.* By hand vs aggregated, what an agent asks, the cross-venue join, the six layers, latency, the scorecard, adding Conflux |
-| **23–28** | *The artifact.* The nanobot harness, the integration spec, the demos run, sources, the call to action, and the close |
+| **10–21** | *The code.* By hand vs aggregated, what an agent asks, the cross-venue join, the six layers, the scorecard, adding Conflux |
+| **22–27** | *The artifact.* The nanobot harness, the integration spec, the demos run, sources, the call to action, and the close |
 
 ### If you are editing it and want to preview
 
