@@ -1,6 +1,6 @@
 # Blockchain Tuesday — September 2026
 
-## "Read Wide. Sign Narrow." — building agents across chains and venues
+## "Why Unified APIs Are Becoming Useful"
 
 **Presented with Uniblock and Conflux Network**
 Hosted at the Uniblock offices, Toronto · Tuesday, September 15, 2026 · 6:00–9:00 PM
@@ -30,6 +30,23 @@ answers from the chain side. Then we build something live in front of everyone.
 Uniblock does not currently route Conflux nodes. Rather than paper over that, it
 becomes the most interesting fifteen minutes of the evening — and the reason people
 come back in October.
+
+**The title is a question, and the honest answer starts with a concession.**
+
+Unified APIs are *slower* than talking to a node directly — measured, 268ms
+against 5.5 seconds. On a single chain a free open-source explorer (Blockscout)
+returns more data than the paid aggregator, faster, with no key. If the pitch
+were "this is faster", someone in that room disproves it with curl inside a
+minute.
+
+So the talk is not "unified APIs are good". It is **why they are becoming useful
+now, when they were not before** — and the thing that changed is not the APIs.
+It is that agents ask different questions. "What is the balance of this token"
+has a node method. "What do I hold, what is it worth, where is the edge" does
+not — `eth_getTokenBalances` does not exist, prices are not on-chain, and
+Hyperliquid's funding and Polymarket's odds are not on a chain at all.
+
+That reframe is what makes the evidence land instead of sounding like a pitch.
 
 **This section was rewritten after building the talk, because the original plan
 did not survive contact with the API.**
