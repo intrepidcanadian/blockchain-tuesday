@@ -110,10 +110,6 @@ shouldn't have to absorb — bags, wipes, a table cover for the food surface.
 
 **Total: $1,000 CAD.** Venue and AV are in kind on top of that.
 
-**No prizes, by design.** The money buys turnout and repeat attendance. A bounty
-or prize pool sits on top as separate spend, and is the natural upgrade for an
-October or November follow-up.
-
 ---
 
 ## 6. Timeline
