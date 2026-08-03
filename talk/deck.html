@@ -735,6 +735,11 @@
     font-size: 14.5px;
   }
 
+  /* .key drops the bottom border, which is right for a last-row punchline and
+     wrong mid-table -- the highlighted row visually merged with the next one.
+     Restore it whenever the row is not last. */
+  table.score tr.key:not(:last-child) td { border-bottom: 1px solid var(--line); }
+
   table.score tr.key td {
     border-bottom: none;
     padding-top: 17px;
@@ -1329,6 +1334,25 @@ Will Bitcoin hit $150k by December 31, 2026?
       </table>
       <p class="verdict">None of these need the agent to be <b>right about the market</b>. They need it to <b>look</b> &mdash; which is what humans are worst at and machines are cheapest at.</p>
       <p class="source"><b>Source:</b> Hyperliquid meta/allMids + Polymarket gamma via Uniblock, sampled 2 Aug 2026 &middot; USDC chain count from DefiLlama</p>
+    </section>
+
+    <!-- 16b ────────────────────────── the six layers -->
+    <section class="slide is-tight" data-notes="Before anyone asks &ldquo;is this just Blockscout&rdquo; &mdash; and someone will &mdash; here is the whole map. Six layers. Most tools sit in exactly one, and confusing them is how people pay for something they already have.|Walk down the last column, because that is the one that separates them. <b>An RPC node cannot answer &ldquo;what do I hold&rdquo; at all</b> &mdash; no method exists. Explorers can, one chain at a time. Multichain APIs can, many chains, for a key. Routers do not index anything; they forward to the layers above.|<b>Concede row two loudly.</b> Blockscout returned 2,138 tokens for our wallet on Ethereum, free, no key &mdash; more complete than the router managed and faster. On one chain it is simply the better tool and you should say so. The catch is that it is one instance per chain: we asked six Blockscout hosts and two answered.|And note the free indexers disagree with each other. Blockscout said 2,138; Routescan said 25 holdings for the same address. Neither is lying &mdash; &ldquo;holdings&rdquo; means different things to different indexers. That disagreement is both the argument for a normalising layer and a reason to check what any provider actually means.|<b>The row that matters for tonight is four.</b> It is the only layer that spans on-chain state and exchange state. No explorer will ever give you a perp funding rate or a prediction-market probability. That is not blockchain data, and it is the whole agent case.|If someone is building on one chain and knows their token, tell them rows one and two cover it for free.">
+      <div class="eyebrow"><span>02 &mdash; The code</span><span class="tick"></span><em>Where this sits</em></div>
+      <h2 class="title">Six layers, and only one of them is a router</h2>
+      <table class="score dense">
+        <thead><tr><th>Layer</th><th>Reach for it when&hellip;</th><th>Examples</th><th>&ldquo;What do I hold?&rdquo;</th></tr></thead>
+        <tbody>
+          <tr><td>RPC providers<span class="sub">raw node access</span></td><td class="was">you can already name the token and the chain</td><td class="was">Alchemy &middot; Infura &middot; QuickNode</td><td class="was">no method exists</td></tr>
+          <tr><td>Per-chain explorers<span class="sub">index one chain, serve it</span></td><td class="was">you need discovery, and you live on one chain</td><td class="was">Blockscout &middot; Etherscan &middot; Routescan</td><td class="was hi">2,138 tokens, free</td></tr>
+          <tr><td>Multichain data APIs<span class="sub">pre-indexed, one schema</span></td><td class="was">same question, several chains, one contract</td><td class="was">Moralis &middot; Covalent &middot; Zerion</td><td class="was">yes &mdash; needs a key</td></tr>
+          <tr class="key"><td>Routers<span class="sub">index nothing, forward everything</span></td><td class="was">you need chains <em style="font-style:normal;color:var(--fg)">and</em> venues in one loop</td><td class="was">Uniblock &middot; dRPC &middot; Pocket &middot; Lava</td><td class="now">plus perps, odds, prices</td></tr>
+          <tr><td>Custom indexers<span class="sub">you define it, you run it</span></td><td class="was">the question is about <em style="font-style:normal;color:var(--fg)">your</em> contracts</td><td class="was">The Graph &middot; Ponder &middot; Envio</td><td class="was">whatever you build</td></tr>
+          <tr><td>Analytics warehouses<span class="sub">SQL over history</span></td><td class="was">you want a chart, not a dependency</td><td class="was">Dune &middot; Flipside &middot; Allium</td><td class="was">not a runtime dep</td></tr>
+        </tbody>
+      </table>
+      <p class="verdict">On <b>one</b> chain, Blockscout beat every paid option we tried &mdash; free. Row four is the only layer that also reaches <b>exchange state</b>, and that is not blockchain data at all.</p>
+      <p class="source"><b>Source:</b> Token counts measured against the same wallet, no key &middot; 3 Aug 2026 &middot; full map in docs/data-layer-landscape.md</p>
     </section>
 
     <!-- 13b ─────────────────────────── what it costs, what it buys -->
